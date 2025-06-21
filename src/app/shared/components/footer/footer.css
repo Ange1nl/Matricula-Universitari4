@@ -1,0 +1,36 @@
+footer {
+    background: #000;
+    color: #aaa;
+    padding: 40px 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .columna {
+    flex: 1 1 200px;
+    margin: 10px;
+}
+
+footer h4 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer ul li {
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+
+    .investigacion .bloque,
+    .video-tutorial,
+    .calendario .pasos,
+    .contacto {
+        flex-direction: column;
+    }
+}
