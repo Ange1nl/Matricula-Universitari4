@@ -1,0 +1,64 @@
+ * {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: sans-serif;
+ }
+
+ body {
+     background: url('https://www.autonoma.pe/wp-content/uploads/2023/08/campus-web_Mesa-de-trabajo-1-scaled.jpg') no-repeat center center fixed;
+     background-size: cover;
+     height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .contenedor-login {
+     backdrop-filter: blur(3px);
+     width: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ .login-box {
+     background-color: rgba(0, 0, 0, 0.9);
+     padding: 30px 40px;
+     border-radius: 15px;
+     text-align: center;
+     color: white;
+     width: 350px;
+     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+ }
+
+ .logo {
+     width: 60px;
+     margin-bottom: 10px;
+ }
+
+ .login-box h2 {
+     margin-bottom: 10px;
+     font-size: 20px;
+ }
+
+ .login-box input {
+     width: 100%;
+     padding: 10px;
+     margin: 8px 0;
+     border: none;
+     border-radius: 8px;
+     font-size: 14px;
+ }
+
+ .login-box button {
+     width: 100%;
+     padding: 10px;
+     background-color: #00aaff;
+     border: none;
+     border-radius: 8px;
+     color: white;
+     font-size: 16px;
+     cursor: pointer;
+     margin-top: 15px;
+ }
