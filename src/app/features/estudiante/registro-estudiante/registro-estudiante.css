@@ -1,0 +1,24 @@
+.fondo-registro-estudiante{
+    /*background-color: #30465E;*/
+}
+.contenedor{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(1,13vmin);
+    gap: 5px;
+    margin: 1rem;
+    padding: 4rem;
+    border: 1px solid blue;
+}
+.contenedorDerecha{
+    display: grid;
+    grid-template-columns: repeat(2.1fr);
+    grid-template-rows: repeat(4,14px);
+    gap: 8px;
+}
+
+.contenedorDerecha button {
+  grid-column: span 2; /* botón ocupa las dos columnas */
+  padding: 10px;
+  margin-top: 1rem;
+}
