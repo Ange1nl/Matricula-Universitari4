@@ -1,0 +1,54 @@
+.padre{
+    display: flex;
+    flex-direction: column; /*Alinea los elementos hijos*/
+    justify-content: center; /*Centra horizontalmente*/
+    align-items: center; /*Centra verticalmente*/
+
+    border-radius: 32px;
+    border: 2px solid #31455E;
+    background-color: #164B64;
+    width: 100%;
+    max-width:300px;
+    margin: 0 auto;
+}
+
+h2{
+    color: white;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 28px;
+}
+
+.imgText{
+    display: flex;
+    flex-direction: row;
+    .div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.cajaTexto{
+    display: flex;
+    flex-direction: column;
+    input{
+        margin: 5px 12px;
+        padding: 6px;
+        background-color: #F9F2E9;
+    }
+    
+}
+
+.botones{
+    display: flex;
+    flex-direction: column;
+    button{
+        padding: 10px 55px;
+        margin: 0.5rem;
+        background-color: #31455E;
+        color: white;
+        border-radius: 22px;
+    }
+    
+}
