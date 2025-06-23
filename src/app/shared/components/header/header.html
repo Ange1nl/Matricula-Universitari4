@@ -1,6 +1,22 @@
-<nav>
-    <ul>
-        <li> <a routerLink="inicio">Inicio</a> </li> <!--Página principal-->
-        <li> <a routerLink="sesionEstudiante">Iniciar sesion</a> </li>        
-    </ul>
-</nav>
+<header class="main-header">
+    <div class="logo">Universidad Complutense</div>
+
+    <nav class="nav-links" id="nav-menu">
+        <a routerLink="inicio">Inicio</a>
+        <a href="#">Contacto</a>
+        <a routerLink="sesionEstudiante" class="btn-login">Iniciar Sesión</a>
+    </nav>
+
+    <div class="hamburger" id="hamburger">
+        ☰
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
+    </script>
+</header>
