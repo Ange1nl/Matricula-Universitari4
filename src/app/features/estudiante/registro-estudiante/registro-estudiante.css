@@ -1,50 +1,104 @@
 * {
     box-sizing: border-box;
 }
-.fondo-registro-estudiante{
-   background-color: #30465E;
-}
-.contenedor{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-template-rows: repeat(1,390px); /*380px el tamaño de la fila, para que entre todo el contenido , similar al de contenedorDerecha grid-template-rows*/
-    gap: 5px;
-    margin: 1rem;
-    padding: 4rem;
-    border: 1px solid blue;
+
+.fondo-registro-estudiante {
+    background: linear-gradient(to right, #2c3e50, #4ca1af);
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
 }
 
-.izquierda{
+.contenedor {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, 420px);/*390px el tamaño de la fila, para que entre todo el contenido , similar al de contenedorDerecha grid-template-rows*/
+    gap: 5px;
+    padding: 3rem;
+
+
+    background-color: #ffffff10;
+    border: 2px solid #ffffff30;
+    border-radius: 15px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.izquierda {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.contenedorDerecha{
+
+.izquierda img {
+    width: 440px;
+    height: 440px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.contenedorDerecha {
     padding: 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4,49px); /*El tamaño de la fila , tiene que ser grandecito para que entre el label y input*/
+    grid-template-rows: repeat(4, 49px);/*El tamaño de la fila , tiene que ser grandecito para que entre el label y input*/
     gap: 2rem;
-    div{
-        margin:2px;
+
+    div {
+        margin: 2px;
     }
 }
 
 .contenedorDerecha button {
-    grid-column: span 2; /* botón ocupa las dos columnas */
-    padding: 7px;    
+    grid-column: span 2;
+    /* botón ocupa las dos columnas */
+    padding: 10px;
+    font-size: 16px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.campo{
+
+.contenedorDerecha button:hover {
+    background-color: #1c5980;
+    cursor: pointer;
+}
+
+.campo {
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
     margin: 0rem;
-    input{
-        padding:8px 10px;
-        border-radius: 6px;
-    }
-}
 
+    label {
+        color: #f0f0f0;
+        font-weight: 600;
+        font-size: 14px;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    input {
+        padding: 10px 12px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-family: 'Segoe UI', sans-serif;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .campo input:focus {
+        border-color: #2980b9;
+        outline: none;
+        background-color: #eef6fc;
+    }
+
+}
