@@ -7,7 +7,7 @@ import { RegistrarIngresado } from "./features/recep/registrar-ingresado/registr
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

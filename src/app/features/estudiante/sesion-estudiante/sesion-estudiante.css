@@ -14,8 +14,8 @@
   background-image: url("/img/sesionFondo.jpg");/*Como es una url y es css , siempre se pone al inicio el / (slash) porque sino angular lo interpreta que desde src/app/features/estudiante/sesion-estudiante/img/logo.png ;  buscaras esa img/logo.png*/
   background-size: cover;
   background-position: center;
-  filter: blur(1.7px);
-  opacity: 3.8;
+  filter: blur(1.5px);
+  opacity: 2;
   z-index: -1;
 }
 
