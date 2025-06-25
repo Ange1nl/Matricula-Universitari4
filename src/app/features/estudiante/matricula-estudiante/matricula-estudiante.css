@@ -1,0 +1,166 @@
+.matricula-container {
+  display: flex;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+}
+
+/* Lado izquierdo */
+.sidebar {
+  width: 220px;
+  background-color: #1e4b6e;
+  color: white;
+  padding: 20px;
+}
+
+.logo {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.titulo-alumno {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.nav-links a {
+  display: block;
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links .finalizar {
+  margin-top: 20px;
+  color: #0f0;
+  font-weight: bold;
+}
+
+/* Contenido derecho */
+.main-content {
+  flex: 1;
+  background-color: #f8f8f8;
+  padding: 30px;
+}
+
+.titulo-cursos {
+  color: #1e4b6e;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.descripcion {
+  margin: 15px 0;
+  font-size: 0.9rem;
+}
+
+.tabla-cursos table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fdf7ee;
+}
+
+.tabla-cursos th {
+  background-color: #0d3a58;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabla-cursos td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.btn-agregar {
+  background-color: #0d3a58;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.zona-inferior {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.resumen div {
+  background-color: #dde5eb;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.importante {
+  flex: 1;
+  margin-left: 20px;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+
+.btn-procesar {
+  margin-top: 10px;
+  background-color: #43b672;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.contacto {
+  margin-left: 20px;
+  font-size: 0.9rem;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .matricula-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    margin: 10px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .zona-inferior {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .importante,
+  .resumen,
+  .contacto {
+    margin-left: 0;
+  }
+
+  .tabla-cursos table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .tabla-cursos th,
+  .tabla-cursos td {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .btn-procesar {
+    width: 100%;
+  }
+}
