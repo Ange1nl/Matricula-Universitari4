@@ -1,0 +1,45 @@
+.not-found-page {
+  height: 100vh;
+  background: url('/img/NotFoundPage.avif') no-repeat center center/cover; /*Cuando es una url , al inicio se pone el / para que angular entienda que la imagen esta en public no dentro de la carpeta not-found-page*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.glass-box {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 40px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-box h1 {
+  font-size: 6rem;
+  margin: 0 0 10px 0;
+}
+
+.glass-box .texto {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.glass-box .btn {
+  display: inline-block;
+  background-color: #ffffff33;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.glass-box .btn:hover {
+  background-color: #ffffff55;
+}
