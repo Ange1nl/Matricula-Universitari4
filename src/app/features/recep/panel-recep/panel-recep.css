@@ -1,0 +1,60 @@
+ /* Estilos base para el cuerpo */
+ .cuerpo {
+     font-family: Arial, sans-serif;
+     background-color: #f0f0f0;
+     margin: 0;
+     min-height: 60vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ /* Contenedor de todas las tarjetas */
+ .card-container {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 40px;
+     justify-content: center;
+ }
+
+ /* Estilo general de las tarjetas */
+ .card {
+     background-color: #024388;
+     border-radius: 14px;
+     padding: 30px;
+     width: 300px;
+     height: 100px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+     text-decoration: none;
+     color: white;
+     font-size: 1.1em;
+     font-weight: bold;
+     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+ }
+
+ /* Efecto de zoom para tarjetas */
+ .zoom-card:hover {
+     transform: scale(1.05);
+     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+ }
+
+ /* Tarjeta de regresar */
+ .static-card {
+     background-color: #eeeeee;
+     color: black;
+ }
+
+ .static-card:hover {
+     background-color: #d93025;
+     /* Rojo al pasar el mouse */
+     color: white;
+ }
+
+ /* Quitar márgenes de texto */
+ .card h3 {
+     margin: 0;
+ }
