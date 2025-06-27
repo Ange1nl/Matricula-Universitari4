@@ -6,6 +6,9 @@ import { RegistroEstudiante } from './features/estudiante/registro-estudiante/re
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { PrivateLayout } from './layouts/private-layout/private-layout';
 import { MatriculaEstudiante } from './features/estudiante/matricula-estudiante/matricula-estudiante';
+import { LoginAdminRecep } from './features/login/login-admin-recep/login-admin-recep';
+import { PanelRecep } from './features/recep/panel-recep/panel-recep';
+import { MostrarAlumnos } from './features/recep/mostrar-alumnos/mostrar-alumnos';
 
 export const routes: Routes = [
 
@@ -25,6 +28,11 @@ export const routes: Routes = [
             { path: 'inicio', component: Inicio, title: "Página principal" },
             { path: 'sesionEstudiante', component: SesionEstudiante, title: "Login estudiante" },
             { path: 'registroEstudiante', component: RegistroEstudiante, title: "Registro estudiante" },
+
+            {path: 'loginAdminRecep', component:LoginAdminRecep, title: "Login"},
+            {path: 'panelRecepcionista', component:PanelRecep, title: "Panel Recepcionista"},
+            {path: 'mostrarAlumnos', component:MostrarAlumnos, title: "Mostrar Alumnos"},
+
         ]
     },
 
@@ -36,7 +44,8 @@ export const routes: Routes = [
         ]
     },
 
-  { path: '**', component: NotFoundPage, title: "Página no encontrada" }
+  { path: '**', component: NotFoundPage, title: "Página no encontrada" },
+
 
     
 
