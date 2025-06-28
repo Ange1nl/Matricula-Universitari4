@@ -11,6 +11,7 @@ import { PanelRecep } from './features/recep/panel-recep/panel-recep';
 import { MostrarAlumnos } from './features/recep/mostrar-alumnos/mostrar-alumnos';
 import { RegistrarIngresado } from './features/recep/registrar-ingresado/registrar-ingresado';
 import { PanelAdmin } from './features/admin/panel-admin/panel-admin';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -46,7 +47,7 @@ export const routes: Routes = [
     {
         path: '', component: PrivateLayout,
         children: [
-            { path: 'panelAdmin', component: PanelAdmin, title: "Panel administrador" },
+            { path: 'panelAdmin', component: PanelAdmin, title: "Panel administrador",canActivate:[authGuard]},//Agrego mi authGuard ya que el authGuard determina si se puede acceder a una ruta , tambien si agrego a la ruta padre el authGuard sus rutas hijas tambien estan protegidas
             { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
         ]
     },

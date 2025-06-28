@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Router } from 'express';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Credenciales } from '../../features/auth/models/credenciales';
 import { Token } from '../../features/auth/models/token';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class AuthService {
   private http = inject(HttpClient);
 
   private isAuth = new BehaviorSubject<boolean>(this.hasToken());
-  private isAuth$ = this.isAuth.asObservable();
+  public isAuth$ = this.isAuth.asObservable();
 
 
   iniciarSesion(credenciales: Credenciales):Observable<Token>{
@@ -23,7 +23,7 @@ export class AuthService {
      .pipe(tap(resp => {
       this.almacenarTokens(resp)
       this.isAuth.next(true);
-      this.router.navigate(['/loginAdminRecep']); //Cuando cierra sesion lo manda a una pagina por defecto , en este caso a login
+      this.router.navigate(['/panelAdmin']); //despues de recibir el token valido y almacenar el token me manda a esta ruta
     }));
   }
 
