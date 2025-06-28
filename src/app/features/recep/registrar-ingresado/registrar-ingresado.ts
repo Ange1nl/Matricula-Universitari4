@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RegistrarIngresadoService } from '../services/registrar-ingresado.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-registrar-ingresado',
@@ -7,5 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './registrar-ingresado.css'
 })
 export class RegistrarIngresado {
+
+  
 
 }

@@ -9,6 +9,9 @@ import { MatriculaEstudiante } from './features/estudiante/matricula-estudiante/
 import { LoginAdminRecep } from './features/login/login-admin-recep/login-admin-recep';
 import { PanelRecep } from './features/recep/panel-recep/panel-recep';
 import { MostrarAlumnos } from './features/recep/mostrar-alumnos/mostrar-alumnos';
+import { RegistrarIngresado } from './features/recep/registrar-ingresado/registrar-ingresado';
+import { PanelAdmin } from './features/admin/panel-admin/panel-admin';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
 
@@ -22,31 +25,36 @@ export const routes: Routes = [
     */
 
 
-    {path: '',component: PublicLayout,
+    {
+        path: '', component: PublicLayout,
         children: [
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },//si esque esta vacio es decir localhost:4200 manda a inicio
             { path: 'inicio', component: Inicio, title: "Página principal" },
             { path: 'sesionEstudiante', component: SesionEstudiante, title: "Login estudiante" },
             { path: 'registroEstudiante', component: RegistroEstudiante, title: "Registro estudiante" },
 
-            {path: 'loginAdminRecep', component:LoginAdminRecep, title: "Login"},
-            {path: 'panelRecepcionista', component:PanelRecep, title: "Panel Recepcionista"},
-            {path: 'mostrarAlumnos', component:MostrarAlumnos, title: "Mostrar Alumnos"},
+            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },
+
+            
+            { path: 'panelRecepcionista', component: PanelRecep },
+            { path: 'panelRecepcionista/mostrarAlumnos', component: MostrarAlumnos },
+            { path: 'panelRecepcionista/registrarIngresado', component: RegistrarIngresado }
 
         ]
     },
 
 
-    {path: '',component: PrivateLayout,
+    {
+        path: '', component: PrivateLayout,
         children: [
+            { path: 'panelAdmin', component: PanelAdmin, title: "Panel administrador",canActivate:[authGuard]},//Agrego mi authGuard ya que el authGuard determina si se puede acceder a una ruta , tambien si agrego a la ruta padre el authGuard sus rutas hijas tambien estan protegidas
             { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
-            //{ path: 'panel-admin', component: PanelAdmin, title: "Panel administrador" }
         ]
     },
 
-  { path: '**', component: NotFoundPage, title: "Página no encontrada" },
+    { path: '**', component: NotFoundPage, title: "Página no encontrada" },
 
 
-    
+
 
 ];
