@@ -1,3 +1,11 @@
+.error-msg {
+  background-color: red;
+  color: white;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 5px;
+}
+
  .login-page {
     font-family: Arial, sans-serif;
     background-color: #f0f0f0;

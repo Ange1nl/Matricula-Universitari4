@@ -5,11 +5,10 @@
         <input type="text" class="login-input" placeholder="Correo electrónico" formControlName="email"/>
         <input type="password" class="login-input" placeholder="Contraseña" formControlName="password"/>
         <button class="login-button" [disabled]="loginForm.invalid" >Ingresar</button>
-        <p style="background-color: red;">
+        <p  class="error-msg">
             @if (errorMsg()) {
                 <span> {{errorMsg()}}</span>
             }
         </p>
-    </form>
-    
+    </form>    
 </div>
