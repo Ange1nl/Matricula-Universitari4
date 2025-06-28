@@ -10,6 +10,7 @@ import { LoginAdminRecep } from './features/login/login-admin-recep/login-admin-
 import { PanelRecep } from './features/recep/panel-recep/panel-recep';
 import { MostrarAlumnos } from './features/recep/mostrar-alumnos/mostrar-alumnos';
 import { RegistrarIngresado } from './features/recep/registrar-ingresado/registrar-ingresado';
+import { PanelAdmin } from './features/admin/panel-admin/panel-admin';
 
 export const routes: Routes = [
 
@@ -45,8 +46,8 @@ export const routes: Routes = [
     {
         path: '', component: PrivateLayout,
         children: [
+            { path: 'panelAdmin', component: PanelAdmin, title: "Panel administrador" },
             { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
-            //{ path: 'panel-admin', component: PanelAdmin, title: "Panel administrador" }
         ]
     },
 
