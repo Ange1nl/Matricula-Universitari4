@@ -10,8 +10,11 @@ import { LoginAdminRecep } from './features/login/login-admin-recep/login-admin-
 import { PanelRecep } from './features/recep/panel-recep/panel-recep';
 import { MostrarAlumnos } from './features/recep/mostrar-alumnos/mostrar-alumnos';
 import { RegistrarIngresado } from './features/recep/registrar-ingresado/registrar-ingresado';
-import { PanelAdmin } from './features/admin/panel-admin/panel-admin';
 import { authGuard } from './core/guards/auth-guard';
+import { AdminLayout } from './features/admin/admin-layout/admin-layout';
+import { PanelAdmin } from './features/admin/admin-layout/panel-admin/panel-admin';
+import { ListarDocente } from './features/admin/admin-layout/docente/pages/listar-docente/listar-docente';
+import { RegistrarDocente } from './features/admin/admin-layout/docente/pages/registrar-docente/registrar-docente';
 
 export const routes: Routes = [
 
@@ -24,18 +27,19 @@ export const routes: Routes = [
     {path: '**', component:NotFoundPage, title: "Pagina no encontrada"}
     */
 
+    //La carpeta Padre como esta vacio en el routerLink se puede poner el /nombreRuta pero si tiene un valor como el de admin que esta por la linea 56 , en el routerLink se pone sin el / porque anida la ruta padre con la hija
 
     {
         path: '', component: PublicLayout,
         children: [
-            { path: '', redirectTo: 'inicio', pathMatch: 'full' },//si esque esta vacio es decir localhost:4200 manda a inicio
+            { path: '', redirectTo: 'inicio', pathMatch: 'full' },//coge esta ruta por defecto porque esta vacio ,esque esta vacio es decir localhost:4200 manda a inicio
             { path: 'inicio', component: Inicio, title: "Página principal" },
             { path: 'sesionEstudiante', component: SesionEstudiante, title: "Login estudiante" },
             { path: 'registroEstudiante', component: RegistroEstudiante, title: "Registro estudiante" },
 
             { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },
 
-            
+
             { path: 'panelRecepcionista', component: PanelRecep },
             { path: 'panelRecepcionista/mostrarAlumnos', component: MostrarAlumnos },
             { path: 'panelRecepcionista/registrarIngresado', component: RegistrarIngresado }
@@ -47,11 +51,21 @@ export const routes: Routes = [
     {
         path: '', component: PrivateLayout,
         children: [
-            { path: 'loginAdminRecep/panelAdmin', component: PanelAdmin, title: "Panel administrador",canActivate:[authGuard]},//Agrego mi authGuard ya que el authGuard determina si se puede acceder a una ruta , tambien si agrego a la ruta padre el authGuard sus rutas hijas tambien estan protegidas
+
+            {
+                path: 'admin',component: AdminLayout,canActivate: [authGuard], //Creamos una carpeta padre
+                children: [
+                    { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin
+                    { path: 'docente/listar', component: ListarDocente, title: "Listar Docente"}, // /admin/docente/listar
+                    { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" } // /admin/docente/registrar
+                ]
+            },
+
             { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
         ]
     },
 
+    //Angular busca toda las rutas y cuando no encuentra ninguna ruta recien sale pagina no encontrada
     { path: '**', component: NotFoundPage, title: "Página no encontrada" },
 
 

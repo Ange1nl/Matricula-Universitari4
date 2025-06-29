@@ -23,7 +23,7 @@ export class AuthService {
      .pipe(tap(resp => {
       this.almacenarTokens(resp) //Osea en aca guarda los tokens, cuando inicio sesion
       this.isAuth.next(true);//si es autenticado, retorna true y el guards ya sabe que es true y deja acceder a la pagina, pagina que esta debajo de esta linea
-      this.router.navigate(['/loginAdminRecep/panelAdmin']); //despues de recibir el token valido y almacenar el token me manda a esta ruta
+      this.router.navigate(['/admin']); //despues de recibir el token valido y almacenar el token me manda a esta ruta
     }));
   }
 
