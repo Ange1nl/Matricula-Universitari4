@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-  private URL = "http://localhost:8082/api/v1/auth/autenticarse"
+  private URL = "http://localhost:8082/api/v1/auth"
   private router = inject(Router);
   private http = inject(HttpClient);
 
@@ -21,9 +21,9 @@ export class AuthService {
   iniciarSesion(credenciales: Credenciales):Observable<Token>{
     return this.http.post<Token>(`${this.URL}/autenticarse`,credenciales)
      .pipe(tap(resp => {
-      this.almacenarTokens(resp)
-      this.isAuth.next(true);
-      this.router.navigate(['/panelAdmin']); //despues de recibir el token valido y almacenar el token me manda a esta ruta
+      this.almacenarTokens(resp) //Osea en aca guarda los tokens, cuando inicio sesion
+      this.isAuth.next(true);//si es autenticado, retorna true y el guards ya sabe que es true y deja acceder a la pagina, pagina que esta debajo de esta linea
+      this.router.navigate(['/loginAdminRecep/panelAdmin']); //despues de recibir el token valido y almacenar el token me manda a esta ruta
     }));
   }
 
@@ -31,18 +31,18 @@ export class AuthService {
   cerrarSesion(){
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
-    this.isAuth.next(false);
+    this.isAuth.next(false); 
     this.router.navigate(['/loginAdminRecep']); //Cuando cierra sesion lo manda a una pagina por defecto , en este caso a login
   }
 
 
-  //Almacenar token
+  //Aca almacena los tokens y es llamado en iniciarSesion
   private almacenarTokens(token: Token){
-    localStorage.setItem('access_token',token.access_token);
+    localStorage.setItem('access_token',token.access_token); 
     localStorage.setItem('refresh_token',token.refresh_token);
   }
 
-  //Obtiene el token
+  //Obtiene el token del navegador (Generalmente para mandarselo al interceptor)
   getTokenAccess(): string | null{
     return localStorage.getItem('access_token');
   }
