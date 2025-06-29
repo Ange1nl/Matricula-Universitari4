@@ -9,7 +9,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (token) {
     const cloneReq = req.clone({
-      //No vees que en postman se ponia el token y hacias la peticion en este caso ponemos la cabecera y capturamos el token con el que inicio sesion y que se guardo en el navegador para hacer la peticion
+      //No vees que en postman se ponia el token y hacias la peticion en este caso ponemos la cabecera y capturamos el token con el que inicio sesion y que se guardo en el navegador para hacer la peticion y eso en el backend en la parte de JwtAuthenticationFilter lo valida
       headers: req.headers.set('Authorization',`Bearer ${token}`)//Toma el token del usuario logueado desde el localStorage y lo añade a la cabecera Authorization para autenticar la petición.
     });
     return next(cloneReq)
