@@ -15,10 +15,11 @@ export class RegistrarDocente {
 
   protected docente$!: Observable<Docente[]>;
   private serv = inject(DocenteService);
-  private fb = inject(FormBuilder);
+  private fb = inject(FormBuilder); //Inyecto el FormBuilder para construir formularios reactivos
 
-  selectedFile: File | null = null;
+  selectedFile: File | null = null; //Esta variable guarda el archivo seleccionado por el usuario <input type="file">
 
+  //Defino mi formulario con los campos requeridos que tendra
   formDocente = this.fb.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
@@ -30,6 +31,7 @@ export class RegistrarDocente {
   });
 
 
+  //Se ejecuta cuando el usuario selecciona la imagen y lo guarda en el selectedFile para usarlo en la subida
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
@@ -42,14 +44,14 @@ export class RegistrarDocente {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('image', this.selectedFile);
+    const formData = new FormData(); //Se crea un FormData que sera necesario para subir archivos multipart/form-data
+    formData.append('image', this.selectedFile); //Agrega el archivo con el nombre 'image' que es el que espera mi controlador /api/imagen/upload-img en el backend (@RequestParam("image")).
 
     // 1. Subir imagen
-    this.serv.subirImagen(formData).subscribe({
+    this.serv.subirImagen(formData).subscribe({ //Llama al backend  /api/imagen/upload-img para subir el archivo
       next: (fileName: string) => {
         // 2. Construir objeto docente con el nombre del archivo
-        const datosDocente = {
+        const datosDocente = { //Usa los valores del formulario con this.formDocente.value y le añade el nombre de la imagen img:fileName
           ...this.formDocente.value,
           img: fileName
         };
