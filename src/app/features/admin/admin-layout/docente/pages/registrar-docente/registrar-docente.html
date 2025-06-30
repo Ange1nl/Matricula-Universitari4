@@ -1,1 +1,60 @@
-<p>registrar-docente works!</p>
+<div class="registro-docente-container">
+
+    <div class="boton-superior">
+        <button class="btn-listar" routerLink="/admin/docente/listar">Listar Docentes</button>
+    </div>
+
+    <div class="formulario-card">
+        <h2>Registro de Docente</h2>
+
+        <form [formGroup]="formDocente" (ngSubmit)="registrarDocente()">
+            <div class="form-grid">
+
+                <div class="form-control">
+                    <label>Nombre</label>
+                    <input type="text" formControlName="nombre" placeholder="Ingrese nombre" />
+                </div>
+
+                <div class="form-control">
+                    <label>Apellido</label>
+                    <input type="text" formControlName="apellido" placeholder="Ingrese apellido" />
+                </div>
+
+                <div class="form-control">
+                    <label>Correo</label>
+                    <input type="email" formControlName="correo" placeholder="Ingrese correo electrónico" />
+                </div>
+
+                <div class="form-control">
+                    <label>Teléfono</label>
+                    <input type="text" formControlName="telefono" placeholder="Ingrese número de teléfono" />
+                </div>
+
+                <div class="form-control">
+                    <label>Carrera</label>
+                    <input type="text" formControlName="carrera" placeholder="Ingrese carrera" />
+                </div>
+
+                <div class="form-control">
+                    <label>Nivel de Estudio</label>
+                    <select formControlName="nivelEstudio">
+                        <option value="">Seleccione un nivel</option>
+                        <option value="Bachiller">Bachiller</option>
+                        <option value="Licenciatura">Licenciatura</option>
+                        <option value="Maestría">Maestría</option>
+                        <option value="Doctorado">Doctorado</option>
+                    </select>
+                </div>
+
+                <label>Imagen del Docente</label>
+                <input type="file" (change)="onFileSelected($event)" accept="image/*" required />
+
+
+            </div>
+
+            <div >
+                <button type="submit"    [disabled]="formDocente.invalid">Guardar Docente</button>
+            </div>
+        </form>
+    </div>
+</div>

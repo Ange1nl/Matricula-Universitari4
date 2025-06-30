@@ -1,1 +1,58 @@
-<p>listar-docente works!</p>
+<div class="listas-docente-container">
+
+  <div class="botones">
+    <button class="btn-accion" routerLink="/admin/docente/registrar">Registrar Docente</button>
+    <button class="btn-accion" routerLink="/admin">Volver al Panel</button>
+    <button class="btn-accion" >Mostrar Docentes</button>
+  </div>
+
+  <div class="tabla-container">
+    <table class="tabla-docentes">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Carrera</th>
+          <th>Nivel Estudio</th>
+          <th>Imagen</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Carlos</td>
+          <td>Ramírez</td>
+          <td>carlos.com</td>
+          <td>987654321</td>
+          <td>Informática</td>
+          <td>Maestría</td>
+          <td>
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Foto docente" class="foto-docente">
+          </td>
+          <td>
+            <button class="btn-editar">Editar</button>
+            <button class="btn-eliminar">Eliminar</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Laura</td>
+          <td>Martínez</td>
+          <td>laura.com</td>
+          <td>912345678</td>
+          <td>Educación</td>
+          <td>Doctorado</td>
+          <td>
+            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Foto docente" class="foto-docente">
+          </td>
+          <td>
+            <button class="btn-editar">Editar</button>
+            <button class="btn-eliminar">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
