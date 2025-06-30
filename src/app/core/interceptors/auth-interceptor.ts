@@ -5,7 +5,7 @@ import { AuthService } from '../services/auth.service';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   const authServ = inject(AuthService)
-  const token = authServ.getTokenAccess();
+  const token = authServ.getTokenAccess();//El getTokenAccess esta en mi auth.service.ts lo que hace es capturar el token del navegador
 
   if (token) {
     const cloneReq = req.clone({
