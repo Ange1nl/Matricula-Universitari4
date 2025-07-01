@@ -1,5 +1,4 @@
 export interface Docente {
-    id_profesor:number,
     nombre:string,
     apellido:string,
     correo:string,

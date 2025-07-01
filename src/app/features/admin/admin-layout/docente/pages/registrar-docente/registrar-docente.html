@@ -32,12 +32,12 @@
 
                 <div class="form-control">
                     <label>Carrera</label>
-                    <input type="text" formControlName="carrera" placeholder="Ingrese carrera" />
+                    <input type="text" formControlName="profesion" placeholder="Ingrese carrera" />
                 </div>
 
                 <div class="form-control">
                     <label>Nivel de Estudio</label>
-                    <select formControlName="nivelEstudio">
+                    <select formControlName="nivel_estudio">
                         <option value="">Seleccione un nivel</option>
                         <option value="Bachiller">Bachiller</option>
                         <option value="Licenciatura">Licenciatura</option>
@@ -47,13 +47,13 @@
                 </div>
 
                 <label>Imagen del Docente</label>
-                <input type="file" (change)="onFileSelected($event)" accept="image/*" required />
+                <input type="file" (change)="onFileSelected($event)" formControlName="img" accept="image/*" required />
 
 
             </div>
 
             <div >
-                <button type="submit"    [disabled]="formDocente.invalid">Guardar Docente</button>
+                <button type="submit" [disabled]="formDocente.invalid || !selectedFile">Guardar Docente</button>
             </div>
         </form>
     </div>
