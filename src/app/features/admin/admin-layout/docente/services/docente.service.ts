@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Docente } from '../models/docente';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class DocenteService {
   private http = inject(HttpClient);
 
 
-  listar(){
+  listar():Observable<Docente[]>{
     return this.http.get<Docente[]>(`${this.URL}/listar`);
   }
 
