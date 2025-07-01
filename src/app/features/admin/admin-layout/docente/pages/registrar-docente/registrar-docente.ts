@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Docente } from '../../models/docente';
 import { DocenteService } from '../../services/docente.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-docente',
@@ -12,6 +13,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './registrar-docente.css'
 })
 export class RegistrarDocente {
+
+  private router = inject(Router); //Esto sera para cuando termine de registrar al docente me mande a /admin/docente/listar
 
   protected docente$!: Observable<Docente[]>;
   private serv = inject(DocenteService);
@@ -82,6 +85,7 @@ export class RegistrarDocente {
           next: () => {
             alert('Docente registrado exitosamente');
             this.formDocente.reset();
+            this.router.navigate(['/admin/docente/listar']); // ← Redirección
           },
           error: () => alert('Error al guardar el docente')
         });
