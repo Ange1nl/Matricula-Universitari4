@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registrar-docente',
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './registrar-docente.html',
   styleUrl: './registrar-docente.css'
 })
@@ -25,8 +25,8 @@ export class RegistrarDocente {
     apellido: ['', Validators.required],
     correo: ['', [Validators.required, Validators.email]],
     telefono: ['', Validators.required],
-    carrera: ['', Validators.required],
-    nivelEstudio: ['', Validators.required],
+    profesion: ['', Validators.required],
+    nivel_estudio: ['', Validators.required],
     img: ['', Validators.required]
   });
 
@@ -39,20 +39,40 @@ export class RegistrarDocente {
 
   registrarDocente() {
 
+    if (this.formDocente.invalid) {
+      alert('Completa todos los campos correctamente.');
+      return;
+    }
+
     if (!this.selectedFile) {
       alert('Por favor selecciona una imagen');
       return;
     }
+
+
 
     const formData = new FormData(); //Se crea un FormData que sera necesario para subir archivos multipart/form-data
     formData.append('image', this.selectedFile); //Agrega el archivo con el nombre 'image' que es el que espera mi controlador /api/imagen/upload-img en el backend (@RequestParam("image")).
 
     // 1. Subir imagen
     this.serv.subirImagen(formData).subscribe({ //Llama al backend  /api/imagen/upload-img para subir el archivo
-      next: (fileName: string) => {
-        // 2. Construir objeto docente con el nombre del archivo
-        const datosDocente = { //Usa los valores del formulario con this.formDocente.value y le añade el nombre de la imagen img:fileName
-          ...this.formDocente.value,
+      next: (fileName: string) => { //fileName contiene ese nombre unico generado de la imagen "f3c9a77a-e2c2-4fd5-826b-d7c2a4573f3f_mifoto.jpg" , OJO fileName puede cambiar a cualquier otro nombre, lo que hace es almacenar el nombre de la imagen nomas         
+        const {
+          nombre,
+          apellido,
+          correo,
+          telefono,
+          profesion,
+          nivel_estudio
+        }  = this.formDocente.value;      
+        
+        const datosDocente: Docente = { //Usa los valores del formulario con this.formDocente.value y le añade el nombre de la imagen img:fileName
+          nombre: nombre || '',
+          apellido: apellido || '',
+          correo: correo || '',
+          telefono: telefono || '',
+          profesion: profesion || '',
+          nivel_estudio: nivel_estudio || '',
           img: fileName
         };
 
@@ -71,7 +91,7 @@ export class RegistrarDocente {
 
 
 
-  
+
 
 
 }
