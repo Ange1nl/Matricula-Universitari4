@@ -66,14 +66,15 @@ export class RegistrarDocente {
           nivel_estudio
         }  = this.formDocente.value;      
         
-        const datosDocente: Docente = { //Usa los valores del formulario con this.formDocente.value y le añade el nombre de la imagen img:fileName
+        //osea aca lo que esta haciendo es insertar los datos del formulario al objeto docente y el objeto docente tiene los mismos nombres de la interfaz docente
+        const datosDocente: Docente = { //Objeto literal de tipo docente usando los datos del formulario
           nombre: nombre || '',
           apellido: apellido || '',
           correo: correo || '',
           telefono: telefono || '',
           profesion: profesion || '',
           nivel_estudio: nivel_estudio || '',
-          img: fileName
+          img: fileName //El fileName capturado lo agrego al atributo img
         };
 
         // 3. Insertar docente

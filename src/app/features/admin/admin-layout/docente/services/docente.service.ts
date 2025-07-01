@@ -14,7 +14,7 @@ export class DocenteService {
 
 
   listar(){
-
+    return this.http.get<Docente[]>(`${this.URL}/listar`);
   }
 
   insertar(docente:Docente){
