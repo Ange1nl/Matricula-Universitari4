@@ -12,7 +12,7 @@ export class CarreraService {
   private http = inject(HttpClient);
 
 
-  obtener(): Observable<Carrera[]> {
+  listar(): Observable<Carrera[]> {
     return this.http.get<Carrera[]>(`${this.URL}/listar`);
   }
 

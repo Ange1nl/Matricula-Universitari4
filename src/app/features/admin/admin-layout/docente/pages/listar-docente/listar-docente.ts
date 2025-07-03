@@ -26,6 +26,7 @@ export class ListarDocente {
     this.docen$ = this.serv.listar();
   }
 
+  
   editarDocente(id: number) {
     this.router.navigate(['/admin/docente/registrar', id]);
   }
