@@ -58,7 +58,9 @@ export const routes: Routes = [
                     { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin
                     { path: 'docente/listar', component: ListarDocente, title: "Listar Docente"}, // /admin/docente/listar
                     { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" }, // /admin/docente/registrar
-                    { path: 'docente/registrar/:id', component: RegistrarDocente, title: "Editar Docente" }
+                    { path: 'docente/registrar/:id', component: RegistrarDocente, title: "Editar Docente" },
+
+                    //{path: 'CarreraCursoInfocurso', component: CarreraCursoInfoCurso, title: "Carrea Curso e Info del Curso"}
                 ]
             },
 

@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { Docente } from '../../models/docente';
 import { DocenteService } from '../../services/docente.service';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-docente',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './registrar-docente.html',
   styleUrl: './registrar-docente.css'
 })
