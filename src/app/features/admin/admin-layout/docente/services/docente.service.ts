@@ -13,6 +13,7 @@ export class DocenteService {
 
   private http = inject(HttpClient);
 
+  //El observable sirve cuando el servidor responde , el observable emite la respuesta (Lo crea y lo devuelve) el el service y en el componente lo consumes con suscribe
 
   listar(): Observable<Docente[]> {
     return this.http.get<Docente[]>(`${this.URL}/listar`);
@@ -35,7 +36,7 @@ export class DocenteService {
   }
 
   eliminar(id: number) {
-    return this.http.delete(`${this.URL}/eliminar/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.URL}/eliminar/${id}`,{ responseType: 'text' });
   }
 
 

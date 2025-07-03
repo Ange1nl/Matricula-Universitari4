@@ -1,4 +1,5 @@
 export interface Docente {
+    id_profesor?:number, //Opcional para que no sea requerido al crear un nuevo docente
     nombre:string,
     apellido:string,
     correo:string,
