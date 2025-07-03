@@ -1,0 +1,158 @@
+/* Fondo general */
+.fondo {
+  background: linear-gradient(to bottom, #f3f6fc, #dbe5ff);
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Título */
+h2 {
+  color: #164B64;
+  font-size: 28px;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulario centrado */
+.formulario-centro {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 450px;
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Formulario general */
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+label {
+  font-weight: 600;
+  color: #333;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #ccd5f2;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+input:focus {
+  border-color: #164B64;
+  outline: none;
+}
+
+/* Botones generales */
+button {
+  padding: 10px 14px;
+  font-weight: bold;
+  color: white;
+  background-color: #4a63d6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #164B64;
+  transform: scale(1.03);
+}
+
+button[disabled] {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  max-width: 900px;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+th {
+  background-color: #164B64;
+  color: white;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f8ff;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(40, 40, 70, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content h3 {
+  color: #164B64;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 22px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.btn-eliminar {
+  background-color: var(--vino);
+}
+
+.btn-eliminar:hover {
+  background-color: var(--vino-hover);
+}

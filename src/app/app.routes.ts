@@ -15,6 +15,7 @@ import { AdminLayout } from './features/admin/admin-layout/admin-layout';
 import { PanelAdmin } from './features/admin/admin-layout/panel-admin/panel-admin';
 import { ListarDocente } from './features/admin/admin-layout/docente/pages/listar-docente/listar-docente';
 import { RegistrarDocente } from './features/admin/admin-layout/docente/pages/registrar-docente/registrar-docente';
+import { Carreras } from './features/admin/admin-layout/carrera/pages/Carrera/carreras';
 
 export const routes: Routes = [
 
@@ -57,7 +58,10 @@ export const routes: Routes = [
                 children: [
                     { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin
                     { path: 'docente/listar', component: ListarDocente, title: "Listar Docente"}, // /admin/docente/listar
-                    { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" } // /admin/docente/registrar
+                    { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" }, // /admin/docente/registrar
+                    { path: 'docente/registrar/:id', component: RegistrarDocente, title: "Editar Docente" },
+
+                    {path: 'carrera', component: Carreras, title: "Carreras"}
                 ]
             },
 

@@ -13,26 +13,31 @@ export class DocenteService {
 
   private http = inject(HttpClient);
 
+  //El observable sirve cuando el servidor responde , el observable emite la respuesta (Lo crea y lo devuelve) el el service y en el componente lo consumes con suscribe
 
-  listar():Observable<Docente[]>{
+  listar(): Observable<Docente[]> {
     return this.http.get<Docente[]>(`${this.URL}/listar`);
   }
 
-  insertar(docente:Docente){
-    return this.http.post(`${this.URL}/insertar`,docente);
+  insertar(docente: Docente): Observable<Docente> {
+    return this.http.post<Docente>(`${this.URL}/insertar`, docente);
   }
 
-  subirImagen(formData: FormData){
-    return this.http.post(this.URL_IMG,formData,{responseType:'text'}); //Me devuelve el nombre unico generado algo asi "f3c9a77a-e2c2-4fd5-826b-d7c2a4573f3f_mifoto.jpg" en texto plano no en JSON
+  subirImagen(formData: FormData): Observable<string> {
+    return this.http.post(this.URL_IMG, formData, { responseType: 'text' }); //Me devuelve el nombre unico generado algo asi "f3c9a77a-e2c2-4fd5-826b-d7c2a4573f3f_mifoto.jpg" en texto plano no en JSON
   }
 
-  editar(docente: Docente){
-    return this.http.put<Docente>(`${this.URL}/actualizar`, docente);
+  obtenerPorId(id: number): Observable<Docente> {
+    return this.http.get<Docente>(`${this.URL}/lista/${id}`);
   }
 
-  eliminar(){
-
+  editar(id: number, docente:Docente): Observable<Docente>{
+    return this.http.put<Docente>(`${this.URL}/actualizar/${id}`, docente);
   }
- 
-  
+
+  eliminar(id: number): Observable<string> {
+    return this.http.delete(`${this.URL}/eliminar/${id}`,{ responseType: 'text' });
+  }
+
+
 }

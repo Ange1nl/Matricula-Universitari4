@@ -1,0 +1,48 @@
+<div class="fondo">
+    <h2 style="text-align: center;margin-top: 1rem;">Agregar carrera</h2>
+
+    <div class="formulario-centro">
+        <form [formGroup]="agregarForm" (ngSubmit)="agregarCarrera()">
+            <label>Nombre carrera:</label>
+            <input formControlName="nombre_carrera" placeholder="Ej: Ingeniería de Software" />
+            <button type="submit" [disabled]="agregarForm.invalid">Agregar</button>
+        </form>
+    </div>
+
+    <hr />
+
+    <table>
+        <thead>
+            <tr>
+                <th>Carrera</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (carrera of carreras; track carrera.id_carrera) {
+            <tr>
+                <td>{{ carrera.nombre_carrera }}</td>
+                <td>
+                    <button  (click)="abrirModal(carrera)">Editar</button>
+                    <button  (click)="eliminarCarrera(carrera.id_carrera!)">Eliminar</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (mostrarModal) {
+    <div class="modal" (click)="cerrarModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <h3>Editar carrera</h3>
+
+            <form [formGroup]="editarForm" (ngSubmit)="guardarCambios()">
+                <label>Nombre carrera:</label>
+                <input formControlName="nombre_carrera" />
+                <button type="submit" [disabled]="editarForm.invalid">Guardar</button>
+            </form>
+
+        </div>
+    </div>
+    }
+</div>

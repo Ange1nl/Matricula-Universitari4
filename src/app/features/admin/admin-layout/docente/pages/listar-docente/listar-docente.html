@@ -33,8 +33,8 @@
             <img [src]="'http://localhost:8082/img/' + d.img" alt="Foto docente" class="foto-docente" style="width: 60px;height: 60px;"/>
           </td>
           <td>
-            <button class="btn-editar">Editar</button>
-            <button class="btn-eliminar">Eliminar</button>
+            <button class="btn-editar" (click)="editarDocente(d.id_profesor!)">Editar</button> <!--Ese ! le dice que el valor si o si existe asi deja de salirte error-->
+            <button class="btn-eliminar" (click)="eliminarDocente(d.id_profesor!)">Eliminar</button>
           </td>
         </tr>
         }
