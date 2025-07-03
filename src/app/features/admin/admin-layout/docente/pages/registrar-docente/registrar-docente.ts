@@ -16,7 +16,7 @@ export class RegistrarDocente {
 
   private router = inject(Router); //Esto sera para cuando termine de registrar al docente me mande a /admin/docente/listar
   private route = inject(ActivatedRoute);// ActivatedRoute nos permite acceder al parámetro `id` si estamos editando
-  protected docente$!: Observable<Docente[]>;
+  protected docente$!: Observable<Docente[]>; //Si te das cuenta este observable docente$ no se usa y esque observables asi se usan mas para get encambio observables donde te suscribes se usan para algo mas complejo como post , put etc
   private serv = inject(DocenteService);
   private fb = inject(FormBuilder); //Inyecto el FormBuilder para construir formularios reactivos
 
