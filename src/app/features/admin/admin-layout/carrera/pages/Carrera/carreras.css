@@ -1,3 +1,16 @@
+.btn-accion {
+  padding: 0.75rem 1.6rem;
+  background-color: #2563eb;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 1rem;
+}
+
 /* Fondo general */
 .fondo {
   background: linear-gradient(to bottom, #eaeef6, #cdd7ed);

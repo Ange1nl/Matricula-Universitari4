@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-carreras',
-  imports: [CommonModule, ReactiveFormsModule, AsyncPipe],
+  imports: [CommonModule, ReactiveFormsModule, AsyncPipe,RouterLink],
   templateUrl: './carreras.html',
   styleUrl: './carreras.css'
 })

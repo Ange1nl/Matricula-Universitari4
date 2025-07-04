@@ -1,91 +1,124 @@
-.btn-editar,
-.btn-eliminar {
-  padding: 6px 12px;
-  margin: 2px;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btn-editar {
-  background-color: #ffc107;
-  color: #212529;
-}
-
-.btn-editar:hover {
-  background-color: #e0a800;
-}
-
-.btn-eliminar {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-eliminar:hover {
-  background-color: #c82333;
-}
-
+/* Contenedor general */
 .listas-docente-container {
   padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f9fa;
+  background-color: #f3f4f6;
   min-height: 100vh;
 }
 
+/* Botones centrados */
 .botones {
   display: flex;
+  justify-content: center;
   gap: 1rem;
   margin-bottom: 2rem;
   flex-wrap: wrap;
 }
 
 .btn-accion {
-  padding: 0.75rem 1.5rem;
-  background-color: #007bff;
+  padding: 0.75rem 1.6rem;
+  background-color: #2563eb;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   color: white;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .btn-accion:hover {
-  background-color: #0056b3;
+  background-color: #1d4ed8;
 }
 
+/* Tabla */
 .tabla-container {
   overflow-x: auto;
   background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
 }
 
 .tabla-docentes {
   width: 100%;
-  border-collapse: collapse;
-  min-width: 800px;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  min-width: 1000px;
+  font-size: 0.95rem;
 }
 
-.tabla-docentes th,
-.tabla-docentes td {
-  padding: 1rem;
-  text-align: center;
-  border-bottom: 1px solid #dee2e6;
+.tabla-docentes thead {
+  background-color: transparent;
 }
 
 .tabla-docentes th {
-  background-color: #343a40;
-  color: white;
-  font-weight: 600;
+  text-align: center;
+  font-weight: 700;
+  color: #374151;
+  padding: 1rem 0.5rem;
+  border-bottom: 2px solid #e5e7eb;
+  text-transform: uppercase;
+  font-size: 0.85rem;
 }
 
+.tabla-docentes tbody tr {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tabla-docentes tbody tr:hover {
+  transform: scale(1.01);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.tabla-docentes td {
+  text-align: center;
+  padding: 1rem 0.75rem;
+  border-bottom: none;
+  color: #4b5563;
+  background-color: #ffffff;
+}
+
+/* Imagen de docente */
 .foto-docente {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Botones de acción */
+.btn-editar,
+.btn-eliminar {
+  padding: 6px 14px;
+  margin: 0 4px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-editar {
+  background-color: #facc15;
+  color: #1f2937;
+}
+
+.btn-editar:hover {
+  background-color: #eab308;
+}
+
+.btn-eliminar {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-eliminar:hover {
+  background-color: #dc2626;
 }
