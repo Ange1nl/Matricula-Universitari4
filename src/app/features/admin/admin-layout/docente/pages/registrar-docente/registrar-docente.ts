@@ -8,7 +8,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-registrar-docente',
-  imports: [CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './registrar-docente.html',
   styleUrl: './registrar-docente.css'
 })
@@ -40,7 +40,7 @@ export class RegistrarDocente {
 
     // Si hay ID, estamos en modo edición → obtenemos los datos del docente
     if (this.idDocente) {
-      this.serv.obtenerPorId(this.idDocente).subscribe(docente => {
+      this.serv.obtenerPorId(this.idDocente).subscribe(docente => { //****** Observable<Docente>*********
         this.formDocente.patchValue(docente); // Precargamos el formulario con los datos del docente
       });
     }
@@ -84,18 +84,33 @@ export class RegistrarDocente {
 
       //ACA ES COMO UNA CONDICION ELEGANTE donce this.idDocente es la condicion y el if es el ? y else es el :
       const accion = this.idDocente
-        ? this.serv.editar(this.idDocente, datosDocente)  // Si hay ID → actualizar
-        : this.serv.insertar(datosDocente); //Si no → insertar nuevo.
+        ? this.serv.editar(this.idDocente, datosDocente)  // Si hay ID → actualizar,    *********Observable<Docente>*********
+        : this.serv.insertar(datosDocente); //Si no → insertar nuevo. ,                *********Observable<Docente>*********
 
       // Ejecutamos la acción (insertar o editar)
       accion.subscribe({
         next: () => {
           alert(this.idDocente ? 'Docente actualizado exitosamente' : 'Docente registrado exitosamente');
-          this.formDocente.reset(); // Limpiamos el formulario
-          this.router.navigate(['/admin/docente/listar']); // Redirigimos al listado
+          this.formDocente.reset();
+          this.router.navigate(['/admin/docente/listar']);
         },
-        error: () => alert('Error al guardar el docente')
+        error: (err) => {
+          // Manejo de errores del backend (por ejemplo, validaciones 400)
+          if (err.status === 400 && err.error) {
+            const errores = err.error; // Ejemplo: { nombre: "Nombre obligatorio", correo: "Correo inválido" }
+
+            for (const campo in errores) {
+              const control = this.formDocente.get(campo);
+              if (control) {
+                control.setErrors({ backend: errores[campo] });
+              }
+            }
+          } else {
+            alert('Error al guardar el docente');
+          }
+        }
       });
+
     };
 
     // Si el usuario seleccionó una imagen nueva, primero la subimos
