@@ -1,10 +1,20 @@
 <div class="fondo">
+    <button class="btn-accion" routerLink="/admin">Volver al Panel</button>
+
     <h2 style="text-align: center;margin-top: 1rem;">Agregar carrera</h2>
 
     <div class="formulario-centro">
         <form [formGroup]="agregarForm" (ngSubmit)="agregarCarrera()">
             <label>Nombre carrera:</label>
             <input formControlName="nombre_carrera" placeholder="Ej: Ingeniería de Software" />
+
+            <!--Validador del lado del backend , cada @if va para cada input , si tendria 3 inputs 3 @if deberian ir-->
+            @if (agregarForm.get('nombre_carrera')?.errors?.['backend']) {
+            <div class="error">
+                {{ agregarForm.get('nombre_carrera')?.errors?.['backend'] }}
+                <!--“Si el campo nombre_carrera tiene un error que se llama backend, muéstralo aquí”.-->
+            </div>
+            }
             <button type="submit" [disabled]="agregarForm.invalid">Agregar</button>
         </form>
     </div>
@@ -19,18 +29,19 @@
             </tr>
         </thead>
         <tbody>
-            @for (carrera of carreras; track carrera.id_carrera) {
+            @for (carrera of carrera$ | async; track carrera.id_carrera) {
             <tr>
                 <td>{{ carrera.nombre_carrera }}</td>
                 <td>
-                    <button  (click)="abrirModal(carrera)">Editar</button>
-                    <button  (click)="eliminarCarrera(carrera.id_carrera!)">Eliminar</button>
+                    <button (click)="abrirModal(carrera)">Editar</button>
+                    <button (click)="eliminarCarrera(carrera.id_carrera!)">Eliminar</button>
                 </td>
             </tr>
             }
         </tbody>
     </table>
 
+    <!--MODAL QUE SE MOSTRARA , PARA PODER EDITAR-->
     @if (mostrarModal) {
     <div class="modal" (click)="cerrarModal()">
         <div class="modal-content" (click)="$event.stopPropagation()">
@@ -39,6 +50,13 @@
             <form [formGroup]="editarForm" (ngSubmit)="guardarCambios()">
                 <label>Nombre carrera:</label>
                 <input formControlName="nombre_carrera" />
+
+                @if (editarForm.get('nombre_carrera')?.errors?.['backend']) {
+                <div class="error">
+                    {{ editarForm.get('nombre_carrera')?.errors?.['backend'] }}
+                </div>
+                }
+
                 <button type="submit" [disabled]="editarForm.invalid">Guardar</button>
             </form>
 

@@ -1,3 +1,9 @@
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
 .registro-docente-container {
   padding: 2rem;
   font-family: 'Segoe UI', sans-serif;
@@ -6,7 +12,9 @@
 }
 
 .boton-superior {
-  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  margin-bottom: 1.5rem;
   text-align: right;
 }
 

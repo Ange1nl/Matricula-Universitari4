@@ -13,10 +13,12 @@ export class DocenteService {
 
   private http = inject(HttpClient);
 
-  //El observable sirve cuando el servidor responde , el observable emite la respuesta (Lo crea y lo devuelve) el el service y en el componente lo consumes con suscribe
+  // El observable se encarga de enviar la solicitud al servidor (por ejemplo: listar, insertar, buscar por ID) Cuando el servidor responde, el observable emite esa respuesta (la "devuelve").
+  // Esta respuesta se define en el servicio, y se consume en el componente usando .subscribe(). En operaciones como GET o buscar por ID, el componente necesita la respuesta (por eso se usa).
+  // En cambio, para acciones como insertar, a veces solo te interesa ejecutar la acción y no necesitas capturar el objeto insertado. Aun así, debes suscribirte para que la operación se realice, aunque no uses la respuesta.
 
-  listar(): Observable<Docente[]> {
-    return this.http.get<Docente[]>(`${this.URL}/listar`);
+  listar(): Observable<Docente[]> { //Indica el tipo de Observable que es si no ponemos entendera que es obsevable any
+    return this.http.get<Docente[]>(`${this.URL}/listar`); //El observable es lo que retorna this.http.get<Docente[]>
   }
 
   insertar(docente: Docente): Observable<Docente> {
