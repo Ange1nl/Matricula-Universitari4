@@ -5,6 +5,12 @@
         <form [formGroup]="agregarForm" (ngSubmit)="agregarCarrera()">
             <label>Nombre carrera:</label>
             <input formControlName="nombre_carrera" placeholder="Ej: Ingeniería de Software" />
+            <!--Validador del lado del backend , cada @if va para cada input , si tendria 3 inputs 3 @if deberian ir-->
+            @if (agregarForm.get('nombre_carrera')?.errors?.['backend']) {
+            <div class="error">
+                {{ agregarForm.get('nombre_carrera')?.errors?.['backend'] }}
+            </div>
+            }
             <button type="submit" [disabled]="agregarForm.invalid">Agregar</button>
         </form>
     </div>
@@ -19,12 +25,12 @@
             </tr>
         </thead>
         <tbody>
-            @for (carrera of carreras; track carrera.id_carrera) {
+            @for (carrera of carrera$ | async; track carrera.id_carrera) {
             <tr>
                 <td>{{ carrera.nombre_carrera }}</td>
                 <td>
-                    <button  (click)="abrirModal(carrera)">Editar</button>
-                    <button  (click)="eliminarCarrera(carrera.id_carrera!)">Eliminar</button>
+                    <button (click)="abrirModal(carrera)">Editar</button>
+                    <button (click)="eliminarCarrera(carrera.id_carrera!)">Eliminar</button>
                 </td>
             </tr>
             }
