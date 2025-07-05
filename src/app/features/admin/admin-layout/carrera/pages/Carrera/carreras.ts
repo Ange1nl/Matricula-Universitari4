@@ -23,13 +23,13 @@ export class Carreras {
 
   //Formulario reactivo para agregar una carrera
   agregarForm: FormGroup = this.fb.group({
-    nombre_carrera: ['', Validators.required]
+    nombreCarrera: ['', Validators.required]
   });
 
   // Formulario reactivo para editar una carrera en modal
   editarForm: FormGroup = this.fb.group({
     id_carrera: [0], // ID oculto, necesario para saber cuál carrera editar
-    nombre_carrera: ['', Validators.required]
+    nombreCarrera: ['', Validators.required]
   });
 
 
@@ -100,7 +100,7 @@ export class Carreras {
     // Se cargan los valores actuales de la carrera en el formulario de edición
     this.editarForm.setValue({
       id_carrera: carrera.id_carrera, //El primero id_carrera es lo del formulario, el segundo es lo que capturo y ese segundo que captura sera colocado en el formulario del modal de editar
-      nombre_carrera: carrera.nombre_carrera
+      nombreCarrera: carrera.nombreCarrera
     });
   }
 
