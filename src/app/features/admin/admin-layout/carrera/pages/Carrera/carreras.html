@@ -6,12 +6,12 @@
     <div class="formulario-centro">
         <form [formGroup]="agregarForm" (ngSubmit)="agregarCarrera()">
             <label>Nombre carrera:</label>
-            <input formControlName="nombre_carrera" placeholder="Ej: Ingeniería de Software" />
+            <input formControlName="nombreCarrera" placeholder="Ej: Ingeniería de Software" />
 
             <!--Validador del lado del backend , cada @if va para cada input , si tendria 3 inputs 3 @if deberian ir-->
-            @if (agregarForm.get('nombre_carrera')?.errors?.['backend']) {
+            @if (agregarForm.get('nombreCarrera')?.errors?.['backend']) {
             <div class="error">
-                {{ agregarForm.get('nombre_carrera')?.errors?.['backend'] }}
+                {{ agregarForm.get('nombreCarrera')?.errors?.['backend'] }}
                 <!--“Si el campo nombre_carrera tiene un error que se llama backend, muéstralo aquí”.-->
             </div>
             }
@@ -31,7 +31,7 @@
         <tbody>
             @for (carrera of carrera$ | async; track carrera.id_carrera) {
             <tr>
-                <td>{{ carrera.nombre_carrera }}</td>
+                <td>{{ carrera.nombreCarrera }}</td>
                 <td>
                     <button (click)="abrirModal(carrera)">Editar</button>
                     <button (click)="eliminarCarrera(carrera.id_carrera!)">Eliminar</button>
@@ -49,11 +49,11 @@
 
             <form [formGroup]="editarForm" (ngSubmit)="guardarCambios()">
                 <label>Nombre carrera:</label>
-                <input formControlName="nombre_carrera" />
+                <input formControlName="nombreCarrera" />
 
-                @if (editarForm.get('nombre_carrera')?.errors?.['backend']) {
+                @if (editarForm.get('nombreCarrera')?.errors?.['backend']) {
                 <div class="error">
-                    {{ editarForm.get('nombre_carrera')?.errors?.['backend'] }}
+                    {{ editarForm.get('nombreCarrera')?.errors?.['backend'] }}
                 </div>
                 }
 

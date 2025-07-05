@@ -30,7 +30,7 @@ export class RegistrarDocente {
     correo: ['', [Validators.required, Validators.email]],
     telefono: ['', Validators.required],
     profesion: ['', Validators.required],
-    nivel_estudio: ['', Validators.required],
+    nivelEstudio: ['', Validators.required],
     img: ['']
   });
 
@@ -68,7 +68,7 @@ export class RegistrarDocente {
         correo,
         telefono,
         profesion,
-        nivel_estudio
+        nivelEstudio
       } = this.formDocente.value;
 
       // Creamos el objeto docente usando los valores del formulario
@@ -78,7 +78,7 @@ export class RegistrarDocente {
         correo: correo || '',
         telefono: telefono || '',
         profesion: profesion || '',
-        nivel_estudio: nivel_estudio || '',
+        nivelEstudio: nivelEstudio || '',
         img: fileName //El fileName capturado lo agrego al atributo img
       };
 

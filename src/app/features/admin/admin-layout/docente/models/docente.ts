@@ -5,6 +5,6 @@ export interface Docente {
     correo:string,
     telefono:string,
     profesion:string,
-    nivel_estudio:string,
+    nivelEstudio:string,
     img:string
 }
