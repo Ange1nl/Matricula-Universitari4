@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  console.log("INTERCEPTOR EJECUTADO");//De prueba solo para ver si el interceptor logra ejecutarse
 
   const authServ = inject(AuthService)
   const token = authServ.getTokenAccess();//El getTokenAccess esta en mi auth.service.ts lo que hace es capturar el token del navegador
