@@ -16,6 +16,7 @@ import { PanelAdmin } from './features/admin/admin-layout/panel-admin/panel-admi
 import { ListarDocente } from './features/admin/admin-layout/docente/pages/listar-docente/listar-docente';
 import { RegistrarDocente } from './features/admin/admin-layout/docente/pages/registrar-docente/registrar-docente';
 import { Carreras } from './features/admin/admin-layout/carrera/pages/Carrera/carreras';
+import { CursoInfoCurso } from './features/admin/admin-layout/carrera/pages/curso-info-curso/curso-info-curso';
 
 export const routes: Routes = [
 
@@ -61,7 +62,8 @@ export const routes: Routes = [
                     { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" }, // /admin/docente/registrar
                     { path: 'docente/registrar/:id', component: RegistrarDocente, title: "Editar Docente" },
 
-                    {path: 'carrera', component: Carreras, title: "Carreras"}
+                    {path: 'carrera', component: Carreras, title: "Carreras"},
+                    {path: 'cursoInfoCurso', component: CursoInfoCurso, title: "Curso e Info Curso"}
                 ]
             },
 

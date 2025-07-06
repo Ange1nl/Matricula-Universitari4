@@ -1,0 +1,114 @@
+.formulario-curso {
+  padding: 2rem;
+  background-color: #f4f6f8;
+}
+
+.formulario-curso .volver-container {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.formulario-curso .btn-accion {
+  padding: 0.6rem 1.4rem;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario-curso .btn-accion:hover {
+  background-color: #5a6268;
+}
+
+.formulario-curso .form-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+}
+
+.formulario-curso .form-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.formulario-curso .form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.formulario-curso .form-group {
+  flex: 1;
+}
+
+.formulario-curso .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.formulario-curso .form-group input,
+.formulario-curso .form-group select {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.formulario-curso .btn-submit {
+  display: block;
+  margin: 1.5rem auto;
+  background-color: #007bff;
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.formulario-curso .btn-submit:hover {
+  background-color: #0056b3;
+}
+
+.formulario-curso .tabla-curso {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+
+.formulario-curso .tabla-curso th,
+.formulario-curso .tabla-curso td {
+  padding: 0.9rem 1.2rem;
+  text-align: left;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.formulario-curso .tabla-curso th {
+  background-color: #f5f5f5; /* Azul claro, elegante */
+  color: #333333;
+  font-weight: 600;
+}
+
+.formulario-curso .tabla-curso tbody tr:hover {
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
