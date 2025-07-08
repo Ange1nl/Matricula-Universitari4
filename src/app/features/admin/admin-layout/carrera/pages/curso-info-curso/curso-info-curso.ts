@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarreraService } from '../../services/carrera.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Carrera } from '../../models/carrera';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CursoInfocursoService } from '../../services/curso-infocurso.service';
@@ -11,11 +11,25 @@ import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-resp
 
 @Component({
   selector: 'app-curso-info-curso',
-  imports: [RouterLink,CommonModule,ReactiveFormsModule,AsyncPipe],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule, AsyncPipe],
   templateUrl: './curso-info-curso.html',
   styleUrl: './curso-info-curso.css'
 })
 export class CursoInfoCurso {
+
+  protected carreras: Carrera[] = []; // <- array auxiliar para .find()
+  protected carreras$!: Observable<Carrera[]>;//Para el get
+
+  //La parte del backend para listar esta bien , porque para inicializar con datos el behaviro Subject , se inicializo co datos , de la database 
+  private cursosSubject = new BehaviorSubject<CursoInfoCursoResponseModels[]>([]); //Lo inicializo con un array vacio , cuando inserto un valor , todos los que estan suscrito a ese BehaviorSubject recien automaticamente el nuevo valor
+  protected cursoInfoCursoResponse$ = this.cursosSubject.asObservable(); //Al tener .asObservable(), puedes usar | async en el HTML sin preocuparte por el subscribe().
+
+  /*BehaviorSubject es como una caja que siempre guarda el último valor enviado.
+  Cuando tú (el componente) te suscribes, recibes automáticamente el último valor guardado.Si cambias algo (por ejemplo, agregas un curso), solo haces .next(nuevosDatos) y todos los que están mirando esa "caja" verán el cambio al instante.
+  Esto evita volver a pedir datos al servidor innecesariamente y actualiza la tabla sin recargar la página ni navegar.Ideal cuando quieres que la interfaz se mantenga actualizada en tiempo real después de un cambio.*/
+
+  protected cursosAgregados: CursoInfoCursoModels[] = [];
+
 
   private carreraServ = inject(CarreraService); //servicio de carrera
   private serv = inject(CursoInfocursoService); //servicio de CursoInfoCurso
@@ -31,10 +45,6 @@ export class CursoInfoCurso {
     tipo: ['', Validators.required]
   });
 
-  protected carreras: Carrera[] = []; // <- array auxiliar para .find()
-  protected carreras$!: Observable<Carrera[]>;//Para el get
-  protected cursoInfoCursoResponse$!: Observable<CursoInfoCursoResponseModels[]>;//Para el get
-  protected cursosAgregados: CursoInfoCursoModels[] = [];
 
   ngOnInit() {
     this.obtenerCarreras();
@@ -46,28 +56,32 @@ export class CursoInfoCurso {
   obtenerCarreras(): void {
     this.carreras$ = this.carreraServ.listar(); //Asignacion directa al observable
     this.carreras$.subscribe({
-    next: (data) => {
-      this.carreras = data; // <- necesario para obtener el nombre
-    }
-  });
+      next: (data) => {
+        this.carreras = data; // <- necesario para obtener el nombre
+      }
+    });
   }
 
   //listar Curso e info del curso
-  listarCursoInfoCurso(){
-    this.cursoInfoCursoResponse$ = this.serv.listar();
+  listarCursoInfoCurso(): void {
+    this.serv.listar().subscribe({
+      next: (data) => {
+        console.log('CURSOS:', data); // Verifica que los cursos tengan id_curso
+        this.cursosSubject.next(data);
+      }, error: (err) => console.error('Error al listar cursos:', err)
+    });
   }
 
-  guardarCurso():void{
+  guardarCurso(): void {
     if (this.formulario.invalid) return
-    {}
+    { }
 
-    const nuevo:CursoInfoCursoModels = this.formulario.value;
+    const nuevo: CursoInfoCursoModels = this.formulario.value;
 
     this.serv.insertar(nuevo).subscribe({
-      next:() => {
+      next: () => {
         this.formulario.reset();
-        this.cursoInfoCursoResponse$ = this.serv.listar(); //Al inicio se ejecuta el cursoInfoCursoResponse$ pero por como funciona el |async puede no volver a renderizar detecta que no cambio su valor y no se actuazliza  es por eso que al guardar vuelvo a llamar a ese metodo para que se muestre en la tabla mi ultimo dato
-        this.listarCursoInfoCurso();
+        this.listarCursoInfoCurso()// refresca la tabla con el nuevo
       },
       error: (err) => {
         console.error("Error al guardar el curso", err);

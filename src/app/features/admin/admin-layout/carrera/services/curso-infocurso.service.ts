@@ -15,6 +15,7 @@ export class CursoInfocursoService {
   //Para get es otra interfaz , ya que con esta interfaz mostraremos en html para poder editar y eliminar
   listar(): Observable <CursoInfoCursoResponseModels[]>{
     return this.http.get<CursoInfoCursoResponseModels[]>(`${this.URL}/listar`);
+    
   }
 
   insertar(CursoInfoCursoModels: CursoInfoCursoModels): Observable <CursoInfoCursoModels>{

@@ -2,6 +2,7 @@
   <div class="formulario-curso">
     <div class="volver-container">
       <button class="btn-accion" routerLink="/admin/carrera">Volver</button>
+      <button class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar Cursos</button>
     </div>
 
     <div class="form-container">
@@ -67,7 +68,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (curso of cursoInfoCursoResponse$ |async; track curso.id_curso) {
+          @for (curso of cursoInfoCursoResponse$ | async; track curso.id_curso) {
             <tr>
               <td>{{ curso.nombre }}</td>
               <td>{{ curso.nombreCarrera }}</td>
