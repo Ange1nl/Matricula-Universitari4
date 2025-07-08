@@ -67,10 +67,10 @@
           </tr>
         </thead>
         <tbody>
-          @for (curso of cursosAgregados; track curso.nombre) {
+          @for (curso of cursoInfoCursoResponse$ |async; track curso.id_curso) {
             <tr>
               <td>{{ curso.nombre }}</td>
-              <td>{{ obtenerNombreCarrera(curso.id_carrera) }}</td>
+              <td>{{ curso.nombreCarrera }}</td>
               <td>{{ curso.ciclo }}</td>
               <td>{{ curso.horaSemanal }}</td>
               <td>{{ curso.credito }}</td>

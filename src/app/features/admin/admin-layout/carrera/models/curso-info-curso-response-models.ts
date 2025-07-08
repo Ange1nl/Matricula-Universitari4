@@ -11,5 +11,4 @@ export interface CursoInfoCursoResponseModels {
     credito:number,
     tipo:string
 
-
 }

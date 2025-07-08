@@ -7,6 +7,7 @@ import { Carrera } from '../../models/carrera';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CursoInfocursoService } from '../../services/curso-infocurso.service';
 import { CursoInfoCursoModels } from '../../models/curso-info-curso-models';
+import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-response-models';
 
 @Component({
   selector: 'app-curso-info-curso',
@@ -32,12 +33,16 @@ export class CursoInfoCurso {
 
   protected carreras: Carrera[] = []; // <- array auxiliar para .find()
   protected carreras$!: Observable<Carrera[]>;//Para el get
+  protected cursoInfoCursoResponse$!: Observable<CursoInfoCursoResponseModels[]>;//Para el get
   protected cursosAgregados: CursoInfoCursoModels[] = [];
 
   ngOnInit() {
     this.obtenerCarreras();
+    this.listarCursoInfoCurso();
   }
 
+
+  //Para obtener las carreras
   obtenerCarreras(): void {
     this.carreras$ = this.carreraServ.listar(); //Asignacion directa al observable
     this.carreras$.subscribe({
@@ -45,6 +50,11 @@ export class CursoInfoCurso {
       this.carreras = data; // <- necesario para obtener el nombre
     }
   });
+  }
+
+  //listar Curso e info del curso
+  listarCursoInfoCurso(){
+    this.cursoInfoCursoResponse$ = this.serv.listar();
   }
 
   guardarCurso():void{
@@ -55,20 +65,15 @@ export class CursoInfoCurso {
 
     this.serv.insertar(nuevo).subscribe({
       next:() => {
-        this.cursosAgregados.push(nuevo); //al hacer push el arreglo cursosAgregados contiene el nuevo curso que el usuario acaba de enviar del formulario , esto sirve para mostrarlo mediante un for en el html y no estar volviendo a consultar al backend
         this.formulario.reset();
+        this.cursoInfoCursoResponse$ = this.serv.listar(); //Al inicio se ejecuta el cursoInfoCursoResponse$ pero por como funciona el |async puede no volver a renderizar detecta que no cambio su valor y no se actuazliza  es por eso que al guardar vuelvo a llamar a ese metodo para que se muestre en la tabla mi ultimo dato
+        this.listarCursoInfoCurso();
       },
       error: (err) => {
         console.error("Error al guardar el curso", err);
       }
     });
 
-  }
-
-
-  obtenerNombreCarrera(id:number):string{
-    const carrera = this.carreras.find(c => c.id_carrera===id);
-    return carrera ? carrera.nombreCarrera: 'Desconocido';
   }
 
 
