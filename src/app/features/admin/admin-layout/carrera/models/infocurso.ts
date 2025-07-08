@@ -1,7 +1,10 @@
+import { Curso } from "./curso";
+
 export interface Infocurso {
     id_infoCurso?:number,
-    hora_semanal:string,
+    horaSemanal:string,
     credito:number,
-    tipo:string
+    tipo:string,
+    curso:Curso
 
 }
