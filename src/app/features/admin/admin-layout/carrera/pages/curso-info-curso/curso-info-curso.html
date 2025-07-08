@@ -1,65 +1,84 @@
-<div class="formulario-curso">
-  <div class="volver-container">
-    <button class="btn-accion" routerLink="/admin/carrera">Volver</button>
+<form [formGroup]="formulario" (ngSubmit)="guardarCurso()">
+  <div class="formulario-curso">
+    <div class="volver-container">
+      <button class="btn-accion" routerLink="/admin/carrera">Volver</button>
+    </div>
+
+    <div class="form-container">
+      <div class="form-title">Agregar Curso e Información del Curso</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombreCurso">Nombre curso:</label>
+          <input type="text" id="nombreCurso" formControlName="nombre" placeholder="Ingrese el nombre del curso">
+        </div>
+       
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombreCarrera">Nombre carrera:</label>
+          <select id="nombreCarrera" formControlName="id_carrera">
+            <option value="">Seleccione una carrera</option>
+            @for (carrera of carreras$ | async; track carrera.id_carrera) {
+              <option [value]="carrera.id_carrera">{{ carrera.nombreCarrera }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="cicloCurso">Ciclo del curso:</label>
+          <input type="text" id="cicloCurso" formControlName="ciclo" placeholder="Ej: 2">
+        </div>
+
+        <!-------------------------------------->
+
+        <div class="form-group">
+          <label for="horaSemanal">Hora semanal:</label>
+          <input type="text" id="horaSemanal" formControlName="horaSemanal" placeholder="Ej: 4">
+        </div>
+
+
+        <div class="form-group">
+          <label for="credito">Crédito:</label>
+          <input type="number" id="credito" formControlName="credito" placeholder="Ej: 3">
+        </div>
+      </div>
+
+      <div class="form-row">
+        
+        <div class="form-group">
+          <label for="tipoCurso">Tipo:</label>
+          <input type="text" id="tipoCurso" formControlName="tipo" placeholder="Ej: Obligatorio">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="formulario.invalid">AGREGAR</button>
+
+      <table class="tabla-curso">
+        <thead>
+          <tr>
+            <th>Nombre Curso</th>
+            <th>Nombre Carrera</th>
+            <th>Ciclo</th>
+            <th>Hora Semanal</th>
+            <th>Crédito</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (curso of cursosAgregados; track curso.nombre) {
+            <tr>
+              <td>{{ curso.nombre }}</td>
+              <td>{{ obtenerNombreCarrera(curso.id_carrera) }}</td>
+              <td>{{ curso.ciclo }}</td>
+              <td>{{ curso.horaSemanal }}</td>
+              <td>{{ curso.credito }}</td>
+              <td>{{ curso.tipo }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
   </div>
-
-  <div class="form-container">
-    <div class="form-title">Agregar Curso e Información del Curso</div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="nombreCurso">Nombre curso:</label>
-        <input type="text" id="nombreCurso" placeholder="Ingrese el nombre del curso">
-      </div>
-      <div class="form-group">
-        <label for="horaSemanal">Hora semanal:</label>
-        <input type="text" id="horaSemanal" placeholder="Ej: 4">
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="nombreCarrera">Nombre carrera:</label>
-        <select id="nombreCarrera">
-          <option value="">Seleccione una carrera</option>
-          <option value="informatica">Informática</option>
-          <option value="sistemas">Sistemas</option>
-          <option value="electronica">Electrónica</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="credito">Crédito:</label>
-        <input type="number" id="credito" placeholder="Ej: 3">
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label for="cicloCurso">Ciclo del curso:</label>
-        <input type="text" id="cicloCurso" placeholder="Ej: 2">
-      </div>
-      <div class="form-group">
-        <label for="tipoCurso">Tipo:</label>
-        <input type="text" id="tipoCurso" placeholder="Ej: Obligatorio">
-      </div>
-    </div>
-
-    <button class="btn-submit">AGREGAR</button>
-
-    <table class="tabla-curso">
-      <thead>
-        <tr>
-          <th>Nombre Curso</th>
-          <th>Nombre Carrera</th>
-          <th>Ciclo</th>
-          <th>Hora Semanal</th>
-          <th>Crédito</th>
-          <th>Tipo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Aquí se insertarán las filas -->
-      </tbody>
-    </table>
-  </div>
-</div>
+</form>

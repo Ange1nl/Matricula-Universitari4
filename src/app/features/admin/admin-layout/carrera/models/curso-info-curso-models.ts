@@ -1,4 +1,4 @@
-export interface CursoInfoCurso {
+export interface CursoInfoCursoModels {
     //curso
     nombre:string,
     ciclo:number,
