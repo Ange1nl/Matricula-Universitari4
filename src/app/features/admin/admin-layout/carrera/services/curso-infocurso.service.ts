@@ -15,13 +15,19 @@ export class CursoInfocursoService {
   //Para get es otra interfaz , ya que con esta interfaz mostraremos en html para poder editar y eliminar
   listar(): Observable <CursoInfoCursoResponseModels[]>{
     return this.http.get<CursoInfoCursoResponseModels[]>(`${this.URL}/listar`);
-    
   }
 
-  insertar(CursoInfoCursoModels: CursoInfoCursoModels): Observable <CursoInfoCursoModels>{
-    return this.http.post<CursoInfoCursoModels>(`${this.URL}/completo`,CursoInfoCursoModels);
+  //Para insertar se ponen 2 interfaces , para enviar datos con esta interfaz "CursoInfoCursoModels" y el servidor responde con esta interfaz "CursoInfoCursoResponseModels" que incluye los ids y nombres de carrera
+  insertar(CursoInfoCursoModels: CursoInfoCursoModels): Observable <CursoInfoCursoResponseModels>{
+    return this.http.post<CursoInfoCursoResponseModels>(`${this.URL}/completo`,CursoInfoCursoModels);
   }
 
+  editar(id: number, data: CursoInfoCursoModels): Observable <CursoInfoCursoResponseModels>{
+    return this.http.put<CursoInfoCursoResponseModels>(`${this.URL}/editar/${id}`, data);
+  }
 
+  eliminar(id: number): Observable<CursoInfoCursoResponseModels> {
+    return this.http.delete<CursoInfoCursoResponseModels>(`${this.URL}/eliminar/${id}`);
+  }
 
 }

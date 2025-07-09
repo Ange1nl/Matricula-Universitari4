@@ -1,8 +1,10 @@
 <form [formGroup]="formulario" (ngSubmit)="guardarCurso()">
   <div class="formulario-curso">
     <div class="volver-container">
-      <button class="btn-accion" routerLink="/admin/carrera">Volver</button>
-      <button class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar Cursos</button>
+      <button type="button" class="btn-accion" routerLink="/admin/carrera">Volver</button>
+      <button type="button" class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar
+        Cursos</button>
+      <!--Agregamos el type="button" porque como esta dentro del form ponemos que esto es de tipo button y evitar que vuelva a ejecutar el guardarCurso() -->
     </div>
 
     <div class="form-container">
@@ -13,7 +15,7 @@
           <label for="nombreCurso">Nombre curso:</label>
           <input type="text" id="nombreCurso" formControlName="nombre" placeholder="Ingrese el nombre del curso">
         </div>
-       
+
       </div>
 
       <div class="form-row">
@@ -22,7 +24,7 @@
           <select id="nombreCarrera" formControlName="id_carrera">
             <option value="">Seleccione una carrera</option>
             @for (carrera of carreras$ | async; track carrera.id_carrera) {
-              <option [value]="carrera.id_carrera">{{ carrera.nombreCarrera }}</option>
+            <option [value]="carrera.id_carrera">{{ carrera.nombreCarrera }}</option>
             }
           </select>
         </div>
@@ -47,7 +49,7 @@
       </div>
 
       <div class="form-row">
-        
+
         <div class="form-group">
           <label for="tipoCurso">Tipo:</label>
           <input type="text" id="tipoCurso" formControlName="tipo" placeholder="Ej: Obligatorio">
@@ -65,18 +67,23 @@
             <th>Hora Semanal</th>
             <th>Crédito</th>
             <th>Tipo</th>
+            <th>Accion</th>
           </tr>
         </thead>
         <tbody>
           @for (curso of cursoInfoCursoResponse$ | async; track curso.id_curso) {
-            <tr>
-              <td>{{ curso.nombre }}</td>
-              <td>{{ curso.nombreCarrera }}</td>
-              <td>{{ curso.ciclo }}</td>
-              <td>{{ curso.horaSemanal }}</td>
-              <td>{{ curso.credito }}</td>
-              <td>{{ curso.tipo }}</td>
-            </tr>
+          <tr>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.nombreCarrera }}</td>
+            <td>{{ curso.ciclo }}</td>
+            <td>{{ curso.horaSemanal }}</td>
+            <td>{{ curso.credito }}</td>
+            <td>{{ curso.tipo }}</td>
+            <td>
+              <button class="btn-accion editar" (click)="editarCurso(curso)">Editar</button>
+              <button class="btn-accion eliminar" (click)="eliminarCurso(curso.id_curso)">Eliminar</button>
+            </td>
+          </tr>
           }
         </tbody>
       </table>

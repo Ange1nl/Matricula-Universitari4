@@ -17,7 +17,6 @@ import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-resp
 })
 export class CursoInfoCurso {
 
-  protected carreras: Carrera[] = []; // <- array auxiliar para .find()
   protected carreras$!: Observable<Carrera[]>;//Para el get
 
   //La parte del backend para listar esta bien , porque para inicializar con datos el behaviro Subject , se inicializo co datos , de la database 
@@ -27,8 +26,6 @@ export class CursoInfoCurso {
   /*BehaviorSubject es como una caja que siempre guarda el último valor enviado.
   Cuando tú (el componente) te suscribes, recibes automáticamente el último valor guardado.Si cambias algo (por ejemplo, agregas un curso), solo haces .next(nuevosDatos) y todos los que están mirando esa "caja" verán el cambio al instante.
   Esto evita volver a pedir datos al servidor innecesariamente y actualiza la tabla sin recargar la página ni navegar.Ideal cuando quieres que la interfaz se mantenga actualizada en tiempo real después de un cambio.*/
-
-  protected cursosAgregados: CursoInfoCursoModels[] = [];
 
 
   private carreraServ = inject(CarreraService); //servicio de carrera
@@ -45,6 +42,13 @@ export class CursoInfoCurso {
     tipo: ['', Validators.required]
   });
 
+  get nombre(){return this.formulario.get('nombre');}
+  get id_carrera(){return this.formulario.get('id_carrera');}
+  get ciclo(){return this.formulario.get('ciclo');}
+  get horaSemanal(){return this.formulario.get('horaSemanal');}
+  get credito(){return this.formulario.get('credito');}
+  get tipo(){return this.formulario.get('tipo');}
+
 
   ngOnInit() {
     this.obtenerCarreras();
@@ -55,11 +59,6 @@ export class CursoInfoCurso {
   //Para obtener las carreras
   obtenerCarreras(): void {
     this.carreras$ = this.carreraServ.listar(); //Asignacion directa al observable
-    this.carreras$.subscribe({
-      next: (data) => {
-        this.carreras = data; // <- necesario para obtener el nombre
-      }
-    });
   }
 
   //listar Curso e info del curso
@@ -73,15 +72,20 @@ export class CursoInfoCurso {
   }
 
   guardarCurso(): void {
-    if (this.formulario.invalid) return
-    { }
+    if (this.formulario.invalid) return;
 
     const nuevo: CursoInfoCursoModels = this.formulario.value;
 
     this.serv.insertar(nuevo).subscribe({
-      next: () => {
+      next: (nuevoCursoDesdeBackend: CursoInfoCursoResponseModels) => { //El backend responde
+        //Actualiza la tabla solo con el nuevo curso , sin necesidad de estar haciendo otro get
+        //Obtiene la lista completo de cursos
+        const actual = this.cursosSubject.value;
+        //Emite este nuevo array actualizado con el nuevo curso |  Crea un array que contiene todo los cursos anteriores mas el nuevo curso que se acaba de insertar
+        this.cursosSubject.next([...actual, nuevoCursoDesdeBackend]);
         this.formulario.reset();
-        this.listarCursoInfoCurso()// refresca la tabla con el nuevo
+
+        //this.listarCursoInfoCurso()// refresca la tabla con el nuevo
       },
       error: (err) => {
         console.error("Error al guardar el curso", err);
@@ -90,5 +94,37 @@ export class CursoInfoCurso {
 
   }
 
+
+
+  editarCurso(curso:CursoInfoCursoResponseModels){
+    this.formulario.patchValue({
+      nombre: curso.nombre,
+      id_carrera: curso.id_carrera,
+      ciclo: curso.ciclo,
+      horaSemanal: curso.horaSemanal,
+      credito: curso.credito,
+      tipo: curso.tipo
+    });
+
+    //this.editandoId = curso.id_curso;
+  }
+
+
+  eliminarCurso(id_curso: number){
+    if (confirm ('¿Estas seguro que deseas eliminar este curso?')) {
+      this.serv.eliminar(id_curso).subscribe({
+        next: () => {
+          //Obtiene todo el array completo de cursos hasta ese momento
+          const actual  = this.cursosSubject.value;
+          //Remueve el curso con el id_curso mandado por el usuario
+          const actualizado = actual.filter(curso => curso.id_curso !== id_curso);
+          this.cursosSubject.next(actualizado);
+        },
+        error: (err) => {
+          console.log('Error al eliminar un curso:', err);
+        }
+      });
+    }
+  }
 
 }
