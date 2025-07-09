@@ -18,6 +18,7 @@ export class CursoInfocursoService {
   }
 
   //Para insertar se ponen 2 interfaces , para enviar datos con esta interfaz "CursoInfoCursoModels" y el servidor responde con esta interfaz "CursoInfoCursoResponseModels" que incluye los ids y nombres de carrera
+  //de hecho me devuelve en "CursoInfoCursoResponseModels" pero no me sirve aca , porque no lo utilizo en mi componente , lo que hago es volver a llamar al get
   insertar(CursoInfoCursoModels: CursoInfoCursoModels): Observable <CursoInfoCursoResponseModels>{
     return this.http.post<CursoInfoCursoResponseModels>(`${this.URL}/completo`,CursoInfoCursoModels);
   }

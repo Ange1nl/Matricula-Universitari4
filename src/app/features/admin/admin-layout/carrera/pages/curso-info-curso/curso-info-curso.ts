@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarreraService } from '../../services/carrera.service';
@@ -42,12 +42,12 @@ export class CursoInfoCurso {
     tipo: ['', Validators.required]
   });
 
-  get nombre(){return this.formulario.get('nombre');}
-  get id_carrera(){return this.formulario.get('id_carrera');}
-  get ciclo(){return this.formulario.get('ciclo');}
-  get horaSemanal(){return this.formulario.get('horaSemanal');}
-  get credito(){return this.formulario.get('credito');}
-  get tipo(){return this.formulario.get('tipo');}
+  get nombre() { return this.formulario.get('nombre'); }
+  get id_carrera() { return this.formulario.get('id_carrera'); }
+  get ciclo() { return this.formulario.get('ciclo'); }
+  get horaSemanal() { return this.formulario.get('horaSemanal'); }
+  get credito() { return this.formulario.get('credito'); }
+  get tipo() { return this.formulario.get('tipo'); }
 
 
   ngOnInit() {
@@ -55,68 +55,90 @@ export class CursoInfoCurso {
     this.listarCursoInfoCurso();
   }
 
+  protected editandoId: number | null = null;
+
+  private resetFormulario(): void {
+    this.formulario.reset();
+    this.editandoId = null;
+  }
 
   //Para obtener las carreras
   obtenerCarreras(): void {
     this.carreras$ = this.carreraServ.listar(); //Asignacion directa al observable
   }
 
-  //listar Curso e info del curso
+  //listar Curso e info del curso, podria hacerlo con el $ pero carga de forma brusca , por eso use el use el BehaviorSubject para que se cree un array y carge en la vista del navegador mas ligero , cuando se hace get , post y put
   listarCursoInfoCurso(): void {
+    //this.cursoInfoCursoResponse$ = this.serv.listar();
     this.serv.listar().subscribe({
       next: (data) => {
-        console.log('CURSOS:', data); // Verifica que los cursos tengan id_curso
-        this.cursosSubject.next(data);
+        this.cursosSubject.next(data); //La data capturada lo pongo en cursosSubject
       }, error: (err) => console.error('Error al listar cursos:', err)
     });
   }
 
+
+  //-------Captura el curso y los coloca en los inputs los datos----
+  editarCurso(curso: CursoInfoCursoResponseModels) {
+    this.editandoId = curso.id_curso;
+
+    this.formulario.reset(); // Limpia completamente el formulario, si en caso doy click a otra fila editar , limpia el formulario anterior
+
+    setTimeout(() => { //El setTimeOut retrasa la ejecucion del codigo hasta que angular haya terminado de procesar el ciclo actual de cambios
+      this.formulario.patchValue({
+        nombre: curso.nombre,
+        id_carrera: curso.id_carrera,
+        ciclo: curso.ciclo,
+        horaSemanal: curso.horaSemanal,
+        credito: curso.credito,
+        tipo: curso.tipo
+      });
+    }, 0);
+
+  }
+
+
   guardarCurso(): void {
     if (this.formulario.invalid) return;
 
-    const nuevo: CursoInfoCursoModels = this.formulario.value;
+    const data: CursoInfoCursoModels = this.formulario.value;
 
-    this.serv.insertar(nuevo).subscribe({
-      next: (nuevoCursoDesdeBackend: CursoInfoCursoResponseModels) => { //El backend responde
-        //Actualiza la tabla solo con el nuevo curso , sin necesidad de estar haciendo otro get
-        //Obtiene la lista completo de cursos
-        const actual = this.cursosSubject.value;
-        //Emite este nuevo array actualizado con el nuevo curso |  Crea un array que contiene todo los cursos anteriores mas el nuevo curso que se acaba de insertar
-        this.cursosSubject.next([...actual, nuevoCursoDesdeBackend]);
-        this.formulario.reset();
+    if (this.editandoId != null) {
+      // Modo edición
+      this.serv.editar(this.editandoId, data).subscribe({
+        next: () => {
+          this.resetFormulario();
+          this.listarCursoInfoCurso();
+        },
+        error: (err) => {
+          console.error("Error al editar el curso:", err);
+        }
+      });
 
-        //this.listarCursoInfoCurso()// refresca la tabla con el nuevo
-      },
-      error: (err) => {
-        console.error("Error al guardar el curso", err);
-      }
-    });
+    } else {
+      this.serv.insertar(data).subscribe({
+        next: () => {
+          this.resetFormulario();
+          this.listarCursoInfoCurso();
+        },
+        error: (err) => {
+          console.error("Error al guardar el curso", err);
+        }
+      });
+    }
 
   }
 
 
-
-  editarCurso(curso:CursoInfoCursoResponseModels){
-    this.formulario.patchValue({
-      nombre: curso.nombre,
-      id_carrera: curso.id_carrera,
-      ciclo: curso.ciclo,
-      horaSemanal: curso.horaSemanal,
-      credito: curso.credito,
-      tipo: curso.tipo
-    });
-
-    //this.editandoId = curso.id_curso;
-  }
-
-
-  eliminarCurso(id_curso: number){
-    if (confirm ('¿Estas seguro que deseas eliminar este curso?')) {
+  eliminarCurso(id_curso: number) {
+    if (confirm('¿Estas seguro que deseas eliminar este curso?')) {
       this.serv.eliminar(id_curso).subscribe({
         next: () => {
           //Obtiene todo el array completo de cursos hasta ese momento
-          const actual  = this.cursosSubject.value;
-          //Remueve el curso con el id_curso mandado por el usuario
+          const actual = this.cursosSubject.value;
+          //Se crea un nuevo array excluyendo el curso cuyo id_curso coincide con el que se quiere eliminar.
+          //filter() recorre el array y devuelve todos los cursos excepto el que tenga ese id_curso.
+          //Así se "elimina" visualmente ese curso en la vista.
           const actualizado = actual.filter(curso => curso.id_curso !== id_curso);
           this.cursosSubject.next(actualizado);
         },
