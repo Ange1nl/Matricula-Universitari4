@@ -55,11 +55,6 @@ export class CursoInfoCurso {
   //Para obtener las carreras
   obtenerCarreras(): void {
     this.carreras$ = this.carreraServ.listar(); //Asignacion directa al observable
-    this.carreras$.subscribe({
-      next: (data) => {
-        this.carreras = data; // <- necesario para obtener el nombre
-      }
-    });
   }
 
   //listar Curso e info del curso
@@ -73,15 +68,19 @@ export class CursoInfoCurso {
   }
 
   guardarCurso(): void {
-    if (this.formulario.invalid) return
-    { }
+    if (this.formulario.invalid) return;
 
     const nuevo: CursoInfoCursoModels = this.formulario.value;
 
     this.serv.insertar(nuevo).subscribe({
-      next: () => {
+      next: (nuevoCursoDesdeBackend: CursoInfoCursoResponseModels) => {
+        // Agrega el nuevo curso directamente a la lista actual con los IDs y nombreCarrera correctos
+        //Actualiza la tabla solo con el nuevo curso , sin necesidad de estar haciendo otro get
+        const actual = this.cursosSubject.value;
+        this.cursosSubject.next([...actual, nuevoCursoDesdeBackend]);
         this.formulario.reset();
-        this.listarCursoInfoCurso()// refresca la tabla con el nuevo
+
+        //this.listarCursoInfoCurso()// refresca la tabla con el nuevo
       },
       error: (err) => {
         console.error("Error al guardar el curso", err);

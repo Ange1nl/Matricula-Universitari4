@@ -1,8 +1,8 @@
 <form [formGroup]="formulario" (ngSubmit)="guardarCurso()">
   <div class="formulario-curso">
     <div class="volver-container">
-      <button class="btn-accion" routerLink="/admin/carrera">Volver</button>
-      <button class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar Cursos</button>
+      <button type="button" class="btn-accion" routerLink="/admin/carrera">Volver</button>
+      <button type="button" class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar Cursos</button> <!--Agregamos el type="button" porque como esta dentro del form ponemos que esto es de tipo button y evitar que vuelva a ejecutar el guardarCurso() -->
     </div>
 
     <div class="form-container">
