@@ -17,7 +17,6 @@ import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-resp
 })
 export class CursoInfoCurso {
 
-  protected carreras: Carrera[] = []; // <- array auxiliar para .find()
   protected carreras$!: Observable<Carrera[]>;//Para el get
 
   //La parte del backend para listar esta bien , porque para inicializar con datos el behaviro Subject , se inicializo co datos , de la database 
@@ -44,6 +43,13 @@ export class CursoInfoCurso {
     credito: [null, [Validators.required, Validators.min(1)]],
     tipo: ['', Validators.required]
   });
+
+  get nombre(){return this.formulario.get('nombre');}
+  get id_carrera(){return this.formulario.get('id_carrera');}
+  get ciclo(){return this.formulario.get('ciclo');}
+  get horaSemanal(){return this.formulario.get('horaSemanal');}
+  get credito(){return this.formulario.get('credito');}
+  get tipo(){return this.formulario.get('tipo');}
 
 
   ngOnInit() {
@@ -91,13 +97,35 @@ export class CursoInfoCurso {
 
 
 
-  editarCurso(){
+  editarCurso(curso:CursoInfoCursoResponseModels){
+    this.formulario.patchValue({
+      nombre: curso.nombre,
+      id_carrera: curso.id_carrera,
+      ciclo: curso.ciclo,
+      horaSemanal: curso.horaSemanal,
+      credito: curso.credito,
+      tipo: curso.tipo
+    });
 
+    //this.editandoId = curso.id_curso;
   }
 
 
-  eliminarCurso(){
-    
+  eliminarCurso(id_curso: number){
+    if (confirm ('¿Estas seguro que deseas eliminar este curso?')) {
+      this.serv.eliminar(id_curso).subscribe({
+        next: () => {
+          //Obtiene todo el array completo de cursos hasta ese momento
+          const actual  = this.cursosSubject.value;
+          //Remueve el curso con el id_curso mandado por el usuario
+          const actualizado = actual.filter(curso => curso.id_curso !== id_curso);
+          this.cursosSubject.next(actualizado);
+        },
+        error: (err) => {
+          console.log('Error al eliminar un curso:', err);
+        }
+      });
+    }
   }
 
 }
