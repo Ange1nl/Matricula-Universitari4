@@ -27,8 +27,6 @@ export class CursoInfoCurso {
   Cuando tú (el componente) te suscribes, recibes automáticamente el último valor guardado.Si cambias algo (por ejemplo, agregas un curso), solo haces .next(nuevosDatos) y todos los que están mirando esa "caja" verán el cambio al instante.
   Esto evita volver a pedir datos al servidor innecesariamente y actualiza la tabla sin recargar la página ni navegar.Ideal cuando quieres que la interfaz se mantenga actualizada en tiempo real después de un cambio.*/
 
-  protected cursosAgregados: CursoInfoCursoModels[] = [];
-
 
   private carreraServ = inject(CarreraService); //servicio de carrera
   private serv = inject(CursoInfocursoService); //servicio de CursoInfoCurso
@@ -79,10 +77,11 @@ export class CursoInfoCurso {
     const nuevo: CursoInfoCursoModels = this.formulario.value;
 
     this.serv.insertar(nuevo).subscribe({
-      next: (nuevoCursoDesdeBackend: CursoInfoCursoResponseModels) => {
-        // Agrega el nuevo curso directamente a la lista actual con los IDs y nombreCarrera correctos
+      next: (nuevoCursoDesdeBackend: CursoInfoCursoResponseModels) => { //El backend responde
         //Actualiza la tabla solo con el nuevo curso , sin necesidad de estar haciendo otro get
+        //Obtiene la lista completo de cursos
         const actual = this.cursosSubject.value;
+        //Emite este nuevo array actualizado con el nuevo curso |  Crea un array que contiene todo los cursos anteriores mas el nuevo curso que se acaba de insertar
         this.cursosSubject.next([...actual, nuevoCursoDesdeBackend]);
         this.formulario.reset();
 
