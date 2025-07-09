@@ -90,4 +90,14 @@ export class CursoInfoCurso {
   }
 
 
+
+  editarCurso(){
+
+  }
+
+
+  eliminarCurso(){
+    
+  }
+
 }
