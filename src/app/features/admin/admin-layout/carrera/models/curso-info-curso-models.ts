@@ -1,4 +1,3 @@
-import { Carrera } from "./carrera"
 
 export interface CursoInfoCursoModels {
     //curso

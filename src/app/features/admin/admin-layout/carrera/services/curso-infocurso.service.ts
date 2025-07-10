@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CursoInfoCursoModels } from '../models/curso-info-curso-models';
 import { CursoInfoCursoResponseModels } from '../models/curso-info-curso-response-models';
+import { Curso } from '../models/curso';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,11 @@ export class CursoInfocursoService {
 
   filtrarPorCarrera(idCarrera: number): Observable<CursoInfoCursoResponseModels[]> {
     return this.http.get<CursoInfoCursoResponseModels[]>(`${this.URL}/filtrar/${idCarrera}`);
+  }
+
+  //Para listar solo Curso , que sera llamado en la interfaz desde la interfaz Seccion , porque el formulario de seccion ,agrega curso
+  listarCurso(): Observable <Curso[]>{
+    return this.http.get<Curso[]>(`${this.URL}`);
   }
 
 

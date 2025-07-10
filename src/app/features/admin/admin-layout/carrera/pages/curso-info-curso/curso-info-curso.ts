@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarreraService } from '../../services/carrera.service';
@@ -8,6 +8,7 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { CursoInfocursoService } from '../../services/curso-infocurso.service';
 import { CursoInfoCursoModels } from '../../models/curso-info-curso-models';
 import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-response-models';
+import { Curso } from '../../models/curso';
 
 @Component({
   selector: 'app-curso-info-curso',
@@ -18,6 +19,7 @@ import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-resp
 export class CursoInfoCurso {
 
   protected carreras$!: Observable<Carrera[]>;
+  protected curso$!: Observable<Curso[]>;
 
   //La parte del backend para listar , porque para inicializar con datos el behaviro Subject , se inicializo con datos , de la database 
   private cursosSubject = new BehaviorSubject<CursoInfoCursoResponseModels[]>([]); //Lo inicializo con un array vacio , cuando inserto un valor , todos los que estan suscrito a ese BehaviorSubject recien automaticamente el nuevo valor
@@ -26,12 +28,9 @@ export class CursoInfoCurso {
   /*BehaviorSubject es como una caja que siempre guarda el último valor enviado.Cuando (el componente) te suscribes, recibes automáticamente el último valor guardado.Si cambias algo (por ejemplo, agregas un curso), solo haces .next(nuevosDatos) y todos los que están mirando esa "caja" verán el cambio al instante.
   Esto evita volver a pedir datos al servidor innecesariamente y actualiza la tabla sin recargar la página ni navegar.Ideal cuando quieres que la interfaz se mantenga actualizada en tiempo real después de un cambio.*/
 
-
   private carreraServ = inject(CarreraService);
   private serv = inject(CursoInfocursoService);
   private fb = inject(FormBuilder);
-
-
 
   // Este FormGroup define todas las validaciones.
   // Estas validaciones controlan tanto: el estado del botón (si el formulario es válido) y Los mensajes en el HTML, mediante los getters (como nombre.hasError('required'))
@@ -64,6 +63,11 @@ export class CursoInfoCurso {
   private resetFormulario(): void {
     this.formulario.reset();
     this.editandoId = null;
+  }
+
+  //Obtener los cursos
+  obtenerCursos(): void{
+    this.curso$ = this.serv.listarCurso();
   }
 
   //Para obtener las carreras
@@ -102,6 +106,7 @@ export class CursoInfoCurso {
 
 
   guardarCurso(): void {
+
     if (this.formulario.invalid) {
       if (this.formulario.invalid) {
         this.formulario.markAllAsTouched(); // <-- importante para mostrar errores de los inputs
@@ -121,7 +126,7 @@ export class CursoInfoCurso {
         error: (err) => {
           console.error("Error al editar el curso:", err);
           if (err.status === 400 && err.error) {
-            const errores = err.error; // JSON: { nombre_carrera: "Mensaje de error..." }
+            const errores = err.error; 
 
             for (const campo in errores) {
               const control = this.formulario.get(campo); // Busca el campo correspondiente en el formulario
@@ -141,7 +146,7 @@ export class CursoInfoCurso {
         error: (err) => {
           console.error("Error al guardar el curso", err);
           if (err.status === 400 && err.error) {
-            const errores = err.error; // JSON: { nombre_carrera: "Mensaje de error..." }
+            const errores = err.error;
 
             for (const campo in errores) {
               const control = this.formulario.get(campo); // Busca el campo correspondiente en el formulario
