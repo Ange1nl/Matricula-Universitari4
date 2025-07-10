@@ -1,3 +1,9 @@
+.error {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 0.3rem;
+}
+
 .formulario-curso {
   padding: 2rem;
   background-color: #f4f6f8;
@@ -100,6 +106,19 @@
 .btn-submit:hover {
   background-color: #019875;
   transform: scale(1.03);
+}
+
+/* Hover solo cuando está habilitado */
+.btn-submit:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+/* Estado deshabilitado */
+.btn-submit:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* Tabla responsiva */

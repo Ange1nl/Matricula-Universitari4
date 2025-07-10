@@ -23,8 +23,9 @@ export class CursoInfocursoService {
     return this.http.post<CursoInfoCursoResponseModels>(`${this.URL}/completo`,CursoInfoCursoModels);
   }
 
-  editar(id: number, data: CursoInfoCursoModels): Observable <CursoInfoCursoResponseModels>{
-    return this.http.put<CursoInfoCursoResponseModels>(`${this.URL}/editar/${id}`, data);
+  //Aca en editar no es importante que me devuelva el id_curso porque ya esta capturado cuando se inserto , en el componente lo vuelve a capturar mediante el formulario reactivo y se actualiza
+  editar(id: number, data: CursoInfoCursoModels): Observable <any>{
+    return this.http.put<any>(`${this.URL}/editar/${id}`, data);
   }
 
   eliminar(id: number): Observable<CursoInfoCursoResponseModels> {

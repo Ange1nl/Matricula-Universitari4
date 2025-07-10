@@ -19,7 +19,7 @@ export class CursoInfoCurso {
 
   protected carreras$!: Observable<Carrera[]>;//Para el get
 
-  //La parte del backend para listar esta bien , porque para inicializar con datos el behaviro Subject , se inicializo co datos , de la database 
+  //La parte del backend para listar esta bien , porque para inicializar con datos el behaviro Subject , se inicializo con datos , de la database 
   private cursosSubject = new BehaviorSubject<CursoInfoCursoResponseModels[]>([]); //Lo inicializo con un array vacio , cuando inserto un valor , todos los que estan suscrito a ese BehaviorSubject recien automaticamente el nuevo valor
   protected cursoInfoCursoResponse$ = this.cursosSubject.asObservable(); //Al tener .asObservable(), puedes usar | async en el HTML sin preocuparte por el subscribe().
 
@@ -35,7 +35,7 @@ export class CursoInfoCurso {
 
   protected formulario: FormGroup = this.fb.group({
     nombre: ['', Validators.required],
-    id_carrera: ['', Validators.required],
+    id_carrera: [null, Validators.required],
     ciclo: [null, [Validators.required, Validators.min(1)]],
     horaSemanal: ['', Validators.required],
     credito: [null, [Validators.required, Validators.min(1)]],
@@ -69,10 +69,9 @@ export class CursoInfoCurso {
 
   //listar Curso e info del curso, podria hacerlo con el $ pero carga de forma brusca , por eso use el use el BehaviorSubject para que se cree un array y carge en la vista del navegador mas ligero , cuando se hace get , post y put
   listarCursoInfoCurso(): void {
-    //this.cursoInfoCursoResponse$ = this.serv.listar();
     this.serv.listar().subscribe({
       next: (data) => {
-        this.cursosSubject.next(data); //La data capturada lo pongo en cursosSubject
+        this.cursosSubject.next(data); // ---------Después de insertar o editar, se vuelve a hacer un GET y se actualiza cursosSubject con todos los cursos, incluyendo los cambios recientes, por eso es importante mandarle el id_curso para que lo agrege a la nueva lista y se muestre en la tabla------
       }, error: (err) => console.error('Error al listar cursos:', err)
     });
   }
@@ -112,6 +111,16 @@ export class CursoInfoCurso {
         },
         error: (err) => {
           console.error("Error al editar el curso:", err);
+          if (err.status === 400 && err.error) {
+            const errores = err.error; // JSON: { nombre_carrera: "Mensaje de error..." }
+
+            for (const campo in errores) {
+              const control = this.formulario.get(campo); // Busca el campo correspondiente en el formulario
+              if (control) {
+                control.setErrors({ backend: errores[campo] }); // Asigna el mensaje como error personalizado
+              }
+            }
+          }
         }
       });
 
@@ -123,6 +132,16 @@ export class CursoInfoCurso {
         },
         error: (err) => {
           console.error("Error al guardar el curso", err);
+          if (err.status === 400 && err.error) {
+            const errores = err.error; // JSON: { nombre_carrera: "Mensaje de error..." }
+
+            for (const campo in errores) {
+              const control = this.formulario.get(campo); // Busca el campo correspondiente en el formulario
+              if (control) {
+                control.setErrors({ backend: errores[campo] }); // Asigna el mensaje como error personalizado
+              }
+            }
+          }
         }
       });
     }

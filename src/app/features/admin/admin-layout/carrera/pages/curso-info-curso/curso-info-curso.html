@@ -2,7 +2,8 @@
   <div class="formulario-curso">
     <div class="volver-container">
       <button type="button" class="btn-accion" routerLink="/admin/carrera">Volver</button>
-      <button type="button" class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar Cursos</button>
+      <button type="button" class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar
+        Cursos</button>
     </div>
 
     <div class="form-container">
@@ -14,6 +15,11 @@
           <div class="form-group">
             <label for="nombreCurso">Nombre curso:</label>
             <input type="text" id="nombreCurso" formControlName="nombre" placeholder="Ingrese el nombre del curso">
+            @if (formulario.get('nombre')?.errors?.['backend']) {
+            <div class="error">
+              {{ formulario.get('nombre')?.errors?.['backend'] }}
+            </div>
+            }
           </div>
 
           <div class="form-group">
@@ -24,11 +30,21 @@
               <option [value]="carrera.id_carrera">{{ carrera.nombreCarrera }}</option>
               }
             </select>
+            @if (formulario.get('id_carrera')?.errors?.['backend']) {
+            <div class="error">
+              {{ formulario.get('id_carrera')?.errors?.['backend'] }}
+            </div>
+            }
           </div>
 
           <div class="form-group">
             <label for="cicloCurso">Ciclo del curso:</label>
             <input type="text" id="cicloCurso" formControlName="ciclo" placeholder="Ej: 2">
+            @if (formulario.get('ciclo')?.errors?.['backend']) {
+            <div class="error">
+              {{ formulario.get('ciclo')?.errors?.['backend'] }}
+            </div>
+            }
           </div>
         </div>
 
@@ -37,16 +53,31 @@
           <div class="form-group">
             <label for="horaSemanal">Hora semanal:</label>
             <input type="text" id="horaSemanal" formControlName="horaSemanal" placeholder="Ej: 4">
+            @if (formulario.get('horaSemanal')?.errors?.['backend']) {
+            <div class="error">
+              {{ formulario.get('horaSemanal')?.errors?.['backend'] }}
+            </div>
+            }
           </div>
 
           <div class="form-group">
             <label for="credito">Crédito:</label>
             <input type="number" id="credito" formControlName="credito" placeholder="Ej: 3">
+            @if (formulario.get('credito')?.errors?.['backend']) {
+            <div class="error">
+              {{ formulario.get('credito')?.errors?.['backend'] }}
+            </div>
+            }
           </div>
 
           <div class="form-group">
             <label for="tipoCurso">Tipo:</label>
             <input type="text" id="tipoCurso" formControlName="tipo" placeholder="Ej: Obligatorio">
+            @if (formulario.get('tipo')?.errors?.['backend']) {
+            <div class="error">
+              {{ formulario.get('tipo')?.errors?.['backend'] }}
+            </div>
+            }
           </div>
         </div>
       </div>
@@ -67,7 +98,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (curso of cursoInfoCursoResponse$ | async; track curso.id_curso) {
+            @for (curso of cursoInfoCursoResponse$ | async; track curso.id_curso) { <!--"ESTO LE DICE Por favor Angular, si cambia algo en la lista de cursos, no redibujes toda la tabla, solo redibuja lo que cambió. Y para saber qué cambió, usa el id_curso."-->
             <tr>
               <td>{{ curso.nombre }}</td>
               <td>{{ curso.nombreCarrera }}</td>
