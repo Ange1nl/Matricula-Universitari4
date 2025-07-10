@@ -6,10 +6,11 @@ import { Docente } from '../../../docente/models/docente';
 import { Observable } from 'rxjs';
 import { CursoInfocursoService } from '../../../carrera/services/curso-infocurso.service';
 import { Curso } from '../../../carrera/models/curso';
+import { SeccionService } from '../../services/seccion.service';
 
 @Component({
   selector: 'app-seccion',
-  imports: [CommonModule, ReactiveFormsModule, ReactiveFormsModule, FormsModule, AsyncPipe],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, AsyncPipe],
   templateUrl: './seccion.html',
   styleUrl: './seccion.css'
 })
@@ -17,20 +18,23 @@ export class Seccion {
 
   private serv = inject(DocenteService);
   private servi = inject(CursoInfocursoService);
+  private seccionServ = inject(SeccionService);
   private fb = inject(FormBuilder);
 
   protected docen$!: Observable<Docente[]>;
   protected curso$!: Observable<Curso[]>;
 
 
-  protected formulario: FormGroup = this.fb.group({
+  formulario: FormGroup = this.fb.group({
     id_curso: ['', Validators.required],
-    horario: [null, Validators.required],
-    aula: [null, Validators.required],
+    horario: ['', Validators.required],
+    aula: ['', Validators.required],
     id_profesor: ['', Validators.required],
-    cupos: [null, Validators.required, ],
+    cupos: [null, Validators.required],
     modalidad: ['', Validators.required]
   });
+
+
 
   ngOnInit() {
     this.cargarDocentes();
@@ -49,6 +53,29 @@ export class Seccion {
 
 
   agregarSeccion() {
+
+    if (this.formulario.invalid) return;
+
+    const form = this.formulario.value;
+
+    const nuevaSeccion = {
+      curso: { id_curso: form.id_curso },
+      horario: form.horario,
+      aula: form.aula,
+      profesores: { id_profesor: form.id_profesor },
+      cupos: form.cupos,
+      modalidad: form.modalidad
+    };
+    /*
+    this.seccionServ.insertar(nuevaSeccion).subscribe({
+      next: (data) => {
+        console.log('Sección insertada con éxito:', data);
+        this.formulario.reset();
+      },
+      error: (err) => {
+        console.error('Error al insertar sección:', err);
+      }
+    });*/
 
   }
 
