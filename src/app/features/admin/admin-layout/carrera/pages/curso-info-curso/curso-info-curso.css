@@ -1,29 +1,37 @@
+.error {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 0.3rem;
+}
+
 .formulario-curso {
   padding: 2rem;
   background-color: #f4f6f8;
 }
 
-.formulario-curso .volver-container {
+.volver-container {
   text-align: center;
   margin-bottom: 1rem;
 }
 
-.formulario-curso .btn-accion {
+/* Botones principales (Volver, Listar Cursos) */
+.btn-accion {
   padding: 0.6rem 1.4rem;
-  background-color: #6c757d;
+  background-color: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 0.95rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.formulario-curso .btn-accion:hover {
-  background-color: #5a6268;
+.btn-accion:hover {
+  background-color: #1e63a0;
+  transform: scale(1.01);
 }
 
-.formulario-curso .form-container {
+.form-container {
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -32,7 +40,7 @@
   margin: auto;
 }
 
-.formulario-curso .form-title {
+.form-title {
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
@@ -40,26 +48,39 @@
   color: #333;
 }
 
-.formulario-curso .form-row {
+/* Formulario en dos columnas */
+.form-row {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.formulario-curso .form-group {
+.form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   flex: 1;
 }
 
-.formulario-curso .form-group label {
+.form-col.izquierda {
+  max-width: 48%;
+}
+
+.form-col.derecha {
+  max-width: 48%;
+}
+
+.form-group label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: 500;
   color: #444;
 }
 
-.formulario-curso .form-group input,
-.formulario-curso .form-group select {
+.form-group input,
+.form-group select {
   width: 100%;
   padding: 0.6rem;
   border-radius: 8px;
@@ -67,48 +88,127 @@
   font-size: 1rem;
 }
 
-.formulario-curso .btn-submit {
+/* Botón AGREGAR */
+.btn-submit {
   display: block;
   margin: 1.5rem auto;
-  background-color: #007bff;
+  background-color: #058d54;
   color: white;
   padding: 0.75rem 2rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.formulario-curso .btn-submit:hover {
+.btn-submit:hover {
+  background-color: #019875;
+  transform: scale(1.03);
+}
+
+/* Hover solo cuando está habilitado */
+.btn-submit:hover:not(:disabled) {
   background-color: #0056b3;
 }
 
-.formulario-curso .tabla-curso {
+/* Estado deshabilitado */
+.btn-submit:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Tabla responsiva */
+.tabla-responsive {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+.tabla-curso {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
-  margin-top: 2rem;
   background-color: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  min-width: 600px;
 }
 
-.formulario-curso .tabla-curso th,
-.formulario-curso .tabla-curso td {
+.tabla-curso th,
+.tabla-curso td {
   padding: 0.9rem 1.2rem;
   text-align: left;
   border-bottom: 1px solid #eaeaea;
 }
 
-.formulario-curso .tabla-curso th {
-  background-color: #f5f5f5; /* Azul claro, elegante */
+.tabla-curso th {
+  background-color: #f5f5f5;
   color: #333333;
   font-weight: 600;
 }
 
-.formulario-curso .tabla-curso tbody tr:hover {
+.tabla-curso tbody tr:hover {
   background-color: #f9f9f9;
   transition: background-color 0.3s ease;
+}
+
+/* Botones dentro de la tabla */
+.tabla-curso .editar {
+  background-color: #3A5BA0;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin: 5px;
+  margin-right: 0.4rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tabla-curso .editar:hover {
+  background-color: #2F497F;
+}
+
+.tabla-curso .eliminar {
+  background-color: #3A5BA0;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  margin: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tabla-curso .eliminar:hover {
+  background-color: #2F497F;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-col {
+    max-width: 100%;
+  }
+
+  .tabla-curso {
+    font-size: 0.9rem;
+  }
+
+  .btn-accion,
+  .btn-submit,
+  .tabla-curso .editar,
+  .tabla-curso .eliminar {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
 }

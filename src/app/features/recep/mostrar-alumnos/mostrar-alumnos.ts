@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, FormsModule, NgModel, ReactiveFormsModule } fro
 
 @Component({
   selector: 'app-mostrar-alumnos',
-  imports: [RouterLink, AsyncPipe, FormsModule, CommonModule, ReactiveFormsModule],
+  imports: [RouterLink, AsyncPipe,FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './mostrar-alumnos.html',
   styleUrl: './mostrar-alumnos.css'
 })

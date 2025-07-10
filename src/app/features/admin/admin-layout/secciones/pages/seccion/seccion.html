@@ -1,0 +1,83 @@
+<div class="seccion-container">
+  <h2 class="form-title">Registro de Secciones</h2>
+
+  <form class="seccion-form" [formGroup]="formulario" (ngSubmit)="agregarSeccion()">
+    <div class="form-grid">
+      <div class="form-field">
+        <label>Curso</label>
+        <select formControlName="id_curso">
+          <option value="">Seleccione un curso</option>
+          @for (curso of curso$ | async; track curso.id_curso) {
+            <option [value]="curso.id_curso">{{ curso.nombre + ' - ' + curso.carrera.nombreCarrera }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Horario</label>
+        <input type="text" formControlName="horario" placeholder="Ej: 8:30 - 11:30" />
+      </div>
+
+      <div class="form-field">
+        <label>Aula</label>
+        <input type="text" formControlName="aula" placeholder="Ej: 403" />
+      </div>
+
+      <div class="form-field">
+        <label>Profesor</label>
+        <select formControlName="id_profesor">
+          <option value="">Seleccione un docente</option>
+          @for (docente of docen$ | async; track docente.id_profesor) {
+            <option [value]="docente.id_profesor">{{ docente.nombre + ' ' + docente.apellido }} </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label>Cupos</label>
+        <input type="number" formControlName="cupos" />
+      </div>
+
+      <div class="form-field">
+        <label>Modalidad</label>
+        <select formControlName="modalidad">
+          <option value="Presencial">Presencial</option>
+          <option value="Virtual">Virtual</option>
+          <option value="Semipresencial">Semipresencial</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit">Agregar Sección</button>
+    </div>
+  </form>
+
+  <hr />
+
+  <h3>Resumen de Secciones Agregadas</h3>
+  <div class="tabla-resumen">
+    <table>
+      <thead>
+        <tr>
+          <th>Curso</th>
+          <th>Horario</th>
+          <th>Aula</th>
+          <th>Profesor</th>
+          <th>Cupos</th>
+          <th>Modalidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
