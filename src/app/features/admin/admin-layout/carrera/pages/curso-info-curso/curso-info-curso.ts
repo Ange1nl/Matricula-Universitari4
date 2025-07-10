@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CarreraService } from '../../services/carrera.service';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Carrera } from '../../models/carrera';
@@ -11,37 +11,41 @@ import { CursoInfoCursoResponseModels } from '../../models/curso-info-curso-resp
 
 @Component({
   selector: 'app-curso-info-curso',
-  imports: [RouterLink, CommonModule, ReactiveFormsModule, AsyncPipe],
+  imports: [RouterLink, CommonModule, ReactiveFormsModule, AsyncPipe, FormsModule,],
   templateUrl: './curso-info-curso.html',
   styleUrl: './curso-info-curso.css'
 })
 export class CursoInfoCurso {
 
-  protected carreras$!: Observable<Carrera[]>;//Para el get
+  protected carreras$!: Observable<Carrera[]>;
 
-  //La parte del backend para listar esta bien , porque para inicializar con datos el behaviro Subject , se inicializo con datos , de la database 
+  //La parte del backend para listar , porque para inicializar con datos el behaviro Subject , se inicializo con datos , de la database 
   private cursosSubject = new BehaviorSubject<CursoInfoCursoResponseModels[]>([]); //Lo inicializo con un array vacio , cuando inserto un valor , todos los que estan suscrito a ese BehaviorSubject recien automaticamente el nuevo valor
   protected cursoInfoCursoResponse$ = this.cursosSubject.asObservable(); //Al tener .asObservable(), puedes usar | async en el HTML sin preocuparte por el subscribe().
 
-  /*BehaviorSubject es como una caja que siempre guarda el último valor enviado.
-  Cuando tú (el componente) te suscribes, recibes automáticamente el último valor guardado.Si cambias algo (por ejemplo, agregas un curso), solo haces .next(nuevosDatos) y todos los que están mirando esa "caja" verán el cambio al instante.
+  /*BehaviorSubject es como una caja que siempre guarda el último valor enviado.Cuando (el componente) te suscribes, recibes automáticamente el último valor guardado.Si cambias algo (por ejemplo, agregas un curso), solo haces .next(nuevosDatos) y todos los que están mirando esa "caja" verán el cambio al instante.
   Esto evita volver a pedir datos al servidor innecesariamente y actualiza la tabla sin recargar la página ni navegar.Ideal cuando quieres que la interfaz se mantenga actualizada en tiempo real después de un cambio.*/
 
 
-  private carreraServ = inject(CarreraService); //servicio de carrera
-  private serv = inject(CursoInfocursoService); //servicio de CursoInfoCurso
+  private carreraServ = inject(CarreraService);
+  private serv = inject(CursoInfocursoService);
   private fb = inject(FormBuilder);
 
 
+
+  // Este FormGroup define todas las validaciones.
+  // Estas validaciones controlan tanto: el estado del botón (si el formulario es válido) y Los mensajes en el HTML, mediante los getters (como nombre.hasError('required'))
   protected formulario: FormGroup = this.fb.group({
-    nombre: ['', Validators.required],
+    nombre: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(70)]],
     id_carrera: [null, Validators.required],
-    ciclo: [null, [Validators.required, Validators.min(1)]],
+    ciclo: [null, [Validators.required, Validators.min(1), Validators.max(10)]],
     horaSemanal: ['', Validators.required],
-    credito: [null, [Validators.required, Validators.min(1)]],
+    credito: [null, [Validators.required, Validators.min(1), Validators.max(9)]],
     tipo: ['', Validators.required]
   });
 
+  //Estos getters permiten acceder fácilmente desde el HTML a los controles del formulario.
+  // Ejemplo: @if (nombre?.hasError('required')) { ... }
   get nombre() { return this.formulario.get('nombre'); }
   get id_carrera() { return this.formulario.get('id_carrera'); }
   get ciclo() { return this.formulario.get('ciclo'); }
@@ -98,7 +102,12 @@ export class CursoInfoCurso {
 
 
   guardarCurso(): void {
-    if (this.formulario.invalid) return;
+    if (this.formulario.invalid) {
+      if (this.formulario.invalid) {
+        this.formulario.markAllAsTouched(); // <-- importante para mostrar errores de los inputs
+        return;
+      }
+    }
 
     const data: CursoInfoCursoModels = this.formulario.value;
 
@@ -123,7 +132,6 @@ export class CursoInfoCurso {
           }
         }
       });
-
     } else {
       this.serv.insertar(data).subscribe({
         next: () => {
@@ -167,5 +175,28 @@ export class CursoInfoCurso {
       });
     }
   }
+
+
+
+  idCarreraSeleccionada: string = ''; // ngModel la llenara como string
+
+  filtrarCursoPorCarrera(): void {
+    const id = Number(this.idCarreraSeleccionada);
+
+    if (!id) {
+      this.listarCursoInfoCurso(); // Si el valor es vacío, listar todos
+      return;
+    }
+
+    this.serv.filtrarPorCarrera(id).subscribe({
+      next: (data) => {
+        this.cursosSubject.next(data);
+      },
+      error: (err) => {
+        console.error('Error al filtrar cursos por carrera:', err);
+      }
+    });
+  }
+
 
 }

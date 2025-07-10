@@ -1,11 +1,24 @@
-<form [formGroup]="formulario" (ngSubmit)="guardarCurso()">
-  <div class="formulario-curso">
-    <div class="volver-container">
-      <button type="button" class="btn-accion" routerLink="/admin/carrera">Volver</button>
-      <button type="button" class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar
-        Cursos</button>
-    </div>
+<div class="formulario-curso">
 
+  <div class="volver-container">
+    <button type="button" class="btn-accion" routerLink="/admin/carrera">Volver</button>
+    <button type="button" class="btn-accion" (click)="listarCursoInfoCurso()" style="margin-left: 1rem;">Listar
+      Cursos</button>
+  </div>
+
+  <!--PARA EL FILTRADO DE CARRERA-->
+  <div class="form-group filtro-carrera">
+    <label for="filtroCarrera">Filtrar por carrera:</label>
+    <select style="margin-bottom: 2rem;" id="filtroCarrera" [(ngModel)]="idCarreraSeleccionada"
+      (change)="filtrarCursoPorCarrera()" [ngModelOptions]="{standalone: true}">
+      <option value="">-- Todas las carreras --</option>
+      @for (carrera of carreras$ | async; track carrera.id_carrera) {
+      <option [value]="carrera.id_carrera">{{ carrera.nombreCarrera }}</option>
+      }
+    </select>
+  </div>
+
+  <form [formGroup]="formulario" (ngSubmit)="guardarCurso()">
     <div class="form-container">
       <div class="form-title">Agregar Curso e Información del Curso</div>
 
@@ -15,6 +28,14 @@
           <div class="form-group">
             <label for="nombreCurso">Nombre curso:</label>
             <input type="text" id="nombreCurso" formControlName="nombre" placeholder="Ingrese el nombre del curso">
+
+            <!--validacion reactiva-->
+            @if (nombre?.touched && nombre?.invalid) {
+            @if (nombre?.hasError('required')) {<div class="error">Este campo es obligatorio</div>}
+            @if (nombre?.hasError('minlength')) {<div class="error">Debe tener al menos 2 caracteres</div>}
+            @if (nombre?.hasError('maxlength')) {<div class="error">Debe tener como máximo 70 caracteres</div>}
+            }
+            <!--validacion del backend-->
             @if (formulario.get('nombre')?.errors?.['backend']) {
             <div class="error">
               {{ formulario.get('nombre')?.errors?.['backend'] }}
@@ -40,6 +61,13 @@
           <div class="form-group">
             <label for="cicloCurso">Ciclo del curso:</label>
             <input type="text" id="cicloCurso" formControlName="ciclo" placeholder="Ej: 2">
+
+            @if (ciclo?.touched && ciclo?.invalid) {
+            @if (ciclo?.errors?.['required']) {<div class="error">Campo obligatorio</div>}
+            @if (ciclo?.errors?.['min']) {<div class="error">Debe ser al menos 1</div>}
+            @if (ciclo?.errors?.['max']) {<div class="error">Maximo hasta 10</div>}
+            }
+
             @if (formulario.get('ciclo')?.errors?.['backend']) {
             <div class="error">
               {{ formulario.get('ciclo')?.errors?.['backend'] }}
@@ -53,6 +81,11 @@
           <div class="form-group">
             <label for="horaSemanal">Hora semanal:</label>
             <input type="text" id="horaSemanal" formControlName="horaSemanal" placeholder="Ej: 4">
+
+            @if (horaSemanal?.touched && horaSemanal?.invalid) {
+            @if (horaSemanal?.errors?.['required']) {<div class="error">Campo obligatorio</div>}
+            }
+
             @if (formulario.get('horaSemanal')?.errors?.['backend']) {
             <div class="error">
               {{ formulario.get('horaSemanal')?.errors?.['backend'] }}
@@ -63,6 +96,13 @@
           <div class="form-group">
             <label for="credito">Crédito:</label>
             <input type="number" id="credito" formControlName="credito" placeholder="Ej: 3">
+
+            @if (credito?.touched && credito?.invalid) {
+            @if (credito?.errors?.['required']) {<div class="error">Campo obligatorio</div>}
+            @if (credito?.errors?.['min']) {<div class="error">Debe ser al menos 1</div>}
+            @if (credito?.errors?.['max']) {<div class="error">Máximo 9 créditos</div>}
+            }
+
             @if (formulario.get('credito')?.errors?.['backend']) {
             <div class="error">
               {{ formulario.get('credito')?.errors?.['backend'] }}
@@ -73,6 +113,11 @@
           <div class="form-group">
             <label for="tipoCurso">Tipo:</label>
             <input type="text" id="tipoCurso" formControlName="tipo" placeholder="Ej: Obligatorio">
+
+            @if (tipo?.touched && tipo?.invalid) {
+            @if (tipo?.errors?.['required']) {<div class="error">Campo obligatorio</div>}
+            }
+
             @if (formulario.get('tipo')?.errors?.['backend']) {
             <div class="error">
               {{ formulario.get('tipo')?.errors?.['backend'] }}
@@ -83,6 +128,7 @@
       </div>
 
       <button type="submit" class="btn-submit" [disabled]="formulario.invalid">AGREGAR</button>
+
 
       <div class="tabla-responsive">
         <table class="tabla-curso">
@@ -98,7 +144,8 @@
             </tr>
           </thead>
           <tbody>
-            @for (curso of cursoInfoCursoResponse$ | async; track curso.id_curso) { <!--"ESTO LE DICE Por favor Angular, si cambia algo en la lista de cursos, no redibujes toda la tabla, solo redibuja lo que cambió. Y para saber qué cambió, usa el id_curso."-->
+            @for (curso of cursoInfoCursoResponse$ | async; track curso.id_curso) {
+            <!--"ESTO LE DICE Por favor Angular, si cambia algo en la lista de cursos, no redibujes toda la tabla, solo redibuja lo que cambió. Y para saber qué cambió, usa el id_curso."-->
             <tr>
               <td>{{ curso.nombre }}</td>
               <td>{{ curso.nombreCarrera }}</td>
@@ -116,5 +163,5 @@
         </table>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>

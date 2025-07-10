@@ -13,23 +13,28 @@ export class CursoInfocursoService {
   private http = inject(HttpClient);
 
   //Para get es otra interfaz , ya que con esta interfaz mostraremos en html para poder editar y eliminar
-  listar(): Observable <CursoInfoCursoResponseModels[]>{
+  listar(): Observable<CursoInfoCursoResponseModels[]> {
     return this.http.get<CursoInfoCursoResponseModels[]>(`${this.URL}/listar`);
   }
 
   //Para insertar se ponen 2 interfaces , para enviar datos con esta interfaz "CursoInfoCursoModels" y el servidor responde con esta interfaz "CursoInfoCursoResponseModels" que incluye los ids y nombres de carrera
   //de hecho me devuelve en "CursoInfoCursoResponseModels" pero no me sirve aca , porque no lo utilizo en mi componente , lo que hago es volver a llamar al get
-  insertar(CursoInfoCursoModels: CursoInfoCursoModels): Observable <CursoInfoCursoResponseModels>{
-    return this.http.post<CursoInfoCursoResponseModels>(`${this.URL}/completo`,CursoInfoCursoModels);
+  insertar(CursoInfoCursoModels: CursoInfoCursoModels): Observable<CursoInfoCursoResponseModels> {
+    return this.http.post<CursoInfoCursoResponseModels>(`${this.URL}/completo`, CursoInfoCursoModels);
   }
 
   //Aca en editar no es importante que me devuelva el id_curso porque ya esta capturado cuando se inserto , en el componente lo vuelve a capturar mediante el formulario reactivo y se actualiza
-  editar(id: number, data: CursoInfoCursoModels): Observable <any>{
+  editar(id: number, data: CursoInfoCursoModels): Observable<any> {
     return this.http.put<any>(`${this.URL}/editar/${id}`, data);
   }
 
   eliminar(id: number): Observable<CursoInfoCursoResponseModels> {
     return this.http.delete<CursoInfoCursoResponseModels>(`${this.URL}/eliminar/${id}`);
   }
+
+  filtrarPorCarrera(idCarrera: number): Observable<CursoInfoCursoResponseModels[]> {
+    return this.http.get<CursoInfoCursoResponseModels[]>(`${this.URL}/filtrar/${idCarrera}`);
+  }
+
 
 }
