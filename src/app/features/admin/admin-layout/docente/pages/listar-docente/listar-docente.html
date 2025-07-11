@@ -30,7 +30,7 @@
           <td>{{ d.profesion }}</td>
           <td>{{ d.nivelEstudio }}</td>
           <td>
-            <img [src]="'http://localhost:8082/img/' + d.img" alt="Foto docente" class="foto-docente" style="width: 60px;height: 60px;"/>
+            <img [src]="'http://localhost:8082/img/' + d.img" alt="Foto docente" class="foto-docente" style="width: 60px;height: 60px;"/> <!--Captura la ruta de imagen de la base de datos que es algo asi asif3c9a77a-e2c2-4fd5-826b-d7c2a4573f3f_mifoto.jpg , y es agregado al http://localhost:8082/img/ ,  la ruta donde esta las imagenes en la carpeta de nuestro backend-->
           </td>
           <td>
             <button class="btn-editar" (click)="editarDocente(d.id_profesor!)">Editar</button> <!--Ese ! le dice que el valor si o si existe asi deja de salirte error-->

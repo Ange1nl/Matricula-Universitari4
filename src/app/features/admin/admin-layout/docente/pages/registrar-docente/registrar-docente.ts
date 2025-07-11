@@ -113,18 +113,18 @@ export class RegistrarDocente {
 
     };
 
-    // Si el usuario seleccionó una imagen nueva, primero la subimos
+    // SUBIR IMAGEN (FUNCIONA TANTO PARA AGREGAR  Y EDITAR)
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('image', this.selectedFile); // Lo mismo que poner @RequestParam("image") en el backend
 
-      this.serv.subirImagen(formData).subscribe({
-        next: (fileName: string) => subirImagenYContinuar(fileName),
+      this.serv.subirImagen(formData).subscribe({ //LO SUBO AL BACKEND
+        next: (fileName: string) => subirImagenYContinuar(fileName), //me devuelve algo asif3c9a77a-e2c2-4fd5-826b-d7c2a4573f3f_mifoto.jpg
         error: () => alert('Error al subir la imagen')
       });
 
     } else {
-      // Si NO seleccionó imagen nueva, usamos la imagen que ya tenía
+      // No hay imagen nueva , usar la que ya tenía (en caso de edición)
       const imagenActual = this.formDocente.value.img || '';
       subirImagenYContinuar(imagenActual);
     }

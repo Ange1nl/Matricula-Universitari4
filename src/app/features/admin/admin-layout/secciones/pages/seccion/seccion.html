@@ -1,3 +1,7 @@
+<div class="form-actions">
+  <button style="margin: 4px;" type="button" routerLink="/admin">Volver</button>
+</div>
+
 <div class="seccion-container">
   <h2 class="form-title">Registro de Secciones</h2>
 
@@ -8,7 +12,7 @@
         <select formControlName="id_curso">
           <option value="">Seleccione un curso</option>
           @for (curso of curso$ | async; track curso.id_curso) {
-            <option [value]="curso.id_curso">{{ curso.nombre + ' - ' + curso.carrera.nombreCarrera }}</option>
+          <option [value]="curso.id_curso">{{ curso.nombre + ' - ' + curso.carrera.nombreCarrera }}</option>
           }
         </select>
       </div>
@@ -16,11 +20,21 @@
       <div class="form-field">
         <label>Horario</label>
         <input type="text" formControlName="horario" placeholder="Ej: 8:30 - 11:30" />
+        @if (formulario.get('horario')?.errors?.['backend']) {
+        <div class="error">
+          {{ formulario.get('horario')?.errors?.['backend'] }}
+        </div>
+        }
       </div>
 
       <div class="form-field">
         <label>Aula</label>
         <input type="text" formControlName="aula" placeholder="Ej: 403" />
+        @if (formulario.get('aula')?.errors?.['backend']) {
+        <div class="error">
+          {{ formulario.get('aula')?.errors?.['backend'] }}
+        </div>
+        }
       </div>
 
       <div class="form-field">
@@ -28,7 +42,7 @@
         <select formControlName="id_profesor">
           <option value="">Seleccione un docente</option>
           @for (docente of docen$ | async; track docente.id_profesor) {
-            <option [value]="docente.id_profesor">{{ docente.nombre + ' ' + docente.apellido }} </option>
+          <option [value]="docente.id_profesor">{{ docente.nombre + ' ' + docente.apellido }} </option>
           }
         </select>
       </div>
@@ -36,6 +50,11 @@
       <div class="form-field">
         <label>Cupos</label>
         <input type="number" formControlName="cupos" />
+        @if (formulario.get('cupos')?.errors?.['backend']) {
+        <div class="error">
+          {{ formulario.get('cupos')?.errors?.['backend'] }}
+        </div>
+        }
       </div>
 
       <div class="form-field">
@@ -45,11 +64,19 @@
           <option value="Virtual">Virtual</option>
           <option value="Semipresencial">Semipresencial</option>
         </select>
+        @if (formulario.get('modalidad')?.errors?.['backend']) {
+        <div class="error">
+          {{ formulario.get('modalidad')?.errors?.['backend'] }}
+        </div>
+        }
       </div>
     </div>
 
     <div class="form-actions">
-      <button type="submit">Agregar Sección</button>
+      <button style="margin: 4px;" type="submit">{{ editando ? 'Actualizar Sección' : 'Agregar Sección' }}</button>
+      @if (editando) {
+      <button style="margin: 4px;" type="button" (click)="cancelarEdicion()">Cancelar</button>
+      }
     </div>
   </form>
 
@@ -66,17 +93,24 @@
           <th>Profesor</th>
           <th>Cupos</th>
           <th>Modalidad</th>
+          <th>Accion</th>
         </tr>
       </thead>
       <tbody>
+        @for (seccion of secciones$ | async; track seccion.idSeccion) {
         <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
+          <td>{{ seccion.curso.nombre + ' - ' + seccion.curso.carrera.nombreCarrera }}</td> <!--No captura de la interfaz nada de eso , CAPTURA DE LA MISMA SECCION , AL HACER GET BUSCA LA RELACION DE LOS ID DE LOS FK Y OBTIENE TANTO LOS DATOS DE SECCION Y TODO LOS DATOS COMPLETOS DEL FK COMO CURSO Y PROFESORES Y PODEMOS HACER EL FILTRADO-->
+          <td>{{ seccion.horario }}</td>
+          <td>{{ seccion.aula }}</td>
+          <td>{{ seccion.profesores.nombre + ' - ' + seccion.profesores.apellido }} </td>
+          <td>{{ seccion.cupos }}</td>
+          <td>{{ seccion.modalidad }}</td>
+          <td>
+            <button (click)="editarSeccion(seccion)">✏️</button>
+            <button (click)="eliminarSeccion(seccion.idSeccion)">🗑️</button>
+          </td>
         </tr>
+        }
       </tbody>
     </table>
   </div>

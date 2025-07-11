@@ -3,10 +3,11 @@ import { Docente } from "../../docente/models/docente";
 
 export interface SeccionesModels {
     idSeccion:number,
-    curso:Curso,
+    curso:Curso, //Objeto completo
     horario:string,
     aula: string,
-    profesores:Docente,
+    profesores:Docente, //Objeto completo
     cupos:number
+    modalidad: string;
 
 }
