@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-seccion',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, AsyncPipe,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, AsyncPipe, RouterLink],
   templateUrl: './seccion.html',
   styleUrl: './seccion.css'
 })
@@ -116,7 +116,19 @@ export class Seccion {
           this.formulario.reset();
           this.obtenerSecciones();
         },
-        error: (err) => console.error('Error al editar:', err)
+        error: (err) => {
+          console.error("Error al editar el curso:", err);
+          if (err.status === 400 && err.error) {
+            const errores = err.error;
+
+            for (const campo in errores) {
+              const control = this.formulario.get(campo); // Busca el campo correspondiente en el formulario
+              if (control) {
+                control.setErrors({ backend: errores[campo] }); // Asigna el mensaje como error personalizado
+              }
+            }
+          }
+        }
       });
     } else {
       this.seccionServ.insertar(seccionEnvio).subscribe({
@@ -124,7 +136,20 @@ export class Seccion {
           this.formulario.reset();
           this.obtenerSecciones(); // actualiza tabla
         },
-        error: (err) => console.error('Error al insertar:', err)
+
+        error: (err) => {
+          console.error("Error al agregar el curso:", err);
+          if (err.status === 400 && err.error) {
+            const errores = err.error;
+            for (const campo in errores) {
+              const control = this.formulario.get(campo); // Busca el campo correspondiente en el formulario
+              if (control) {
+                control.setErrors({ backend: errores[campo] }); // Asigna el mensaje como error personalizado
+              }
+            }
+          }
+        }
+
       });
     }
   }
@@ -132,8 +157,11 @@ export class Seccion {
 
   eliminarSeccion(id: number) {
     if (!confirm('¿Está seguro de eliminar esta sección?')) return;
+
     this.seccionServ.eliminar(id).subscribe({
-      next: () => {},
+      next: () => {
+        this.obtenerSecciones();
+      },
       error: (err) => {
         console.error('Error al eliminar sección:', err);
       }

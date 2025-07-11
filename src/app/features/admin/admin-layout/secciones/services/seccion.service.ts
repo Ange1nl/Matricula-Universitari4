@@ -16,8 +16,8 @@ export class SeccionService {
     return this.http.get<SeccionesModels[]>(`${this.URL}/listar`);
   }
 
-  //Consume este metodo el servidor me responde en formato JSON con el tipado SeleccionesModels pero no lo uso porque generalmente eso se usa con el BehaviorSubject es decir me devuelve el dato y en el componente , cuando me suscribo, next(data) , en data esta lo que me devuelve y eso puedo ponerlo al behavior subject y actualizar simplemente el array
-  //pero como aca tiene relacion con otras entidades , cuando es POST y PUT solo me devuelve los ids y los demas campos de los FK son nulos y eso hace en el html que algunos campos de los fk no se muestren . En cambio en get internamente busca la relacion y si te devuelve todo los datos, comprobado con postman
+  //Consumo este metodo y el servidor me responde en formato JSON con el tipado SeleccionesModels pero NO LO USO porque generalmente eso se usa con el BehaviorSubject es decir me devuelve el dato y en el componente , cuando me suscribo, next(data) , en data esta lo que me devuelve y eso puedo ponerlo al behavior subject y actualizar simplemente el array
+  //pero como aca tiene relacion con otras entidades , cuando es POST y PUT solo me devuelve los ids y los demas campos de los FK son nulos y eso hace en el html que algunos campos de los fk no se muestren , podemos usar filter tambien para que se muestre pero es un poquito mas tedioso. En cambio en get internamente busca la relacion y si te devuelve todo los datos, comprobado con postman
   insertar(seccionEnvioModels: SeccionEnvioModels): Observable<SeccionesModels> {
     return this.http.post<SeccionesModels>(`${this.URL}/insertar`, seccionEnvioModels);
   }
