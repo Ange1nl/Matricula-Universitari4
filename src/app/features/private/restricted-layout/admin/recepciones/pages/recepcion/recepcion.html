@@ -44,7 +44,7 @@
         <!-- Contraseña -->
         <div class="form-field">
             <label for="password">Contraseña</label>
-            <input type="password" id="password" formControlName="password" placeholder="Mínimo 8 caracteres" />
+            <input type="password" id="password" formControlName="password" placeholder="Mínimo 6 caracteres" />
             @if (formulario.get('password')?.invalid && formulario.get('password')) {
             <small class="error">Debe tener al menos 6 caracteres</small>
             }

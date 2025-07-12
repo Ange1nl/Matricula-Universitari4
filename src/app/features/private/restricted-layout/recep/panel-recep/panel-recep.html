@@ -7,8 +7,8 @@
   @if (mostrarDropdown) {
   <div class="dropdown-content">
     <p><strong>👤 Nombre:</strong> {{ nombre }}</p>
-    <p><strong>🆔 ID:</strong> {{ idUsuario }}</p>
-    <p><strong>🛡️ Rol:</strong> {{ rol }}</p>
+    <p><strong> ID:</strong> {{ idUsuario }}</p>
+    <p><strong> Rol:</strong> {{ rol }}</p>
     <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
   </div>
   }
@@ -18,13 +18,13 @@
 <div class="cuerpo">
   <div class="card-container">
     <!-- Botón 1 -->
-    <a routerLink='/restringido/alumno/listar' class="card zoom-card">
-      <h3>Mostrar Alumnos</h3>
+    <a routerLink='/restringido/alumno/registrar' class="card zoom-card">
+      <h3>Registrar Alumnos</h3>
     </a>
 
     <!-- Botón de Regresar -->
-    <a routerLink='/restringido/panelRecep' class="card static-card">
-      <h3>← Regresar</h3>
+    <a routerLink='/restringido/panelRecep' class="card static-card" (click)="logout()">
+      <h3>← Cerrar sesion</h3>
     </a>
   </div>
 
