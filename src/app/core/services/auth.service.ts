@@ -20,8 +20,8 @@ export class AuthService {
 
   iniciarSesion(credenciales: Credenciales):Observable<Token>{
     return this.http.post<Token>(`${this.URL}/autenticarse`,credenciales)
-     .pipe(tap(resp => {
-      this.almacenarTokens(resp) //Osea en aca guarda los tokens en el navegador una vez inicie sesion
+     .pipe(tap(resp => {//resp es un objeto de tipo Token
+      this.almacenarTokens(resp) //Osea en aca guarda los tokens en el navegador una vez inicie sesion , es decir el resp , tiene el accessToken , refreshToken, nombre, rol , id
       this.isAuth.next(true);//si es autenticado, retorna true y el guards ya sabe que es true y deja acceder a la pagina, pagina que esta debajo de esta linea
       
       //despues de recibir el token valido y almacenar el token me manda a esta ruta
@@ -29,10 +29,10 @@ export class AuthService {
 
       switch (resp.rol) {
         case 'ADMIN':
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/restringido/panelAdmin']);
           break;
         case 'RECEP':
-          this.router.navigate(['/admin/panelRecep']);
+          this.router.navigate(['/restringido/panelRecep']);
           break;
         default:
           this.router.navigate(['/loginAdminRecep']); // ruta por defecto

@@ -1,0 +1,46 @@
+<div class="listas-docente-container">
+
+  <div class="botones">
+    <button class="btn-accion" routerLink="/restringido/docente/registrar">Registrar Docente</button>
+    <button class="btn-accion" routerLink="/restringido/panelAdmin">Volver al Panel</button>
+    <button class="btn-accion" routerLink="/restringido/docente/listar" >Mostrar Docentes</button>
+  </div>
+
+  <div class="tabla-container">
+    <table class="tabla-docentes">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Carrera</th>
+          <th>Nivel Estudio</th>
+          <th>Imagen</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (d of docen$ | async; track d; let i = $index) {
+        <tr>
+          <td>{{ d.nombre }}</td>
+          <td>{{ d.apellido }}</td>
+          <td>{{ d.correo }}</td>
+          <td>{{ d.telefono }}</td>
+          <td>{{ d.profesion }}</td>
+          <td>{{ d.nivelEstudio }}</td>
+          <td>
+            <img [src]="'http://localhost:8082/img/' + d.img" alt="Foto docente" class="foto-docente" style="width: 60px;height: 60px;"/> <!--Captura la ruta de imagen de la base de datos que es algo asi asif3c9a77a-e2c2-4fd5-826b-d7c2a4573f3f_mifoto.jpg , y es agregado al http://localhost:8082/img/ ,  la ruta donde esta las imagenes en la carpeta de nuestro backend-->
+          </td>
+          <td>
+            <button class="btn-editar" (click)="editarDocente(d.id_profesor!)">Editar</button> <!--Ese ! le dice que el valor si o si existe asi deja de salirte error-->
+            <button class="btn-eliminar" (click)="eliminarDocente(d.id_profesor!)">Eliminar</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+
+    </table>
+  </div>
+
+</div>

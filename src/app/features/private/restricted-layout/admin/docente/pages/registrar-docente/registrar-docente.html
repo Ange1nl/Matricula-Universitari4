@@ -1,0 +1,101 @@
+<div class="registro-docente-container">
+
+    <div class="boton-superior">
+        <button class="btn-listar" routerLink="/restringido/docente/listar" >Volver</button>
+    </div>
+
+    <div class="formulario-card">
+        <h2>Registro de Docente</h2>
+
+        <form [formGroup]="formDocente" (ngSubmit)="registrarDocente()">
+            <div class="form-grid">
+
+                <div class="form-control">
+                    <label>Nombre</label>
+                    <input type="text" formControlName="nombre" placeholder="Ingrese nombre" />
+                    <!--Validacion del backend-->
+                    @if (formDocente.get('nombre')?.errors?.['backend']) {
+                    <div class="error">
+                        {{ formDocente.get('nombre')?.errors?.['backend'] }}
+                    </div>
+                    }
+                </div>
+
+                <div class="form-control">
+                    <label>Apellido</label>
+                    <input type="text" formControlName="apellido" placeholder="Ingrese apellido" />
+
+                    @if (formDocente.get('apellido')?.errors?.['backend']) {
+                    <div class="error">
+                        {{ formDocente.get('apellido')?.errors?.['backend'] }}
+                    </div>
+                    }
+                </div>
+
+                <div class="form-control">
+                    <label>Correo</label>
+                    <input type="email" formControlName="correo" placeholder="Ingrese correo electrónico" />
+
+                    @if (formDocente.get('correo')?.errors?.['backend']) {
+                    <div class="error">
+                        {{ formDocente.get('correo')?.errors?.['backend'] }}
+                    </div>
+                    }
+                </div>
+
+                <div class="form-control">
+                    <label>Teléfono</label>
+                    <input type="text" formControlName="telefono" placeholder="Ingrese número de teléfono" />
+
+                    @if (formDocente.get('telefono')?.errors?.['backend']) {
+                    <div class="error">
+                        {{ formDocente.get('telefono')?.errors?.['backend'] }}
+                    </div>
+                    }
+                </div>
+
+                <div class="form-control">
+                    <label>Carrera</label>
+                    <input type="text" formControlName="profesion" placeholder="Ingrese carrera" />
+
+                    @if (formDocente.get('profesion')?.errors?.['backend']) {
+                    <div class="error">
+                        {{ formDocente.get('profesion')?.errors?.['backend'] }}
+                    </div>
+                    }
+                </div>
+
+                <div class="form-control">
+                    <label>Nivel de Estudio</label>
+                    <select formControlName="nivelEstudio">
+                        <option value="">Seleccione un nivel</option>
+                        <option value="Bachiller">Bachiller</option>
+                        <option value="Licenciatura">Licenciatura</option>
+                        <option value="Maestría">Maestría</option>
+                        <option value="Doctorado">Doctorado</option>
+                    </select>
+
+                    @if (formDocente.get('nivelEstudio')?.errors?.['backend']) {
+                    <div class="error">
+                        {{ formDocente.get('nivelEstudio')?.errors?.['backend'] }}
+                    </div>
+                    }
+                </div>
+
+                <label>Imagen del Docente</label>
+                <input type="file" (change)="onFileSelected($event)" formControlName="img" accept="image/*" required />
+                
+                @if (formDocente.get('img')?.errors?.['backend']) {
+                <div class="error">
+                    {{ formDocente.get('img')?.errors?.['backend'] }}
+                </div>
+                }
+
+            </div>
+
+            <div>
+                <button type="submit" [disabled]="formDocente.invalid || !selectedFile">Guardar Docente</button>
+            </div>
+        </form>
+    </div>
+</div>

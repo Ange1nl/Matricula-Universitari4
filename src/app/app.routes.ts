@@ -7,17 +7,20 @@ import { PublicLayout } from './layouts/public-layout/public-layout';
 import { PrivateLayout } from './layouts/private-layout/private-layout';
 import { MatriculaEstudiante } from './features/estudiante/matricula-estudiante/matricula-estudiante';
 import { LoginAdminRecep } from './features/login/login-admin-recep/login-admin-recep';
-import { PanelRecep } from './features/recep/panel-recep/panel-recep';
-import { MostrarAlumnos } from './features/recep/mostrar-alumnos/mostrar-alumnos';
-import { RegistrarIngresado } from './features/recep/registrar-ingresado/registrar-ingresado';
+
 import { authGuard } from './core/guards/auth-guard';
-import { AdminLayout } from './features/admin/admin-layout/admin-layout';
-import { PanelAdmin } from './features/admin/admin-layout/panel-admin/panel-admin';
-import { ListarDocente } from './features/admin/admin-layout/docente/pages/listar-docente/listar-docente';
-import { RegistrarDocente } from './features/admin/admin-layout/docente/pages/registrar-docente/registrar-docente';
-import { Carreras } from './features/admin/admin-layout/carrera/pages/Carrera/carreras';
-import { CursoInfoCurso } from './features/admin/admin-layout/carrera/pages/curso-info-curso/curso-info-curso';
-import { Seccion } from './features/admin/admin-layout/secciones/pages/seccion/seccion';
+import { RestrictedLayout } from './features/private/restricted-layout/restricted-layout';
+import { PanelAdmin } from './features/private/restricted-layout/admin/panel-admin/panel-admin';
+import { Carreras } from './features/private/restricted-layout/admin/carrera/pages/Carrera/carreras';
+import { CursoInfoCurso } from './features/private/restricted-layout/admin/carrera/pages/curso-info-curso/curso-info-curso';
+import { Seccion } from './features/private/restricted-layout/admin/secciones/pages/seccion/seccion';
+import { PanelRecep } from './features/private/restricted-layout/recep/panel-recep/panel-recep';
+import { RegistrarDocente } from './features/private/restricted-layout/admin/docente/pages/registrar-docente/registrar-docente';
+import { ListarDocente } from './features/private/restricted-layout/admin/docente/pages/listar-docente/listar-docente';
+import { MostrarAlumnos } from './features/private/restricted-layout/recep/alumno/mostrar-alumnos/mostrar-alumnos';
+import { RegistrarIngresado } from './features/private/restricted-layout/recep/alumno/registrar-ingresado/registrar-ingresado';
+import { Recepcion } from './features/private/restricted-layout/admin/recepciones/pages/recepcion/recepcion';
+
 
 export const routes: Routes = [
 
@@ -51,22 +54,31 @@ export const routes: Routes = [
         children: [
 
             {
-                path: 'admin',component: AdminLayout,canActivate: [authGuard], //Creamos una carpeta padre
+                path: 'restringido',component:RestrictedLayout ,canActivate: [authGuard], //Creamos una carpeta padre
                 children: [
                     { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin PANEL ADMINISTRADOR
-                    { path: 'docente/listar', component: ListarDocente, title: "Listar Docente"}, // /admin/docente/listar
-                    { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" }, // /admin/docente/registrar
+                    
+                    /*-------Para Administrador------*/
+                    { path: 'panelAdmin', component: PanelAdmin,title: "Panel Admin" },
+                    
+                    { path: 'docente/listar', component: ListarDocente, title: "Listar Docente" }, // /restringido/docente/listar
+                    { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" },
                     { path: 'docente/registrar/:id', component: RegistrarDocente, title: "Editar Docente" },
 
-                    {path: 'carrera', component: Carreras, title: "Carreras"},
-                    {path: 'cursoInfoCurso', component: CursoInfoCurso, title: "Curso e Info Curso"},
+                    { path: 'carrera', component: Carreras, title: "Carreras" },
+                    { path: 'cursoInfoCurso', component: CursoInfoCurso, title: "Curso e Info Curso" },
 
-                    {path: 'seccion', component: Seccion, title: "Secciones"},
+                    { path: 'seccion', component: Seccion, title: "Secciones" },
 
-                    {path: 'panelRecep', component: PanelRecep, title: "Panel Recep"},
-                    { path: 'panelRecepcionista/mostrarAlumnos', component: MostrarAlumnos },
-                    { path: 'panelRecepcionista/registrarIngresado', component: RegistrarIngresado }
+                    {path: 'recepcionistas', component: Recepcion, title: "Recepcionistas"},
+
+                    /*-------Para Recepcionista------*/
+                    { path: 'panelRecep', component: PanelRecep, title: "Panel Recep" },
+                    { path: 'alumno/listar', component: MostrarAlumnos, title: "Listar alumnos" },
+                    { path: 'alumno/registrar', component: RegistrarIngresado, title: "Registrar alumnos" }
                 ]
+
+
             },
 
             { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
@@ -75,8 +87,5 @@ export const routes: Routes = [
 
     //Angular busca toda las rutas y cuando no encuentra ninguna ruta recien sale pagina no encontrada
     { path: '**', component: NotFoundPage, title: "Página no encontrada" },
-
-
-
 
 ];

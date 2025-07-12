@@ -13,7 +13,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     map(isAuth => { //Si autenticado es verdadero me retorana true , si es falso me manda a login
       if(isAuth) {
         return true;
-      } else {
+      }else {
         router.navigate(['/loginAdminRecep']);
         return false;
       }
