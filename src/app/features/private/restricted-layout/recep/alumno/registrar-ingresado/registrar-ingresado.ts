@@ -1,29 +1,35 @@
 import { Component, inject } from '@angular/core';
 import { RegistrarIngresadoService } from '../services/registrar-ingresado.service';
-import { Observable,map  } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { EstudianteUniversidad } from '../models/estudiante-universidad';
+import { AuthService } from '../../../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-registrar-ingresado',
-  imports: [RouterLink, FormsModule, AsyncPipe,CommonModule],
+  imports: [RouterLink, FormsModule, AsyncPipe, CommonModule],
   templateUrl: './registrar-ingresado.html',
   styleUrl: './registrar-ingresado.css'
 })
 export class RegistrarIngresado {
 
-
-  private service = inject(RegistrarIngresadoService);//Este es el servicio
   protected estud$!: Observable<EstudianteUniversidad[]>;
-
+  private service = inject(RegistrarIngresadoService);//Este es el servicio
+  private authService = inject(AuthService);
 
 
   //Ni bien se abre la pagina se ejecuta esto
   ngOnInit() {
     this.listarEstudiantes();
   }
+
+  //Captura de mi auth.service.ts los nuevos metodos que agrege en este caso el idUsuario capturara para cuando haga el post enviar el idUsuario
+  idUsuario = this.authService.getIdUsuario();
+
+
+
 
   listarEstudiantes() {
     this.estud$ = this.service.getEstudiantes(); //Se guarda el observable en estud$ pero no hace la solicitud todavia recien ,EN EL HTML EN ESTA PARTE,  | async le dice a Angular: “Suscríbete al observable estud$ y espera su valor”.

@@ -73,5 +73,20 @@ export class AuthService {
   hasToken(): boolean {
     return !!localStorage.getItem('access_token'); //Los 2 !! sirven para saber si existe un token o no
   }
+
+
+  //-----------MÉTODOS NUEVOS QUE AGREGAS-------
+  getNombre(): string | null {
+    return localStorage.getItem('nombre');
+  }
+
+  getIdUsuario(): number | null {
+    const id = localStorage.getItem('idUsuario');
+    return id ? Number(id) : null;
+  }
+
+  getRol(): string | null {
+    return localStorage.getItem('rol');
+  }
   
 }
