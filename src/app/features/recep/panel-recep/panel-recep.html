@@ -1,3 +1,20 @@
+<!-- Usuario Dropdown -->
+<div class="user-dropdown" style="position: relative; text-align: right;background-color: #f5f7fa;">
+  <button class="icon-button" (click)="toggleDropdown()" title="Usuario">
+    👤
+  </button>
+
+  @if (mostrarDropdown) {
+  <div class="dropdown-content">
+    <p><strong>👤 Nombre:</strong> {{ nombre }}</p>
+    <p><strong>🆔 ID:</strong> {{ idUsuario }}</p>
+    <p><strong>🛡️ Rol:</strong> {{ rol }}</p>
+    <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+  </div>
+  }
+
+</div>
+
 <div class="cuerpo">
   <div class="card-container">
     <!-- Botón 1 -->
@@ -10,7 +27,5 @@
       <h3>← Regresar</h3>
     </a>
   </div>
-
-  <!-- Aquí se renderizan los componentes hijos -->
 
 </div>
