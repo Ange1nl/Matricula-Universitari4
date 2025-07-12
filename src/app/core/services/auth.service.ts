@@ -40,6 +40,9 @@ export class AuthService {
   private almacenarTokens(token: Token){
     localStorage.setItem('access_token',token.access_token); //Aca especificamos que el token se almacenara en en navegador
     localStorage.setItem('refresh_token',token.refresh_token);
+    localStorage.setItem('nombre', token.nombre);
+    localStorage.setItem('idUsuario', token.id_usuario.toString());
+    localStorage.setItem('rol', token.rol);
   }
 
   //Obtiene el token del navegador (Generalmente para mandarselo al interceptor)

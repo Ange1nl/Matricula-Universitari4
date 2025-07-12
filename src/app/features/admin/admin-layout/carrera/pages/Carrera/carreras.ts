@@ -82,17 +82,6 @@ export class Carreras {
   }
 
 
-  eliminarCarrera(id: number): void {
-    const confirmado = window.confirm('¿Estás seguro de eliminar esta carrera?');
-
-    if (!confirmado) return;
-
-    this.serv.eliminar(id).subscribe(() => {
-      this.obtenerCarreras(); // Recarga la tabla si se eliminó
-    });
-  }
-
-
   // Abre el modal de edición y carga los datos de la carrera seleccionada
   abrirModal(carrera: Carrera): void {
     this.mostrarModal = true;
@@ -136,6 +125,16 @@ export class Carreras {
         }
       }
 
+    });
+  }
+  
+  eliminarCarrera(id: number): void {
+    const confirmado = window.confirm('¿Estás seguro de eliminar esta carrera?');
+
+    if (!confirmado) return;
+
+    this.serv.eliminar(id).subscribe(() => {
+      this.obtenerCarreras(); // Recarga la tabla si se eliminó
     });
   }
 
