@@ -92,7 +92,7 @@ export class RegistrarDocente {
         next: () => {
           alert(this.idDocente ? 'Docente actualizado exitosamente' : 'Docente registrado exitosamente');
           this.formDocente.reset();
-          this.router.navigate(['/admin/docente/listar']);
+          this.router.navigate(['/restringido/docente/listar']);
         },
         error: (err) => {
           // Manejo de errores del backend (por ejemplo, validaciones 400)

@@ -28,7 +28,7 @@ export class ListarDocente {
 
   
   editarDocente(id: number) {
-    this.router.navigate(['/admin/docente/registrar', id]);
+    this.router.navigate(['/restringido/docente/registrar', id]);
   }
 
 

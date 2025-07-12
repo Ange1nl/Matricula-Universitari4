@@ -29,10 +29,10 @@ export class AuthService {
 
       switch (resp.rol) {
         case 'ADMIN':
-          this.router.navigate(['/admin']);
+          this.router.navigate(['/restringido/panelAdmin']);
           break;
         case 'RECEP':
-          this.router.navigate(['/admin/panelRecep']);
+          this.router.navigate(['/restringido/panelRecep']);
           break;
         default:
           this.router.navigate(['/loginAdminRecep']); // ruta por defecto
