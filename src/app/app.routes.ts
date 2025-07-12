@@ -19,6 +19,7 @@ import { RegistrarDocente } from './features/private/restricted-layout/admin/doc
 import { ListarDocente } from './features/private/restricted-layout/admin/docente/pages/listar-docente/listar-docente';
 import { MostrarAlumnos } from './features/private/restricted-layout/recep/alumno/mostrar-alumnos/mostrar-alumnos';
 import { RegistrarIngresado } from './features/private/restricted-layout/recep/alumno/registrar-ingresado/registrar-ingresado';
+import { Recepcion } from './features/private/restricted-layout/admin/recepciones/pages/recepcion/recepcion';
 
 
 export const routes: Routes = [
@@ -68,6 +69,8 @@ export const routes: Routes = [
                     { path: 'cursoInfoCurso', component: CursoInfoCurso, title: "Curso e Info Curso" },
 
                     { path: 'seccion', component: Seccion, title: "Secciones" },
+
+                    {path: 'recepcionistas', component: Recepcion, title: "Recepcionistas"},
 
                     /*-------Para Recepcionista------*/
                     { path: 'panelRecep', component: PanelRecep, title: "Panel Recep" },

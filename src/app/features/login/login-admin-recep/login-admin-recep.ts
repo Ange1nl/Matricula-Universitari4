@@ -35,9 +35,8 @@ export class LoginAdminRecep {
   }
   //Formulario - Fin
 
-
+  //SOLO TENEMOS UN LOGIN , ESTE LOGIN ES TANTO PARA ADMIN - RECEP
   loginFn(){
-    //Si los datos no cumplen la validacion, se sale
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;

@@ -1,1 +1,55 @@
-<p>recepcion works!</p>
+<div class="botonVolver">
+    <button class="btn-accion" routerLink="/restringido/panelAdmin">Volver al Panel</button>
+</div>
+
+<div class="form-container">
+    <h2>Registro Recepcionista</h2>
+    <form [formGroup]="formulario" (ngSubmit)="registrar()">
+        <!-- Nombre -->
+        <div class="form-field">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" formControlName="nombre" placeholder="Ingrese su nombre" />
+            @if (formulario.get('nombre')?.invalid && formulario.get('nombre')) {
+            <small class="error">Nombre obligatorio y sin números</small>
+            }
+        </div>
+
+        <!-- Apellido -->
+        <div class="form-field">
+            <label for="apellido">Apellido</label>
+            <input type="text" id="apellido" formControlName="apellido" placeholder="Ingrese su apellido" />
+            @if (formulario.get('apellido')?.invalid && formulario.get('apellido')) {
+            <small class="error">Apellido obligatorio y sin números</small>
+            }
+        </div>
+
+        <!-- Correo -->
+        <div class="form-field">
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" formControlName="correo" placeholder="ejemplo@correo.com" />
+            @if (formulario.get('correo')?.invalid && formulario.get('correo')) {
+            <small class="error">Correo inválido</small>
+            }
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-field">
+            <label for="telefono">Teléfono</label>
+            <input type="text" id="telefono" formControlName="telefono" placeholder="9 dígitos" />
+            @if (formulario.get('telefono')?.invalid && formulario.get('telefono')) {
+            <small class="error">Debe tener 9 dígitos</small>
+            }
+        </div>
+
+        <!-- Contraseña -->
+        <div class="form-field">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" formControlName="password" placeholder="Mínimo 8 caracteres" />
+            @if (formulario.get('password')?.invalid && formulario.get('password')) {
+            <small class="error">Debe tener al menos 6 caracteres</small>
+            }
+        </div>
+
+        <button class="boton" type="submit" [disabled]="formulario.invalid">Registrarse</button>
+    </form>
+</div>
