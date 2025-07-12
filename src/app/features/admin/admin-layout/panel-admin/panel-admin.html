@@ -1,6 +1,21 @@
-<div class="logout-container">
-  <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+<!-- Usuario Dropdown -->
+<div class="user-dropdown" style="position: relative; text-align: right;background-color: #f5f7fa;">
+  <button class="icon-button" (click)="toggleDropdown()" title="Usuario">
+    👤
+  </button>
+
+  @if (mostrarDropdown) {
+  <div class="dropdown-content">
+    <p><strong>👤 Nombre:</strong> {{ nombre }}</p>
+    <p><strong>🆔 ID:</strong> {{ idUsuario }}</p>
+    <p><strong>🛡️ Rol:</strong> {{ rol }}</p>
+    <button class="logout-button" (click)="logout()">Cerrar Sesión</button>
+  </div>
+  }
+
 </div>
+
+
 <div class="admin-panel">
   <h1>Panel Administrativo</h1>
   <div class="options-grid">
@@ -13,12 +28,12 @@
     <div class="option-card" routerLink="/admin/carrera">
       🎓 <span>Carrera / Curso / Info Curso</span>
     </div>
-    <div class="option-card" routerLink="/admin/docente/listar"> <!--Aca pongo sin el / la ruta porque es ruta hija y tiene que anidarse con la padre , ademas es la primera ruta, con la que entrara a docentes-->
+    <div class="option-card" routerLink="/admin/docente/listar">
+      <!--Aca pongo sin el / la ruta porque es ruta hija y tiene que anidarse con la padre , ademas es la primera ruta, con la que entrara a docentes-->
       👨‍🏫 <span>Docentes</span>
     </div>
-    <div class="option-card" routerLink="/admin/seccion" >
+    <div class="option-card" routerLink="/admin/seccion">
       🏫 <span>Secciones</span>
     </div>
   </div>
 </div>
-

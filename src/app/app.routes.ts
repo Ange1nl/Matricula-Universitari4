@@ -40,12 +40,7 @@ export const routes: Routes = [
             { path: 'sesionEstudiante', component: SesionEstudiante, title: "Login estudiante" },
             { path: 'registroEstudiante', component: RegistroEstudiante, title: "Registro estudiante" },
 
-            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },
-
-
-            { path: 'panelRecepcionista', component: PanelRecep },
-            { path: 'panelRecepcionista/mostrarAlumnos', component: MostrarAlumnos },
-            { path: 'panelRecepcionista/registrarIngresado', component: RegistrarIngresado }
+            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },            
 
         ]
     },
@@ -58,7 +53,7 @@ export const routes: Routes = [
             {
                 path: 'admin',component: AdminLayout,canActivate: [authGuard], //Creamos una carpeta padre
                 children: [
-                    { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin
+                    { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin PANEL ADMINISTRADOR
                     { path: 'docente/listar', component: ListarDocente, title: "Listar Docente"}, // /admin/docente/listar
                     { path: 'docente/registrar', component: RegistrarDocente, title: "Registrar Docente" }, // /admin/docente/registrar
                     { path: 'docente/registrar/:id', component: RegistrarDocente, title: "Editar Docente" },
@@ -66,7 +61,11 @@ export const routes: Routes = [
                     {path: 'carrera', component: Carreras, title: "Carreras"},
                     {path: 'cursoInfoCurso', component: CursoInfoCurso, title: "Curso e Info Curso"},
 
-                    {path: 'seccion', component: Seccion, title: "Secciones"}
+                    {path: 'seccion', component: Seccion, title: "Secciones"},
+
+                    {path: 'panelRecep', component: PanelRecep, title: "Panel Recep"},
+                    { path: 'panelRecepcionista/mostrarAlumnos', component: MostrarAlumnos },
+                    { path: 'panelRecepcionista/registrarIngresado', component: RegistrarIngresado }
                 ]
             },
 
