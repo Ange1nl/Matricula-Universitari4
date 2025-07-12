@@ -56,6 +56,8 @@ export const routes: Routes = [
                 path: 'restringido',component:RestrictedLayout ,canActivate: [authGuard], //Creamos una carpeta padre
                 children: [
                     { path: '', component: PanelAdmin,title: "Panel Admin" }, //Coge esta ruta por defecto porque esta vacio , admin PANEL ADMINISTRADOR
+                    
+                    /*-------Para Administrador------*/
                     { path: 'panelAdmin', component: PanelAdmin,title: "Panel Admin" },
                     
                     { path: 'docente/listar', component: ListarDocente, title: "Listar Docente" }, // /restringido/docente/listar
@@ -67,12 +69,13 @@ export const routes: Routes = [
 
                     { path: 'seccion', component: Seccion, title: "Secciones" },
 
+                    /*-------Para Recepcionista------*/
                     { path: 'panelRecep', component: PanelRecep, title: "Panel Recep" },
                     { path: 'alumno/listar', component: MostrarAlumnos, title: "Listar alumnos" },
                     { path: 'alumno/registrar', component: RegistrarIngresado, title: "Registrar alumnos" }
                 ]
 
-                
+
             },
 
             { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
