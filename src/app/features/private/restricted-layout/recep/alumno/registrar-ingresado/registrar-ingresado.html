@@ -1,78 +1,75 @@
 <div class="cuerpo">
-    
-    <a routerLink='/restringido/panelRecep' class="card zoom-card">
-        <h3>Volver</h3>
+    <a routerLink='/restringido/panelRecep' class="volver-btn">
+        <span>← Volver</span>
     </a>
 
-    <div class="contenedor-login">
-        <div class="login-box">
-            <img src="img/logo.png" class="logo">
+    <div class="contenedor-flex">
+        <!-- FORMULARIO -->
+        <div class="login-box"
+            style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
+            <img src="img/logo.png" class="logo" style="margin-bottom: 8px;" />
             <h2>Formulario de Matrícula</h2>
             <form>
-                <input type="number" placeholder="DNI del Estudiante" name="dni_estudiante" required>
-                <input type="text" placeholder="Nombre" name="nombre" required>
-                <input type="text" placeholder="Apellido" name="apellido" required>
-                <input type="email" placeholder="Correo Electrónico" name="email" required>
-                <input type="text" placeholder="Carrera" name="carrera" required>
-                <input type="text" placeholder="Teléfono" name="telefono" required>
-                <input type="datetime-local" name="fecha_registro" required>
+                <input type="number" placeholder="DNI del Estudiante" name="dni_estudiante" required />
+                <input type="text" placeholder="Nombre" name="nombre" required />
+                <input type="text" placeholder="Apellido" name="apellido" required />
+                <input type="email" placeholder="Correo Electrónico" name="email" required />
+                <input type="text" placeholder="Carrera" name="carrera" required />
+                <input type="text" placeholder="Teléfono" name="telefono" required />
+                <input type="datetime-local" name="fecha_registro" required />
                 <button type="submit">Registrar Matrícula</button>
             </form>
         </div>
-    </div>
 
-    <div class="panel-container">
-        <!-- Botones superiores -->
-        <div class="button-group">
-            <button class="btn" routerLink='/restringido/alumno/registrar'>Registrar Alumno</button>
-            <button class="btn" routerLink='/restringido/panelRecep'>Volver al Panel</button>
-            <button class="btn" type="button" (click)="listarEstudiantes()">Mostrar Todos los Alumnos</button>
+        <!-- PANEL / TABLA -->
+        <div class="panel-container">
+            <div class="button-group">
+                <button class="btn" routerLink='/restringido/alumno/registrar'>Registrar Alumno</button>
+                <button class="btn" routerLink='/restringido/panelRecep'>Volver al Panel</button>
+                <button class="btn" type="button" (click)="listarEstudiantes()">Mostrar Todos los Alumnos</button>
+            </div>
+
+            <div class="search-section">
+                <input type="text" [(ngModel)]="dniBuscar" placeholder="Digitar el DNI" />
+                <button (click)="buscarPorDni()">Buscar</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>DNI</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>Carrera</th>
+                        <th>Teléfono</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (estud$ | async; as estudiantes) {
+                    @for (estu of estudiantes; track estu.dni_estudiante) {
+                    <tr>
+                        <td>{{ estu.dni_estudiante }}</td>
+                        <td>{{ estu.nombre }}</td>
+                        <td>{{ estu.apellido }}</td>
+                        <td>{{ estu.correo }}</td>
+                        <td>{{ estu.carrera }}</td>
+                        <td>{{ estu.telefono }}</td>
+                        <td>
+                            <button class="action-btn edit-btn">Editar</button>
+                            <button class="action-btn delete-btn"
+                                (click)="eliminarEstudiante(estu.dni_estudiante)">Eliminar</button>
+                        </td>
+                    </tr>
+                    }
+                    } @else {
+                    <tr>
+                        <td colspan="7">Cargando estudiantes...</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
         </div>
-
-
-        <!-- Buscar por DNI -->
-        <div class="search-section">
-            <input type="text" [(ngModel)]="dniBuscar" placeholder="Digitar el DNI">
-            <button (click)="buscarPorDni()">Buscar</button>
-        </div>
-
-        <!-- Tabla de alumnos -->
-        <table>
-            <thead>
-                <tr>
-                    <th>DNI</th>
-                    <th>Nombre</th>
-                    <th>Apellidos</th>
-                    <th>Email</th>
-                    <th>Carrera</th>
-                    <th>Teléfono</th>
-                    <th>Acción</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (estud$ | async; as estudiantes) {
-                @for (estu of estudiantes; track estu.dni_estudiante) {
-                <tr>
-                    <td>{{ estu.dni_estudiante }}</td>
-                    <td>{{ estu.nombre }}</td>
-                    <td>{{ estu.apellido }}</td>
-                    <td>{{ estu.correo }}</td>
-                    <td>{{ estu.carrera }}</td>
-                    <td>{{ estu.telefono }}</td>
-                    <td>
-                        <button class="action-btn edit-btn">Editar</button>
-                        <button class="action-btn delete-btn"
-                            (click)="eliminarEstudiante(estu.dni_estudiante)">Eliminar</button>
-                    </td>
-                </tr>
-                }
-                } @else {
-                <tr>
-                    <td colspan="3">Cargando estudiantes...</td>
-                </tr>
-                }
-            </tbody>
-        </table>
-
     </div>
 </div>
