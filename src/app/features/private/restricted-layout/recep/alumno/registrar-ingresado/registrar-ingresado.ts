@@ -36,14 +36,11 @@ export class RegistrarIngresado {
       fecha_registro: ['', [Validators.required]]
     });
 
-
     this.listarEstudiantes();
   }
 
   //Captura de mi auth.service.ts los nuevos metodos que agrege en este caso el idUsuario capturara para cuando haga el post enviar el idUsuario
   idUsuario = this.authService.getIdUsuario();
-
-
 
   listarEstudiantes() {
     this.estud$ = this.service.getEstudiantes(); //Se guarda el observable en estud$ pero no hace la solicitud todavia recien ,EN EL HTML EN ESTA PARTE,  | async le dice a Angular: “Suscríbete al observable estud$ y espera su valor”.
@@ -63,13 +60,33 @@ export class RegistrarIngresado {
   }
 
 
+
+  modoEditar: boolean = false;
+  dniParaEditar: number | null = null;
+
+  editarAlumno(estudiante: EstudianteUniversidad) {
+    this.formulario.patchValue({
+      dni_estudiante: estudiante.dni_estudiante,
+      nombre: estudiante.nombre,
+      apellido: estudiante.apellido,
+      correo: estudiante.correo,
+      carrera: estudiante.carrera,
+      telefono: estudiante.telefono,
+      fecha_registro: estudiante.fecha_registro
+    });
+
+    this.dniParaEditar = estudiante.dni_estudiante;
+    this.modoEditar = true;
+  }
+
+
   registrarAlumno() {
     if (!this.idUsuario) {
       alert('No se encontró ID de usuario. Vuelva a iniciar sesión.');
       return;
     }
 
-    //Para el post no usaremos la interfaz porque la interfaz no tiene id_usuario
+    //Para el post no usaremos tipado de interfaz , es decir nuestro objeto javascript no tendra tipado de interfaz sin embargo para get si usaremos la interfaz
     const datos = {
       ...this.formulario.value,
       usuario: {
@@ -77,22 +94,37 @@ export class RegistrarIngresado {
       }
     };
 
-    this.service.agregar(datos).subscribe({
-      next: () => {
-        alert('Matrícula registrada con éxito');
-        this.listarEstudiantes();
-        this.formulario.reset();
 
-      },
-      error: (err) => {
-        console.error('Error al registrar matrícula:', err);
-        alert('Error al registrar la matrícula');
-      }
-    });
+    if (this.modoEditar && this.dniParaEditar) {
+      // EDITAR
+      this.service.editar(this.dniParaEditar, datos).subscribe({
+        next: () => {
+          alert('Ingresante actualizado con éxito');
+          this.listarEstudiantes();
+          this.formulario.reset();
+          this.modoEditar = false;
+          this.dniParaEditar = null;
+        },
+        error: err => {
+          console.error('Error al editar:', err);
+          alert('Error al actualizar los datos');
+        }
+      });
+    } else {
+
+      this.service.agregar(datos).subscribe({
+        next: () => {
+          alert('Ingresante registrada con éxito');
+          this.listarEstudiantes();
+          this.formulario.reset();
+        },
+        error: (err) => {
+          console.error('Error al registrar al nuevo alumno:', err);
+          alert('Error al registrar el nuvo alumno');
+        }
+      });
+    }
   }
-
-
-
 
 
   eliminarEstudiante(dni: number) {

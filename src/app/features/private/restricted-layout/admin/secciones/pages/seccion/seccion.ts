@@ -99,6 +99,7 @@ export class Seccion {
 
     const form = this.formulario.value;
 
+    //Creacion de objeto javascript de tipado de mi interfaz SeccionEnvioModels
     const seccionEnvio: SeccionEnvioModels = { //Pongo la interfaz por buena practica , solo asegura el tipado y que coincida tanto aca cuando envio al backend
       curso: { id_curso: form.id_curso }, //Para que en curso se mande solo el id_curso es decir curso = id_curso
       horario: form.horario,

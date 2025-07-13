@@ -35,6 +35,7 @@ export class Recepcion {
 
       const form = this.formulario.value;
 
+      //Objeto javascript de tipado de mi interfaz RecepcionModels
       const recepcionEnvio: RecepcionModels = {
         firstname: form.nombre,
         lastname: form.apellido,

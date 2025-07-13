@@ -114,6 +114,7 @@ export class CursoInfoCurso {
       }
     }
 
+    //Se crea un objeto javascript , el tipado es de la interfaz CursoInfoCursoModels que tendra datos del formulario
     const data: CursoInfoCursoModels = this.formulario.value;
 
     if (this.editandoId != null) {

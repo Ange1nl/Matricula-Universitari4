@@ -14,10 +14,13 @@
                 <input type="text" placeholder="Nombre" formControlName="nombre" required />
                 <input type="text" placeholder="Apellido" formControlName="apellido" required />
                 <input type="email" placeholder="Correo Electrónico" formControlName="correo" required />
-                <input type="text" placeholder="Carrera" formControlName="carrera"required />
+                <input type="text" placeholder="Carrera" formControlName="carrera" required />
                 <input type="text" placeholder="Teléfono" formControlName="telefono" required />
                 <input type="datetime-local" formControlName="fecha_registro" required />
-                <button type="submit">Registrar Matrícula</button>
+                <button type="submit">
+                    {{ modoEditar ? 'Actualizar Matrícula' : 'Registrar Matrícula' }}
+                </button>
+
             </form>
         </div>
 
@@ -57,7 +60,7 @@
                         <td>{{ estu.carrera }}</td>
                         <td>{{ estu.telefono }}</td>
                         <td>
-                            <button class="action-btn edit-btn">Editar</button>
+                            <button class="action-btn edit-btn" (click)="editarAlumno(estu)">Editar</button>
                             <button class="action-btn delete-btn" (click)="eliminarEstudiante(estu.dni_estudiante)">Eliminar</button>
                         </td>
                     </tr>
