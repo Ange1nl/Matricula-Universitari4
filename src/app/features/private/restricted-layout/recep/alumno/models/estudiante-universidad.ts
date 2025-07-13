@@ -6,5 +6,4 @@ export interface EstudianteUniversidad {
     carrera:string;
     telefono:string;
     fecha_registro:string;
-
 }

@@ -9,14 +9,14 @@
             style="display: flex;justify-content: center;flex-direction: column;align-items: center;">
             <img src="img/logo.png" class="logo" style="margin-bottom: 8px;" />
             <h2>Formulario de Matrícula</h2>
-            <form>
-                <input type="number" placeholder="DNI del Estudiante" name="dni_estudiante" required />
-                <input type="text" placeholder="Nombre" name="nombre" required />
-                <input type="text" placeholder="Apellido" name="apellido" required />
-                <input type="email" placeholder="Correo Electrónico" name="email" required />
-                <input type="text" placeholder="Carrera" name="carrera" required />
-                <input type="text" placeholder="Teléfono" name="telefono" required />
-                <input type="datetime-local" name="fecha_registro" required />
+            <form [formGroup]="formulario" (ngSubmit)="registrarAlumno()">
+                <input type="number" placeholder="DNI del Estudiante" formControlName="dni_estudiante" required />
+                <input type="text" placeholder="Nombre" formControlName="nombre" required />
+                <input type="text" placeholder="Apellido" formControlName="apellido" required />
+                <input type="email" placeholder="Correo Electrónico" formControlName="correo" required />
+                <input type="text" placeholder="Carrera" formControlName="carrera"required />
+                <input type="text" placeholder="Teléfono" formControlName="telefono" required />
+                <input type="datetime-local" formControlName="fecha_registro" required />
                 <button type="submit">Registrar Matrícula</button>
             </form>
         </div>
