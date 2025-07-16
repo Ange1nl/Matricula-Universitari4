@@ -16,18 +16,13 @@ export class Registro {
   private fb = inject(FormBuilder);
 
 
-  roles: string[] = ['ESTUDIANTE'];
-
-
   registroForm: FormGroup = this.fb.group({
     codigo: [null, [Validators.required]],
     dni: [null, [Validators.required]],
     correo: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
-    rol: ['', [Validators.required]]
+    rol: ['ESTUDI']
   });
-
-
 
 
   crearCuenta(): void {
@@ -48,17 +43,18 @@ export class Registro {
         dni_estudiante: form.dni
       }
     };
-
+    //Dato interesante si ya me registre y vuelvo a registrarme con mismo el dni_estudiante saldra error, porque en mi backend puse OneToOne es decir Unicidad  1 a 1
     this.serv.insertar(request).subscribe({
       
       next: () => {
         alert('Cuenta creada exitosamente');
         this.registroForm.reset();
       },
-      error: err => {
-        alert('Error al crear cuenta: ' + (err.error?.message || 'Error desconocido'));
-      }
-    });
+      error: () => {
+          alert("Error al registrarse");         
+        }
+      });
+    
   }
 
 

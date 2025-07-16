@@ -63,19 +63,6 @@
                     }
                 </div>
 
-                <div class="campo">
-                    <label>Rol</label>
-                    <select formControlName="rol">
-                        <option value="">Seleccione un rol</option>
-                        @for (rol of roles; track rol) {
-                        <option [value]="rol">{{ rol }}</option>
-                        }
-                    </select>
-                    @if (registroForm.get('rol')?.invalid && registroForm.get('rol')?.touched) {
-                    <small style="color:red;">Debe seleccionar un rol</small>
-                    }
-                </div>
-
                 <button type="submit" [disabled]="registroForm.invalid">Crear cuenta</button>
 
             </form>
