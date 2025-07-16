@@ -1,5 +1,17 @@
-* {
-    box-sizing: border-box;
+.campo select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+  font-size: 14px;
+}
+
+.campo select:focus {
+  border-color: #2980b9;
+  outline: none;
+  background-color: #eef6fc;
 }
 
 .fondo-registro-estudiante {
@@ -16,7 +28,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(2, 420px);/*420px el tamaño de la fila, para que entre todo el contenido , similar al de contenedorDerecha grid-template-rows*/
-        gap: 5px;
+        gap: 7px;
         padding: 3rem;
 
 
@@ -49,7 +61,7 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(4, 49px);
         /*El tamaño de la fila , tiene que ser grandecito para que entre el label y input*/
-        gap: 2rem;
+        gap: 3rem;
 
         div {
             margin: 2px;
@@ -81,7 +93,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.3rem;
-        margin: 0rem;
+        margin: 2rem;
 
         label {
             color: #f0f0f0;
@@ -146,7 +158,7 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(4, 49px);
         /*El tamaño de la fila , tiene que ser grandecito para que entre el label y input*/
-        gap: 2rem;
+        gap: 3rem;
 
         div {
             margin: 2px;
@@ -166,6 +178,7 @@
         font-weight: bold;
         transition: background-color 0.3s ease;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        margin-top: 6px;
     }
 
 

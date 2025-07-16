@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { Inicio } from './pages/inicio/inicio';
 import { NotFoundPage } from './pages/not-found-page/not-found-page';
 import { SesionEstudiante } from './features/estudiante/sesion-estudiante/sesion-estudiante';
-import { RegistroEstudiante } from './features/estudiante/registro-estudiante/registro-estudiante';
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { PrivateLayout } from './layouts/private-layout/private-layout';
 import { MatriculaEstudiante } from './features/estudiante/matricula-estudiante/matricula-estudiante';
@@ -17,9 +16,9 @@ import { Seccion } from './features/private/restricted-layout/admin/secciones/pa
 import { PanelRecep } from './features/private/restricted-layout/recep/panel-recep/panel-recep';
 import { RegistrarDocente } from './features/private/restricted-layout/admin/docente/pages/registrar-docente/registrar-docente';
 import { ListarDocente } from './features/private/restricted-layout/admin/docente/pages/listar-docente/listar-docente';
-import { MostrarAlumnos } from './features/private/restricted-layout/recep/alumno/mostrar-alumnos/mostrar-alumnos';
 import { RegistrarIngresado } from './features/private/restricted-layout/recep/alumno/registrar-ingresado/registrar-ingresado';
 import { Recepcion } from './features/private/restricted-layout/admin/recepciones/pages/recepcion/recepcion';
+import { Registro } from './features/estudiante/registro-estudiante/pages/registro/registro';
 
 
 export const routes: Routes = [
@@ -41,7 +40,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },//coge esta ruta por defecto porque esta vacio ,esque esta vacio es decir localhost:4200 manda a inicio
             { path: 'inicio', component: Inicio, title: "Página principal" },
             { path: 'sesionEstudiante', component: SesionEstudiante, title: "Login estudiante" },
-            { path: 'registroEstudiante', component: RegistroEstudiante, title: "Registro estudiante" },
+            { path: 'registroEstudiante', component: Registro, title: "Registro estudiante" },
 
             { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },            
 
@@ -74,8 +73,7 @@ export const routes: Routes = [
 
                     /*-------Para Recepcionista------*/
                     { path: 'panelRecep', component: PanelRecep, title: "Panel Recep" },
-                    { path: 'alumno/listar', component: MostrarAlumnos, title: "Listar alumnos" },
-                    { path: 'alumno/registrar', component: RegistrarIngresado, title: "Registrar alumnos" }
+                    { path: 'alumno/registrar', component: RegistrarIngresado, title: "Registrar alumnos" } //Se muestra como tambien se registra
                 ]
 
 

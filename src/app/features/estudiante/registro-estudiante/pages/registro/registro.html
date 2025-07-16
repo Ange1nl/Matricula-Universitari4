@@ -1,0 +1,74 @@
+<div class="fondo-registro-estudiante">
+    <div class="contenedor">
+        <div class="izquierda">
+            <p
+                style="color:  #f0f0f0; font-size: 36px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-align: center;margin-bottom: 1rem;">
+                Let's Make
+                It Happen <br>
+                Together! <br>
+            </p>
+            <img src="img/RegistroEstud.avif" alt="imagenRegistroEstud"
+                style="width: 440px; height: 440px; border-radius: 20px;">
+        </div>
+
+
+        <div class="derecha">
+            <h1 style="color: white; font-family: Georgia, 'Times New Roman', Times, serif;">Crear Cuenta</h1>
+
+            <form class="contenedorDerecha" [formGroup]="registroForm" (ngSubmit)="crearCuenta()">
+
+                <div class="campo">
+                    <label>Código</label>
+                    <input type="number" formControlName="codigo" />
+                    @if (registroForm.get('codigo')?.invalid && registroForm.get('codigo')?.touched) {
+                    <small style="color:red;">El código es obligatorio</small>
+                    }
+                </div>
+
+                <div class="campo">
+                    <label>DNI</label>
+                    <input type="number" formControlName="dni" />
+                    @if (registroForm.get('dni')?.invalid && registroForm.get('dni')?.touched) {
+                    <small style="color:red;">El DNI es obligatorio</small>
+                    }
+                </div>
+
+                <div class="campo">
+                    <label>Correo</label>
+                    <input type="email" formControlName="correo" />
+                    @if (registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched) {
+                    <small style="color:red;">
+                        @if (registroForm.get('correo')?.errors?.['required']) {
+                        El correo es obligatorio
+                        }
+                        @if (registroForm.get('correo')?.errors?.['email']) {
+                        Ingrese un correo válido
+                        }
+                    </small>
+                    }
+                </div>
+
+                <div class="campo">
+                    <label>Contraseña</label>
+                    <input type="password" formControlName="password" />
+                    @if (registroForm.get('password')?.invalid && registroForm.get('password')?.touched) {
+                    <small style="color:red;">
+                        @if (registroForm.get('password')?.errors?.['required']) {
+                        La contraseña es obligatoria
+                        }
+                        @if (registroForm.get('password')?.errors?.['minlength']) {
+                        Mínimo 6 caracteres
+                        }
+                    </small>
+                    }
+                </div>
+
+                <button type="submit" [disabled]="registroForm.invalid">Crear cuenta</button>
+
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
