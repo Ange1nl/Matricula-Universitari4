@@ -10,12 +10,13 @@ import { AuthService } from '../../../../../core/services/auth.service';
 })
 export class PanelAdmin {
 
-  nombre: string | null = '';
-  idUsuario: string | null = '';
-  rol: string | null = '';
 
   private auth = inject(AuthService);
 
+
+  nombre: string | null = '';
+  idUsuario: number | null = null;
+  rol: string | null = '';
 
   mostrarDropdown = false;
 
@@ -25,9 +26,9 @@ export class PanelAdmin {
 
 
   ngOnInit() {
-    this.nombre = localStorage.getItem('nombre');
-    this.idUsuario = localStorage.getItem('idUsuario');
-    this.rol = localStorage.getItem('rol');
+    this.nombre = this.auth.getNombre();
+    this.idUsuario = this.auth.getIdUsuario();
+    this.rol = this.auth.getRol();
   }
 
 

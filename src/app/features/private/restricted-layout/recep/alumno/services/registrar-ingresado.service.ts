@@ -20,11 +20,9 @@ export class RegistrarIngresadoService {
     return this.http.get<EstudianteUniversidad>(`${this.URL}/lista/${dni}`);
   }
 
-
   agregar(estudiante: EstudianteUniversidad): Observable<EstudianteUniversidad> {
     return this.http.post<EstudianteUniversidad>(`${this.URL}/insertar`, estudiante);
   }
-
 
   editar(dni: number, estudiante: EstudianteUniversidad): Observable<EstudianteUniversidad> {
     return this.http.put<EstudianteUniversidad>(`${this.URL}/actualizar/${dni}`, estudiante);
@@ -33,6 +31,5 @@ export class RegistrarIngresadoService {
   eliminar(dni: number): Observable<string> {
     return this.http.delete<string>(`${this.URL}/eliminar/${dni}`);
   }
-
 
 }

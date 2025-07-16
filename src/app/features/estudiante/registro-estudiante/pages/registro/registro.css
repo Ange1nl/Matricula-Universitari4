@@ -1,5 +1,17 @@
-* {
-    box-sizing: border-box;
+.campo select {
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.2s ease-in-out;
+  background-color: white;
+  font-size: 14px;
+}
+
+.campo select:focus {
+  border-color: #2980b9;
+  outline: none;
+  background-color: #eef6fc;
 }
 
 .fondo-registro-estudiante {
