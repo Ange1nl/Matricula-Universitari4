@@ -19,7 +19,7 @@
 
                 <div class="campo">
                     <label>Código</label>
-                    <input type="text" formControlName="codigo" />
+                    <input type="number" formControlName="codigo" />
                     @if (registroForm.get('codigo')?.invalid && registroForm.get('codigo')?.touched) {
                     <small style="color:red;">El código es obligatorio</small>
                     }

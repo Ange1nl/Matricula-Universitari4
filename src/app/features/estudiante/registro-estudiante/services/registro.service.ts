@@ -12,6 +12,7 @@ export class RegistroService {
   private http = inject(HttpClient);
 
   insertar(requestRegistroModel: RequestRegistroModel): Observable <void>{
+    console.log("Petición enviada:", requestRegistroModel);
     return this.http.post<void>(`${this.URL}/insertar`,requestRegistroModel)
   }
 

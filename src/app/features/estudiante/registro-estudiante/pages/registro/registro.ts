@@ -40,7 +40,7 @@ export class Registro {
 
     //Objeto javascript con tipado de mi interfaz
     const request: RequestRegistroModel = {
-      codigo_estudiante: form.codigo,
+      codigo_estudiante: +form.codigo,
       correo_estudiante: form.correo,
       password: form.password,
       rol: form.rol.toUpperCase(),
@@ -50,6 +50,7 @@ export class Registro {
     };
 
     this.serv.insertar(request).subscribe({
+      
       next: () => {
         alert('Cuenta creada exitosamente');
         this.registroForm.reset();
