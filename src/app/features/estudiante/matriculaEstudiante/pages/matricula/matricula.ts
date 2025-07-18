@@ -20,7 +20,6 @@ export class Matricula {
 
   secciones: Seccion[] = [];
   cursoSeleccionado: string = '';
-  mostrarModal = false;
 
   ngOnInit() {
     const storedData = localStorage.getItem('loginData');//Traemos el localstorage que tiene los datos, cuando iniciamos sesion
@@ -31,23 +30,19 @@ export class Matricula {
 
   verSecciones(cursoId: number, nombreCurso: string) {
     this.cursoSeleccionado = nombreCurso;
-    this.mostrarModal = true;
 
     this.service.getSeccionesPorCurso(cursoId).subscribe({
       next: (res) => {
         this.secciones = res;
-        this.mostrarModal = true; // <-- aquí
-        console.log('Secciones cargadas:', this.secciones);
-
       },
       error: (err) => console.error('Error cargando secciones:', err)
     });
   }
 
-  cerrarModal() {
-    this.mostrarModal = false;
-    this.secciones = [];
-  }
 
+  cerrarSecciones() {
+    this.secciones = [];
+    this.cursoSeleccionado = '';
+  }
 
 }

@@ -56,17 +56,62 @@
       }
     </div>
 
+    <br>  <hr>
+    <!-- Tabla de secciones -->
+    @if (secciones.length > 0) {
+    <div class="secciones-wrapper">
+      <div class="secciones-panel" role="dialog" aria-modal="false">
+        <div class="secciones-header">
+          <h3>Secciones disponibles para {{ cursoSeleccionado }}</h3>
+          <button type="button" class="secciones-cerrar" (click)="cerrarSecciones()" aria-label="Cerrar">×</button>
+        </div>
+
+        <div class="secciones-body">
+          <table class="secciones-tabla">
+            <thead>
+              <tr>
+                <th>Horario</th>
+                <th>Aula</th>
+                <th>Profesor</th>
+                <th>Cupos</th>
+                <th>Modalidad</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (sec of secciones; track sec.idSeccion) {
+              <tr>
+                <td>{{ sec.horario }}</td>
+                <td>{{ sec.aula }}</td>
+                <td>{{ sec.profesores.nombre }} {{ sec.profesores.apellido }}</td>
+                <td>{{ sec.cupos }}</td>
+                <td>{{ sec.modalidad }}</td>
+                <td> <button class="btn-agregar" >Seleccionar</button> </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+      <!-- Separador visual -->
+    <hr class="sep" />
 
     <!-- Resumen y acciones -->
     <div class="zona-inferior">
       <div class="resumen">
-        <div><strong>00</strong>
+        <div>
+          <strong>00</strong>
           <p>Cursos seleccionados</p>
         </div>
-        <div><strong>00</strong>
+        <div>
+          <strong>00</strong>
           <p>Horas semanales seleccionadas</p>
         </div>
-        <div><strong>00</strong>
+        <div>
+          <strong>00</strong>
           <p>Créditos seleccionados</p>
         </div>
       </div>
@@ -82,40 +127,8 @@
         <a href="#">📘 Guía interactiva</a>
       </div>
     </div>
+    
   </section>
 
-
-  @if (mostrarModal) {
-
-  <pre>{{ secciones | json }}</pre>
-  <div class="modal-backdrop">
-    <div class="modal">
-      <h3>Secciones disponibles para {{ cursoSeleccionado }}</h3>
-      <table border="1" style="width: 100%; margin-top: 10px;">
-        <thead>
-          <tr>
-            <th>Horario</th>
-            <th>Aula</th>
-            <th>Profesor</th>
-            <th>Cupos</th>
-            <th>Modalidad</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (sec of secciones; track sec.idSeccion) {
-          <tr>
-            <td>{{ sec.horario }}</td>
-            <td>{{ sec.aula }}</td>
-            <td>{{ sec.profesores.nombre }} {{ sec.profesores.apellido }}</td>
-            <td>{{ sec.cupos }}</td>
-            <td>{{ sec.modalidad }}</td>
-          </tr>
-          }
-        </tbody>
-      </table>
-      <button (click)="cerrarModal()">Cerrar</button>
-    </div>
-  </div>
-  }
 
 </div>
