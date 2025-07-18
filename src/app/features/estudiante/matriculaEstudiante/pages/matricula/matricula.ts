@@ -21,6 +21,7 @@ export class Matricula {
   secciones: Seccion[] = [];
   cursoSeleccionado: string = '';
 
+  //Trae los datos del localStorage pero decidi que lo que se muestra en pantalla en la tabla solo sera el Curso y InfoCurso
   ngOnInit() {
     const storedData = localStorage.getItem('loginData');//Traemos el localstorage que tiene los datos, cuando iniciamos sesion
     if (storedData) {
@@ -28,6 +29,7 @@ export class Matricula {
     }
   }
 
+  //Selecciona el id del curso y se muestra las secciones en la tabla de abajo del html
   verSecciones(cursoId: number, nombreCurso: string) {
     this.cursoSeleccionado = nombreCurso;
 
