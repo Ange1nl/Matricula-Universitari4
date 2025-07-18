@@ -1,0 +1,86 @@
+<div class="matricula-container">
+  <aside class="sidebar">
+    <img src="img/logo.png" alt="Logo" class="logo" style="height: 100px;width: 100px;" />
+    <p class="titulo-alumno">Datos Alumno</p>
+    <nav class="nav-links">
+      <a href="#">Tu horario</a>
+      <a href="#">Pensiones</a>
+      <a href="#">Solicita una nueva sección</a>
+      <a href="#" class="finalizar">Finalizar</a>
+    </nav>
+  </aside>
+
+  <!-- Contenido principal -->
+  <section class="main-content">
+    <!-- Título -->
+    <h2 class="titulo-cursos">Cursos a Matricular</h2>
+    <p class="descripcion">
+      Estos son los cursos en los que puedes matricularte este ciclo. Recuerda primero seleccionar los cursos que
+      has desaprobado antes de matricularte en otros.
+    </p>
+
+    <!-- Tabla de cursos -->
+    <div class="tabla-cursos">
+      @if (data) {
+      <h2>Matrícula {{ data.periodoMatricula }} - {{ data.carreraNombre }}</h2>
+      <p>Código estudiante: {{ data.codigoEstudiante }}</p>
+
+      <table border="1" style="width: 100%; margin-top: 10px;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ciclo</th>
+            <th>Horas</th>
+            <th>Créditos</th>
+            <th>Tipo</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (curso of data.cursos; track curso.idCurso) {
+          <tr>
+            <td>{{ curso.idCurso }}</td>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.ciclo }}</td>
+            <td>{{ curso.horaSemanal }}</td>
+            <td>{{ curso.credito }}</td>
+            <td>{{ curso.tipo }}</td>
+            <td> agregar </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      } @else {
+      <p>No hay datos cargados</p>
+      }
+
+    </div>
+
+    <!-- Resumen y acciones -->
+    <div class="zona-inferior">
+      <div class="resumen">
+        <div><strong>00</strong>
+          <p>Cursos seleccionados</p>
+        </div>
+        <div><strong>00</strong>
+          <p>Horas semanales seleccionadas</p>
+        </div>
+        <div><strong>00</strong>
+          <p>Créditos seleccionados</p>
+        </div>
+      </div>
+
+      <div class="importante">
+        <p>No olvides usar el botón “procesar matrícula” para registrar los cursos y horarios seleccionados</p>
+        <button class="btn-procesar">PROCESAR MATRÍCULA</button>
+      </div>
+
+      <div class="contacto">
+        <p>Te guiamos en el proceso de matrícula en línea:</p>
+        <a href="#">🎥 Video tutorial de matrícula</a><br />
+        <a href="#">📘 Guía interactiva</a>
+      </div>
+    </div>
+  </section>
+</div>

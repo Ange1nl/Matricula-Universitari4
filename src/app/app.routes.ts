@@ -3,7 +3,6 @@ import { Inicio } from './pages/inicio/inicio';
 import { NotFoundPage } from './pages/not-found-page/not-found-page';
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { PrivateLayout } from './layouts/private-layout/private-layout';
-import { MatriculaEstudiante } from './features/estudiante/matricula-estudiante/matricula-estudiante';
 import { LoginAdminRecep } from './features/login/login-admin-recep/login-admin-recep';
 
 import { authGuard } from './core/guards/auth-guard';
@@ -19,6 +18,7 @@ import { RegistrarIngresado } from './features/private/restricted-layout/recep/a
 import { Recepcion } from './features/private/restricted-layout/admin/recepciones/pages/recepcion/recepcion';
 import { Registro } from './features/estudiante/registro-estudiante/pages/registro/registro';
 import { LoginMatricula } from './features/estudiante/loginEstudiante/pages/login-matricula/login-matricula';
+import { Matricula } from './features/estudiante/matriculaEstudiante/pages/matricula/matricula';
 
 
 export const routes: Routes = [
@@ -39,9 +39,10 @@ export const routes: Routes = [
         children: [
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },//coge esta ruta por defecto porque esta vacio ,esque esta vacio es decir localhost:4200 manda a inicio
             { path: 'inicio', component: Inicio, title: "Página principal" },
+            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },
+
             { path: 'sesionEstudiante', component: LoginMatricula, title: "Login estudiante" },
             { path: 'registroEstudiante', component: Registro, title: "Registro estudiante" },
-            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },            
 
         ]
     },
@@ -77,7 +78,7 @@ export const routes: Routes = [
 
             },
 
-            { path: 'matricula', component: MatriculaEstudiante, title: "Matrícula" },
+            { path: 'matricula', component: Matricula, title: "Matrícula" },
         ]
     },
 
