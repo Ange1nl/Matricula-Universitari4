@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { Inicio } from './pages/inicio/inicio';
 import { NotFoundPage } from './pages/not-found-page/not-found-page';
-import { SesionEstudiante } from './features/estudiante/sesion-estudiante/sesion-estudiante';
 import { PublicLayout } from './layouts/public-layout/public-layout';
 import { PrivateLayout } from './layouts/private-layout/private-layout';
 import { MatriculaEstudiante } from './features/estudiante/matricula-estudiante/matricula-estudiante';
@@ -19,6 +18,7 @@ import { ListarDocente } from './features/private/restricted-layout/admin/docent
 import { RegistrarIngresado } from './features/private/restricted-layout/recep/alumno/registrar-ingresado/registrar-ingresado';
 import { Recepcion } from './features/private/restricted-layout/admin/recepciones/pages/recepcion/recepcion';
 import { Registro } from './features/estudiante/registro-estudiante/pages/registro/registro';
+import { LoginMatricula } from './features/estudiante/loginEstudiante/pages/login-matricula/login-matricula';
 
 
 export const routes: Routes = [
@@ -39,9 +39,8 @@ export const routes: Routes = [
         children: [
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },//coge esta ruta por defecto porque esta vacio ,esque esta vacio es decir localhost:4200 manda a inicio
             { path: 'inicio', component: Inicio, title: "Página principal" },
-            { path: 'sesionEstudiante', component: SesionEstudiante, title: "Login estudiante" },
+            { path: 'sesionEstudiante', component: LoginMatricula, title: "Login estudiante" },
             { path: 'registroEstudiante', component: Registro, title: "Registro estudiante" },
-
             { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },            
 
         ]
@@ -75,7 +74,6 @@ export const routes: Routes = [
                     { path: 'panelRecep', component: PanelRecep, title: "Panel Recep" },
                     { path: 'alumno/registrar', component: RegistrarIngresado, title: "Registrar alumnos" } //Se muestra como tambien se registra
                 ]
-
 
             },
 

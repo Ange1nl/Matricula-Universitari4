@@ -1,4 +1,4 @@
-
+//Este se usa para hacer el post
 export interface CursoInfoCursoModels {
     //curso
     nombre:string,
