@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (curso of data.cursos; track curso.idCurso) {
+          @for (curso of data.cursos; track curso.idCurso) { <!--Se muestra lo de CursoConInfo-->
           <tr>
             <td>{{ curso.idCurso }}</td>
             <td>{{ curso.nombre }}</td>
@@ -46,7 +46,7 @@
             <td>{{ curso.horaSemanal }}</td>
             <td>{{ curso.credito }}</td>
             <td>{{ curso.tipo }}</td>
-            <td> agregar </td>
+            <td> <button class="btn-agregar" (click)="verSecciones(curso.idCurso, curso.nombre)">Agregar</button> </td>
           </tr>
           }
         </tbody>
@@ -54,8 +54,8 @@
       } @else {
       <p>No hay datos cargados</p>
       }
-
     </div>
+
 
     <!-- Resumen y acciones -->
     <div class="zona-inferior">
@@ -83,4 +83,39 @@
       </div>
     </div>
   </section>
+
+
+  @if (mostrarModal) {
+
+  <pre>{{ secciones | json }}</pre>
+  <div class="modal-backdrop">
+    <div class="modal">
+      <h3>Secciones disponibles para {{ cursoSeleccionado }}</h3>
+      <table border="1" style="width: 100%; margin-top: 10px;">
+        <thead>
+          <tr>
+            <th>Horario</th>
+            <th>Aula</th>
+            <th>Profesor</th>
+            <th>Cupos</th>
+            <th>Modalidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (sec of secciones; track sec.idSeccion) {
+          <tr>
+            <td>{{ sec.horario }}</td>
+            <td>{{ sec.aula }}</td>
+            <td>{{ sec.profesores.nombre }} {{ sec.profesores.apellido }}</td>
+            <td>{{ sec.cupos }}</td>
+            <td>{{ sec.modalidad }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      <button (click)="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+  }
+
 </div>
