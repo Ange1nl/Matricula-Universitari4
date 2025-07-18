@@ -1,3 +1,4 @@
+//Este se usa para hace el get
 export interface CursoInfoCursoResponseModels {
     //Curso    
     id_curso:number,

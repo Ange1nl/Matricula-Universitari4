@@ -1,0 +1,136 @@
+<div class="matricula-container">
+  <aside class="sidebar">
+    <img src="img/logo.png" alt="Logo" class="logo" style="height: 100px;width: 100px;" />
+    <p class="titulo-alumno">Datos Alumno</p>
+    <nav class="nav-links">
+      <a href="#">Tu horario</a>
+      <a href="#">Pensiones</a>
+      <a href="#">Solicita una nueva sección</a>
+      <a href="#" class="finalizar">Finalizar</a>
+    </nav>
+  </aside>
+
+  <!-- Contenido principal -->
+  <section class="main-content">
+    <!-- Título -->
+    <h2 class="titulo-cursos">Cursos a Matricular</h2>
+    <p class="descripcion">
+      Estos son los cursos en los que puedes matricularte este ciclo. Recuerda primero seleccionar los cursos que
+      has desaprobado antes de matricularte en otros.
+    </p>
+
+    <!-- Tabla de cursos -->
+    <div class="tabla-cursos">
+      @if (data) {
+      <h2>Matrícula {{ data.periodoMatricula }} - {{ data.carreraNombre }}</h2>
+      <p>Código estudiante: {{ data.codigoEstudiante }}</p>
+
+      <table border="1" style="width: 100%; margin-top: 10px;">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ciclo</th>
+            <th>Horas</th>
+            <th>Créditos</th>
+            <th>Tipo</th>
+            <th>Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (curso of data.cursos; track curso.idCurso) { <!--Se muestra lo de CursoConInfo-->
+          <tr>
+            <td>{{ curso.idCurso }}</td>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.ciclo }}</td>
+            <td>{{ curso.horaSemanal }}</td>
+            <td>{{ curso.credito }}</td>
+            <td>{{ curso.tipo }}</td>
+            <td> <button class="btn-agregar" (click)="verSecciones(curso.idCurso, curso.nombre)">Agregar</button> </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      } @else {
+      <p>No hay datos cargados</p>
+      }
+    </div>
+
+    <br>  <hr>
+    <!-- Tabla de secciones -->
+    @if (secciones.length > 0) {
+    <div class="secciones-wrapper">
+      <div class="secciones-panel" role="dialog" aria-modal="false">
+        <div class="secciones-header">
+          <h3>Secciones disponibles para {{ cursoSeleccionado }}</h3>
+          <button type="button" class="secciones-cerrar" (click)="cerrarSecciones()" aria-label="Cerrar">×</button>
+        </div>
+
+        <div class="secciones-body">
+          <table class="secciones-tabla">
+            <thead>
+              <tr>
+                <th>Horario</th>
+                <th>Aula</th>
+                <th>Profesor</th>
+                <th>Imagen</th>
+                <th>Cupos</th>
+                <th>Modalidad</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (sec of secciones; track sec.idSeccion) {
+              <tr>
+                <td>{{ sec.horario }}</td>
+                <td>{{ sec.aula }}</td>
+                <td>{{ sec.profesores.nombre }} {{ sec.profesores.apellido }}</td>
+                <td><img style="width: 55px;height: 55px; border-radius: 40px;" [src]="'http://localhost:8082/img/' + sec.profesores.img"> </td>
+                <td>{{ sec.cupos }}</td>
+                <td>{{ sec.modalidad }}</td>
+                <td> <button class="btn-agregar" >Seleccionar</button> </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    }
+
+      <!-- Separador visual -->
+    <hr class="sep" />
+
+    <!-- Resumen y acciones -->
+    <div class="zona-inferior">
+      <div class="resumen">
+        <div>
+          <strong>00</strong>
+          <p>Cursos seleccionados</p>
+        </div>
+        <div>
+          <strong>00</strong>
+          <p>Horas semanales seleccionadas</p>
+        </div>
+        <div>
+          <strong>00</strong>
+          <p>Créditos seleccionados</p>
+        </div>
+      </div>
+
+      <div class="importante">
+        <p>No olvides usar el botón “procesar matrícula” para registrar los cursos y horarios seleccionados</p>
+        <button class="btn-procesar">PROCESAR MATRÍCULA</button>
+      </div>
+
+      <div class="contacto">
+        <p>Te guiamos en el proceso de matrícula en línea:</p>
+        <a href="#">🎥 Video tutorial de matrícula</a><br />
+        <a href="#">📘 Guía interactiva</a>
+      </div>
+    </div>
+    
+  </section>
+
+
+</div>

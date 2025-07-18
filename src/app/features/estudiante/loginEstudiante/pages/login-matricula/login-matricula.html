@@ -1,0 +1,25 @@
+<div class="fondo-sesion-estudiante">
+  <div class="padre">
+    <h2>Login Alumno</h2>
+    <div class="imgText">
+      <img src="img/logo.png" alt="logo" style="width: 80px; height: 86px; margin:8px 15px; margin-bottom: 15px;">
+      <div style="color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; margin: 18px 11px; font-size: 20px;">
+        Sistema <br> Único de <br> Matrícula
+      </div>
+    </div>
+
+    <div class="cajaTexto">
+      <input type="text" [(ngModel)]="codigo" placeholder="Ingrese su Código">
+      <input type="password" [(ngModel)]="password" placeholder="Ingrese su Contraseña">
+    </div>
+
+    <div class="botones">
+      <button class="iniciar" type="button" (click)="onLogin()">Iniciar sesión</button>
+      <a routerLink="/registroEstudiante" style="color: white; text-align: center; margin-bottom: 12px; margin-top: 8px;">Crear cuenta</a>
+    </div>
+
+    @if (errorMsg) {
+      <p style="color: rgb(235, 32, 32);text-align: center;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{ errorMsg }}</p>
+    }
+  </div>
+</div>

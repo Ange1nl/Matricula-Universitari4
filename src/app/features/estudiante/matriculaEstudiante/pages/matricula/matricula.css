@@ -1,0 +1,292 @@
+/*LAYOUT GENERAL*/
+.matricula-container {
+  display: flex;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/*SIDEBAR*/
+.sidebar {
+  width: 220px;
+  background-color: #1e4b6e;
+  color: white;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.titulo-alumno {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.nav-links a {
+  display: block;
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links .finalizar {
+  margin-top: 20px;
+  color: #0f0;
+  font-weight: bold;
+}
+
+/*CONTENIDO PRINCIPAL*/
+.main-content {
+  flex: 1;
+  background-color: #f8f8f8;
+  padding: 30px;
+  overflow-y: auto;
+}
+
+.titulo-cursos {
+  color: #1e4b6e;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.descripcion {
+  margin: 15px 0;
+  font-size: 0.9rem;
+}
+
+/*TABLA CURSOS (principal)*/
+.tabla-cursos table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fdf7ee;
+}
+
+.tabla-cursos th {
+  background-color: #0d3a58;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+.tabla-cursos td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.btn-agregar {
+  background-color: #61B762;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.btn-agregar:hover {
+  background-color: #2e8e55;
+}
+
+/*PANEL SECCIONES (modal-like)*/
+.secciones-wrapper {
+  margin-top: 4px;
+  margin-bottom: 32px;
+  /* efecto leve de separación */
+  padding: 20px;
+  border-radius: 8px;
+
+  transform: translateY(20px);
+  animation: fadeSlideIn 0.8s ease-out forwards;
+
+  /* Transiciones suaves para hover */
+  transition: transform 1s ease, box-shadow 1s ease;
+}
+
+.secciones-wrapper:hover {
+  transform: translateY(0) scale(1);
+}
+
+.secciones-panel {
+
+  border-radius: 8px;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+  padding: 0;
+  max-height: 60vh;
+  overflow: hidden; /* header fijo, body scrolleable */
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.25s ease-out;
+}
+
+.secciones-header {
+  background: #1e5986;
+  color: #fff;
+  padding: 16px 20px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px;
+}
+
+.secciones-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.secciones-cerrar {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+.secciones-cerrar:hover {
+  color: #ffdddd;
+}
+
+.secciones-body {
+  padding: 16px 20px;
+  overflow-y: auto;
+}
+
+/* tabla interna */
+.secciones-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.secciones-tabla th {
+  background: #1e5986;
+  color: #fff;
+  text-align: left;
+  padding: 8px;
+  position: sticky; /* queda visible al scrollear */
+  top: 0;
+  z-index: 1;
+}
+
+.secciones-tabla td {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  background: #fff;
+}
+
+/* zebra opcional */
+.secciones-tabla tbody tr:nth-child(even) td {
+  background: #f5f8fa;
+}
+
+/*SEPARADOR*/
+.sep {
+  margin: 40px 0;
+  border: none;
+  border-top: 1px solid #ccc;
+}
+
+/*ZONA INFERIOR*/
+.zona-inferior {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.resumen div {
+  background-color: #dde5eb;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.importante {
+  flex: 1;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ccc;
+}
+
+.btn-procesar {
+  margin-top: 10px;
+  background-color: #43b672;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-procesar:hover {
+  background-color: #2e8e55;
+}
+
+.contacto {
+  font-size: 0.9rem;
+}
+
+/*ANIMACIONES*/
+@keyframes slideIn {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/*RESPONSIVE */
+@media (max-width: 768px) {
+  .matricula-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    text-align: center;
+  }
+
+  .nav-links a {
+    display: inline-block;
+    margin: 10px;
+  }
+
+  .main-content {
+    padding: 15px;
+  }
+
+  .zona-inferior {
+    flex-direction: column;
+  }
+
+  .tabla-cursos table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .btn-procesar {
+    width: 100%;
+  }
+
+  .secciones-wrapper {
+    padding: 16px;
+  }
+
+  .secciones-header {
+    flex-direction: row;
+    align-items: center;
+  }
+}
