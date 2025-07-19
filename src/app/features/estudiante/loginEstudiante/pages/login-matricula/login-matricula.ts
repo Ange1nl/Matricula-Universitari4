@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login-matricula',
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './login-matricula.html',
   styleUrl: './login-matricula.css'
 })

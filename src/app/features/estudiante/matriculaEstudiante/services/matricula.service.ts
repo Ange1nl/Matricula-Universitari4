@@ -22,7 +22,8 @@ export class MatriculaService {
     return this.http.post<MatriculaResponse[]>(`${this.URL}/procesar`, payload);
   }
 
-  getSeccionesByIds(ids: number[]) {
+  //Lo que me devuelve procesarMatricula que es el id_matricula y idSeccion , uso para mandar en este metodo y hacer el get de esos idSeccion
+  getSeccionesByIds(ids: number[]):Observable<Seccion[]> {
     const params = new HttpParams().set('ids', ids.join(','));
     return this.http.get<Seccion[]>(`${this.URL}/secciones/by-ids`, { params });
   }

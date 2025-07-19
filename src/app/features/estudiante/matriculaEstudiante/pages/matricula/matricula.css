@@ -321,7 +321,7 @@
 }
 
 .tabla-resumen thead {
-  background-color: #4CAF50; /* Verde moderno */
+  background: linear-gradient(90deg, #4CAF50, #388E3C); /* Degradado verde */
   color: white;
   text-align: left;
 }
@@ -329,11 +329,8 @@
 .tabla-resumen th,
 .tabla-resumen td {
   padding: 12px 16px;
-  border-bottom: 1px solid #ddd;
-}
-
-.tabla-resumen tr:hover {
-  background-color: #f1f1f1; /* Efecto hover */
+  border-bottom: 1px solid #e6e6e6;
+  transition: background-color 0.2s ease;
 }
 
 .tabla-resumen th {
@@ -343,15 +340,15 @@
   font-size: 13px;
 }
 
-.tabla-resumen td {
-  color: #333;
+.tabla-resumen tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Rayado suave */
 }
 
-h3 {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 20px;
+.tabla-resumen tbody tr:hover {
+  background-color: #e8f5e9; /* Hover en fila */
+}
+
+.tabla-resumen td {
   color: #333;
-  margin-top: 32px;
-  margin-bottom: 12px;
 }
 
