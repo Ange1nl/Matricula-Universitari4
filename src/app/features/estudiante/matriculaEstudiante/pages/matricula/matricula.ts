@@ -28,16 +28,9 @@ export class Matricula {
   // Acumulador de IDs de secciones que se enviarán al backend
   seccionesSeleccionadas: number[] = [];
 
-  /**
-   * Mapa de curso -> información de la sección elegida (para mostrar en tabla)
-   * Sólo UNA sección por curso (lógica típica). .
-   */
-  seccionPorCurso: {
-    [idCurso: number]: {
-      idSeccion: number;
-      horario: string
-    }
-  } = {};
+ 
+  seccionPorCurso: Record<number, { idSeccion: number; horario: string }> = {};
+
 
   //PARA EL RESUMEN DE MATRICULA GET
   resumenMatricula: MatriculaResumenRow[] = [];
@@ -45,15 +38,29 @@ export class Matricula {
   mensaje = '';
   procesando = false;
 
-  //Trae los datos del localStorage pero decidi que lo que se muestra en pantalla en la tabla solo sera el Curso y InfoCurso
+  //----------------------------Trae los datos del localStorage pero decidi que lo que se muestra en pantalla en la tabla solo sera el Curso y InfoCurso------------------
   ngOnInit() {
     const stored = localStorage.getItem('loginData');
     if (stored) {
       this.data = JSON.parse(stored) as LoginResponse;
     }
+
+    // ACA AGREGUE: cargar resumen previo si existe en localStorage, PARA LE GET , QUE SE MUESTRE TODAS LAS SECCIONES MATRICULAS POR MAS QUE RECARGE LA PAGINA
+    const resumenGuardado = localStorage.getItem('resumenMatriculaFinal');
+    if (resumenGuardado) {
+      try {
+        const arr = JSON.parse(resumenGuardado) as MatriculaResumenRow[];
+        if (Array.isArray(arr)) {
+          this.resumenMatricula = arr;
+        }
+      } catch (e) {
+        console.warn('No se pudo parsear resumenMatriculaFinal desde localStorage', e);
+      }
+    }
   }
 
-  //Selecciona el id del curso y se muestra las secciones en la tabla de abajo del html
+
+  //---------------------Selecciona el id del curso y se muestra las secciones en la tabla de abajo del html---------------------
   // Abrir secciones del curso
   verSecciones(idCurso: number, nombre: string) {
     this.cursoSeleccionadoId = idCurso;
@@ -118,7 +125,7 @@ export class Matricula {
     return !!this.seccionPorCurso[idCurso];
   }
 
-
+  /*-----------------------Procesar matricula-----------------------*/
   procesarMatricula() {
     if (!this.data) {
       this.mensajeTemporal('Sin datos del estudiante');
@@ -136,9 +143,9 @@ export class Matricula {
 
     this.procesando = true;
 
+
     this.service.procesarMatricula(body).subscribe({
       next: (resp: MatriculaResponse[]) => {
-
         if (resp.length === 0) {
           this.mensajeTemporal('No se generaron matrículas (quizás ya estabas matriculado).');
           this.procesando = false;
@@ -146,18 +153,15 @@ export class Matricula {
         }
 
         // Mapa id_seccion -> id_matricula
-        const mapMat = new Map<number, number>(
-          resp.map(r => [r.id_seccion, r.id_matricula])
-        );
-
+        const mapMat = new Map<number, number>(resp.map(r => [r.id_seccion, r.id_matricula]));
         const ids = resp.map(r => r.id_seccion);
 
-        // Traer detalles completos De la seccion
+        // Traer detalles completos de la(s) sección(es)
         this.service.getSeccionesByIds(ids).subscribe({
           next: (seccionesDetalle: Seccion[]) => {
-            this.resumenMatricula = seccionesDetalle.map(sec => ({
+            const nuevos: MatriculaResumenRow[] = seccionesDetalle.map(sec => ({
               id_matricula: mapMat.get(sec.idSeccion)!,
-              id_seccion: sec.idSeccion, //El primero es de mi record id_seccion y el segundo de la interfaz seccion
+              id_seccion: sec.idSeccion,
               curso: sec.curso,
               horario: sec.horario,
               aula: sec.aula,
@@ -165,12 +169,16 @@ export class Matricula {
               modalidad: sec.modalidad
             }));
 
-            // Persistir opcionalmente
-            localStorage.setItem('resumenMatriculaFinal', JSON.stringify(this.resumenMatricula));
+            // ACA ELIMINE: asignación directa = seccionesDetalle.map(...)
+            // ACA AGREGUE: fusión con datos previos
+            this.mergeResumenMatricula(nuevos); // <--- IMPORTANTE
 
-            this.mensajeTemporal(`Matrícula completa. Total: ${this.resumenMatricula.length}`);
+            // Persistir opcionalmente (actualizado)
+            localStorage.setItem('resumenMatriculaFinal', JSON.stringify(this.resumenMatricula)); // ACA AGREGUE persistencia tras fusión
 
-            // Limpiar selección visual
+            this.mensajeTemporal(`Matrícula actualizada. Total: ${this.resumenMatricula.length}`);
+
+            // Limpiar selección visual (esto SÍ se mantiene)
             this.seccionPorCurso = {};
             this.seccionesSeleccionadas = [];
             this.cerrarSecciones();
@@ -188,7 +196,36 @@ export class Matricula {
         this.procesando = false;
       }
     });
+
   }
+
+
+
+  // -------------------------------------------------------------
+  // FUSIONAR RESUMENES (actualiza o inserta sin duplicados)
+  // -------------------------------------------------------------
+  private mergeResumenMatricula(nuevos: MatriculaResumenRow[]) {
+    // ACA AGREGUE: lógica de fusión usando Map
+    // Clave: id_seccion (puedes cambiar a id_matricula si prefieres)
+    const map = new Map<number, MatriculaResumenRow>();
+
+    // Primero: datos existentes
+    for (const r of this.resumenMatricula) {
+      map.set(r.id_seccion, r);
+    }
+
+    // Luego: sobrescribir / agregar con los nuevos
+    for (const n of nuevos) {
+      map.set(n.id_seccion, n); // reemplaza si existe, inserta si no
+    }
+
+    // Reconstruir array (mantiene orden aproximado: existentes + nuevos)
+    const existentesIds = this.resumenMatricula.map(r => r.id_seccion);
+    const nuevosIds = nuevos.map(n => n.id_seccion);
+    const orden = [...existentesIds.filter(id => map.has(id)), ...nuevosIds.filter(id => !existentesIds.includes(id))];
+    this.resumenMatricula = orden.map(id => map.get(id)!);
+  }
+
 
 
   // Mensaje temporal
