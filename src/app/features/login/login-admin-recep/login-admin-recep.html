@@ -1,15 +1,14 @@
 <div class="login-page">
-    <form class="login-card" [formGroup]="loginForm" (ngSubmit)="loginFn()" novalidate> <!--novalidate indica que no esta validado-->
+    <form class="login-card" [formGroup]="loginForm" (ngSubmit)="loginFn()" novalidate>
+        <!--novalidate indica que no esta validado-->
         <h2>Bienvenido Usuario</h2>
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Usuario" class="profile-image" />
-        <input type="text" class="login-input" placeholder="Correo electrónico" formControlName="email"/>
-        <input type="password" class="login-input" placeholder="Contraseña" formControlName="password"/>
-        <button class="login-button" [disabled]="loginForm.invalid" >Ingresar</button>
-        <p  class="error-msg">
-            @if (errorMsg()) {
-                <span> {{errorMsg()}}</span>
-            }
-        </p>
-    </form>    
-    
+        <input type="text" class="login-input" placeholder="Correo electrónico" formControlName="email" />
+        <input type="password" class="login-input" placeholder="Contraseña" formControlName="password" />
+        <button class="login-button" [disabled]="loginForm.invalid">Ingresar</button>
+        @if (errorMsg()) {
+        <p class="error-msg">{{ errorMsg() }}</p>
+        }
+    </form>
+
 </div>
