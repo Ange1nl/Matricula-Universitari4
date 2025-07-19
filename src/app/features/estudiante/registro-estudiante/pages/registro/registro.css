@@ -127,7 +127,7 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: repeat(1, 420px);/*420px el tamaño de la fila, para que entre todo el contenido , similar al de contenedorDerecha grid-template-rows*/
         gap: 5px;
-        padding: 3rem;
+        padding: 1.5rem;
 
 
         background-color: #ffffff10;

@@ -1,0 +1,297 @@
+.matricula-container {
+  display: flex;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background: #ffffff; /* Fondo blanco */
+  color: #222; /* Texto oscuro */
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background-color: #1e4b6e;
+  color: white;
+  padding: 20px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.titulo-alumno {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.nav-links a {
+  display: block;
+  margin: 10px 0;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-links .finalizar {
+  margin-top: 20px;
+  color: #0f0;
+  font-weight: bold;
+}
+
+/* Página */
+.guia-matricula-page {
+  width: 100%;
+  padding: 32px 16px 96px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff; /* Fondo blanco */
+  color: #222; /* Texto oscuro */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header */
+.guia-header {
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.guia-title {
+  margin: 0 0 8px;
+  font-size: clamp(1.75rem, 2vw, 2.25rem);
+  font-weight: 700;
+}
+.guia-subtitle {
+  margin: 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Timeline */
+.guia-pasos-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 48px;
+  max-width: 640px;
+  width: 100%;
+}
+.guia-pasos-timeline li {
+  position: relative;
+  padding: 12px 16px 12px 48px;
+  margin-bottom: 8px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  border: 1px solid #ddd;
+}
+.guia-pasos-timeline .paso-num {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #4caf50;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+/* Secciones */
+.guia-section {
+  max-width: 960px;
+  width: 100%;
+  margin-bottom: 48px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-sizing: border-box;
+}
+.guia-step-title {
+  margin: 0 0 12px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.guia-step-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #4caf50;
+  font-size: 1rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+.guia-text {
+  margin: 0 0 24px;
+  line-height: 1.5;
+  font-size: 1rem;
+  color: #444;
+}
+.guia-tip {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: #2e7d32;
+  line-height: 1.3;
+}
+
+/* Tablas */
+.tabla-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 8px;
+}
+.tabla-cursos-demo,
+.tabla-secciones-demo,
+.tabla-resumen-demo {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 14px;
+  background: #ffffff;
+  color: #222;
+  border: 1px solid #ddd;
+}
+.tabla-cursos-demo thead,
+.tabla-secciones-demo thead,
+.tabla-resumen-demo thead {
+  background: #4caf50;
+  color: #fff;
+  text-align: left;
+}
+.tabla-cursos-demo th,
+.tabla-cursos-demo td,
+.tabla-secciones-demo th,
+.tabla-secciones-demo td,
+.tabla-resumen-demo th,
+.tabla-resumen-demo td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
+.tabla-cursos-demo tbody tr:nth-child(even),
+.tabla-secciones-demo tbody tr:nth-child(even),
+.tabla-resumen-demo tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.tabla-cursos-demo tbody tr:hover,
+.tabla-secciones-demo tbody tr:hover,
+.tabla-resumen-demo tbody tr:hover {
+  background-color: #e9e9e9;
+}
+.celda-horario-seleccionado {
+  color: #666;
+  font-style: italic;
+}
+
+/* Botones */
+.btn-ver-secciones,
+.btn-elegir-seccion,
+.btn-finalizar-demo {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.25s ease;
+  color: #fff;
+  background: #4caf50;
+}
+.btn-ver-secciones:hover,
+.btn-elegir-seccion:hover,
+.btn-finalizar-demo:hover {
+  background: #388e3c;
+  transform: scale(1.03);
+}
+.btn-finalizar-demo {
+  margin-top: 16px;
+  padding: 12px 32px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+/* details */
+.secciones-demo {
+  margin-top: 16px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+}
+.secciones-demo > summary {
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.secciones-demo[open] > summary::after {
+  content: "▲";
+  margin-left: 8px;
+  font-size: 0.8rem;
+}
+.secciones-demo:not([open]) > summary::after {
+  content: "▼";
+  margin-left: 8px;
+  font-size: 0.8rem;
+}
+
+/* FAQ / extra */
+.guia-extra {
+  max-width: 960px;
+  width: 100%;
+  margin-top: 32px;
+  margin-bottom: 128px;
+  padding: 24px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+}
+.guia-extra-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.guia-extra details {
+  margin-bottom: 12px;
+  padding: 12px 16px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.guia-extra summary {
+  cursor: pointer;
+  font-weight: 600;
+  outline: none;
+}
+.guia-extra summary::-webkit-details-marker {
+  display: none;
+}
+.guia-extra details[open] summary::after {
+  content: "▲";
+  margin-left: 8px;
+  font-size: 0.8rem;
+}
+.guia-extra details:not([open]) summary::after {
+  content: "▼";
+  margin-left: 8px;
+  font-size: 0.8rem;
+}
+.guia-extra p {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #333;
+}

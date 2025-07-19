@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatriculaResponse } from '../../models/matricula-response';
 import { MatriculaResumenRow } from '../../models/matricula-resumen-row';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-matricula',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterLink],
   templateUrl: './matricula.html',
   styleUrl: './matricula.css'
 })

@@ -1,5 +1,3 @@
-
-
 .fondo-sesion-estudiante {
   position: relative;
   overflow: hidden;
@@ -75,6 +73,45 @@ h2{
         background-color: #31455E;
         color: white;
         border-radius: 18px;
+        border: 1px solid #233142; /* Verde */
     }
     
+}
+
+.padre {
+  transition: all 0.7s ease; /* Transición suave */
+}
+
+.padre:hover {
+  transform: translateY(-5px) scale(1.02); /* Pequeño levantamiento y zoom */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más marcada */
+  border-color: #31455E; /* Cambio de color de borde opcional */
+}
+
+
+
+/* Transición suave para inputs y botones */
+.cajaTexto input,
+.botones button {
+  transition: all 0.25s ease-in-out;
+}
+
+/* Efecto al enfocar los inputs */
+.cajaTexto input:focus {
+  border-color: #2149cc;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+  background-color: #fff;
+}
+
+/* Hover suave en el botón */
+.botones button:hover {
+  background-color: #3b5775;
+  transform: scale(1.03);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Efecto de click en botón */
+.botones button:active {
+  transform: scale(0.98);
+  background-color: #2b3f56;
 }
