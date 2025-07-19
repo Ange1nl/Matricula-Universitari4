@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-matricula',
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './matricula.html',
   styleUrl: './matricula.css'
 })
@@ -17,6 +17,9 @@ export class Matricula {
 
   //la data viene de LoginResponse
   data?: LoginResponse;
+
+  
+  seccionesSeleccionadas: number[] = [];//ARRAY PARA ENVIAR LAS Secciones seleccionadas por el estudiante
 
   secciones: Seccion[] = [];
   cursoSeleccionado: string = '';
@@ -45,6 +48,49 @@ export class Matricula {
   cerrarSecciones() {
     this.secciones = [];
     this.cursoSeleccionado = '';
+  }
+
+
+
+  seleccionarSeccion(idSeccion: number) {
+    if (!this.seccionesSeleccionadas.includes(idSeccion)) {
+      this.seccionesSeleccionadas.push(idSeccion);
+    } else {
+      alert('Ya seleccionaste esta sección.');
+    }
+  }
+
+
+  //Proceso de matricula
+  procesarMatricula() {
+    if (!this.data) {
+      alert('No hay datos del estudiante.');
+      return;
+    }
+    if (this.seccionesSeleccionadas.length === 0) {
+      alert('Selecciona al menos una sección.');
+      return;
+    }
+
+    const body = {
+      codigo_estudiante: this.data.codigoEstudiante, //Captura el codigo estudiante
+      id_secciones: this.seccionesSeleccionadas //Captura las secciones seleccinadas
+    };
+
+    this.service.procesarMatricula(body).subscribe({
+      next: (res) => {
+        console.log('Resultado:', res);
+        alert('Matrícula completada. Total creadas: ' + res.length);
+        this.seccionesSeleccionadas = [];
+        this.secciones = [];
+        this.cursoSeleccionado = '';
+      },
+      error: (err) => {
+        console.error(err);
+        alert(err.error?.error || 'Error al procesar matrícula');
+      }
+    });
+
   }
 
 }
