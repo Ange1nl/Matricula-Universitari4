@@ -56,7 +56,8 @@
       }
     </div>
 
-    <br>  <hr>
+    <br>
+    <hr>
     <!-- Tabla de secciones -->
     @if (secciones.length > 0) {
     <div class="secciones-wrapper">
@@ -70,6 +71,7 @@
           <table class="secciones-tabla">
             <thead>
               <tr>
+                <th style="display: none;">Id</th>
                 <th>Horario</th>
                 <th>Aula</th>
                 <th>Profesor</th>
@@ -82,13 +84,14 @@
             <tbody>
               @for (sec of secciones; track sec.idSeccion) {
               <tr>
+                <td style="display: none;" >{{ sec.idSeccion }}</td>
                 <td>{{ sec.horario }}</td>
                 <td>{{ sec.aula }}</td>
                 <td>{{ sec.profesores.nombre }} {{ sec.profesores.apellido }}</td>
-                <td><img style="width: 55px;height: 55px; border-radius: 40px;" [src]="'http://localhost:8082/img/' + sec.profesores.img"> </td>
+                <td><img style="width: 55px;height: 55px; border-radius: 40px;"[src]="'http://localhost:8082/img/' + sec.profesores.img"> </td>
                 <td>{{ sec.cupos }}</td>
                 <td>{{ sec.modalidad }}</td>
-                <td> <button class="btn-agregar" >Seleccionar</button> </td>
+                <td> <button class="btn-agregar" (click)="seleccionarSeccion(sec.idSeccion)">Seleccionar</button> </td>
               </tr>
               }
             </tbody>
@@ -98,7 +101,7 @@
     </div>
     }
 
-      <!-- Separador visual -->
+    <!-- Separador visual -->
     <hr class="sep" />
 
     <!-- Resumen y acciones -->
@@ -120,7 +123,7 @@
 
       <div class="importante">
         <p>No olvides usar el botón “procesar matrícula” para registrar los cursos y horarios seleccionados</p>
-        <button class="btn-procesar">PROCESAR MATRÍCULA</button>
+        <button class="btn-procesar" (click)="procesarMatricula()">PROCESAR MATRÍCULA</button>
       </div>
 
       <div class="contacto">
@@ -129,7 +132,7 @@
         <a href="#">📘 Guía interactiva</a>
       </div>
     </div>
-    
+
   </section>
 
 
