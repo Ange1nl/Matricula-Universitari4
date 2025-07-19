@@ -1,0 +1,212 @@
+<div class="matricula-container">
+
+    <aside class="sidebar">
+        <img src="img/logo.png" alt="Logo" class="logo" style="height: 100px;width: 100px;" />
+        <p class="titulo-alumno">Datos Alumno</p>
+        <nav class="nav-links">
+            <a routerLink="/matricula">Matricula</a>
+            <a routerLink="/guiaMatricula">Guia</a>
+            <a routerLink="/sesionEstudiante" class="finalizar">Finalizar</a>
+        </nav>
+    </aside>
+
+    <div class="guia-matricula-page">
+        <header class="guia-header">
+            <h1 class="guia-title">Guía de Matrícula</h1>
+            <p class="guia-subtitle">Sigue estos pasos para completar tu matrícula en el <strong>Sistema Único de
+                    Matrícula</strong>.</p>
+        </header>
+
+        <!-- Timeline de pasos rápidos -->
+        <ol class="guia-pasos-timeline">
+            <li><span class="paso-num">1</span> Revisa tus cursos.</li>
+            <li><span class="paso-num">2</span> Haz clic en <strong>Ver secciones</strong> en un curso.</li>
+            <li><span class="paso-num">3</span> Elige la sección / docente que prefieras.</li>
+            <li><span class="paso-num">4</span> Repite para todos los cursos.</li>
+            <li><span class="paso-num">5</span> Presiona <strong>Finalizar Matrícula</strong>.</li>
+            <li><span class="paso-num">6</span> Revisa el <strong>Resumen de Matrícula</strong> al final.</li>
+        </ol>
+
+        <!-- PASO 1: TABLA DE CURSOS -->
+        <section class="guia-section" id="paso-cursos">
+            <h2 class="guia-step-title"><span class="guia-step-badge">1</span> Tabla de Cursos</h2>
+            <p class="guia-text">Aquí verás la lista de cursos disponibles según tu plan de estudios. Cada fila tiene un
+                botón <em>Ver secciones</em> que abre las opciones (horarios y docentes) para ese curso.</p>
+
+            <div class="tabla-wrapper">
+                <table class="tabla-cursos-demo">
+                    <thead>
+                        <tr>
+                            <th>ID Curso</th>
+                            <th>Curso</th>
+                            <th>Créditos</th>
+                            <th>Horario (Seleccionado)</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>Programación I</td>
+                            <td>4</td>
+                            <td class="celda-horario-seleccionado">—</td>
+                            <td><button type="button" class="btn-ver-secciones">Agregar</button></td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Matemática Básica</td>
+                            <td>3</td>
+                            <td class="celda-horario-seleccionado">—</td>
+                            <td><button type="button" class="btn-ver-secciones">Agregar</button></td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Comunicación</td>
+                            <td>2</td>
+                            <td class="celda-horario-seleccionado">—</td>
+                            <td><button type="button" class="btn-ver-secciones">Agregar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="guia-tip">TIP: Cuando elijas una sección, el horario seleccionado aparecerá en la columna
+                <strong>Horario</strong> de esta tabla.
+            </p>
+        </section>
+
+        <!-- PASO 2: LISTA DE SECCIONES PARA UN CURSO -->
+        <section class="guia-section" id="paso-secciones">
+            <h2 class="guia-step-title"><span class="guia-step-badge">2</span> Elegir Sección y Docente</h2>
+            <p class="guia-text">Al hacer clic en <em>Ver secciones</em>, se muestra una lista de secciones disponibles
+                para
+                ese curso. Cada sección incluye aula, horario, docente y modalidad (presencial, virtual, híbrida).</p>
+
+            <!-- Versión <details> estática de demostración -->
+            <details class="secciones-demo" open>
+                <summary><strong>Programación I</strong> – Secciones disponibles</summary>
+
+                <table class="tabla-secciones-demo">
+                    <thead>
+                        <tr>
+                            <th>ID Sección</th>
+                            <th>Docente</th>
+                            <th>Horario</th>
+                            <th>Aula</th>
+                            <th>Modalidad</th>
+                            <th>Elegir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5001</td>
+                            <td>Ing. Laura Ramos</td>
+                            <td>Lu-Mi 08:00-10:00</td>
+                            <td>A-201</td>
+                            <td>Presencial</td>
+                            <td><button type="button" class="btn-elegir-seccion">Seleccionar</button></td>
+                        </tr>
+                        <tr>
+                            <td>5002</td>
+                            <td>Mg. David Salazar</td>
+                            <td>Ma-Ju 14:00-16:00</td>
+                            <td>Lab 03</td>
+                            <td>Híbrido</td>
+                            <td><button type="button" class="btn-elegir-seccion">Seleccionar</button></td>
+                        </tr>
+                        <tr>
+                            <td>5003</td>
+                            <td>Ing. Carla Vega</td>
+                            <td>Sáb 09:00-13:00</td>
+                            <td>Virtual</td>
+                            <td>Virtual</td>
+                            <td><button type="button" class="btn-elegir-seccion">Seleccionar</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="guia-tip">Cuando selecciones una sección, se cerrará este panel (en la app real) y el horario
+                    aparecerá en la tabla de cursos.</p>
+            </details>
+        </section>
+
+        <!-- PASO 3: FINALIZAR MATRÍCULA -->
+        <section class="guia-section" id="paso-finalizar">
+            <h2 class="guia-step-title"><span class="guia-step-badge">3</span> Finalizar Matrícula</h2>
+            <p class="guia-text">Después de elegir al menos una sección por curso, presiona el botón <strong>Finalizar
+                    Matrícula</strong>. El sistema enviará los datos de estudiante y las secciones seleccionadas al
+                servidor
+                para registrar la matrícula.</p>
+            <button type="button" class="btn-finalizar-demo">Procesar Matrícula</button>
+            <p class="guia-tip">Si no seleccionaste nada, el sistema te avisará que debes elegir al menos una sección.
+            </p>
+        </section>
+
+        <!-- PASO 4: RESUMEN DE MATRÍCULA -->
+        <section class="guia-section" id="paso-resumen">
+            <h2 class="guia-step-title"><span class="guia-step-badge">4</span> Resumen de Matrícula</h2>
+            <p class="guia-text">Luego de procesar, se muestra un resumen con los datos confirmados: ID matrícula,
+                sección,
+                curso, horario, aula, profesor y modalidad.</p>
+
+            <div class="tabla-wrapper">
+                <table class="tabla-resumen-demo">
+                    <thead>
+                        <tr>
+                            <th>ID Matrícula</th>
+                            <th>ID Sección</th>
+                            <th>Curso</th>
+                            <th>Horario</th>
+                            <th>Aula</th>
+                            <th>Profesor</th>
+                            <th>Modalidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>90011</td>
+                            <td>5002</td>
+                            <td>Programación I</td>
+                            <td>Ma-Ju 14:00-16:00</td>
+                            <td>Lab 03</td>
+                            <td>Mg. David Salazar</td>
+                            <td>Híbrido</td>
+                        </tr>
+                        <tr>
+                            <td>90012</td>
+                            <td>6101</td>
+                            <td>Matemática Básica</td>
+                            <td>Lu-Mi 10:00-12:00</td>
+                            <td>B-105</td>
+                            <td>Dr. Sofía Márquez</td>
+                            <td>Presencial</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="guia-tip">Este resumen también puede guardarse en tu navegador (localStorage) para que lo veas al
+                volver a entrar.</p>
+        </section>
+
+        <!-- INFO ADICIONAL -->
+        <aside class="guia-extra">
+            <h3 class="guia-extra-title">Preguntas frecuentes</h3>
+            <details>
+                <summary>¿Qué pasa si repito la matrícula?</summary>
+                <p>Si vuelves a procesar, y es la misma seccion de ese curso no pasa nada, sin embargo si agregas otra seccion de
+                    ese curso es decir 2 secciones tendras
+                </p>
+            </details>
+            <details>
+                <summary>No veo secciones para un curso</summary>
+                <p>Puede ser que aún no estén publicadas o hubo error en la carga. Intenta actualizar la página o
+                    contacta
+                    soporte.</p>
+            </details>
+            <details>
+                <summary>¿Puedo cambiar de docente?</summary>
+                <p>Sí, vuelve a abrir <em>Ver secciones</em>, elige otra y vuelve a procesar, Ojo que tendras 2 secciones con diferentes docentes en el mismo curso.</p>
+            </details>
+        </aside>
+    </div>
+
+</div>

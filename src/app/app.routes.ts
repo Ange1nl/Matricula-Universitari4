@@ -19,6 +19,8 @@ import { Recepcion } from './features/private/restricted-layout/admin/recepcione
 import { Registro } from './features/estudiante/registro-estudiante/pages/registro/registro';
 import { LoginMatricula } from './features/estudiante/loginEstudiante/pages/login-matricula/login-matricula';
 import { Matricula } from './features/estudiante/matriculaEstudiante/pages/matricula/matricula';
+import { Contacto } from './pages/contacto/contacto';
+import { Guia } from './features/estudiante/matriculaEstudiante/pages/guia/guia';
 
 
 export const routes: Routes = [
@@ -39,11 +41,10 @@ export const routes: Routes = [
         children: [
             { path: '', redirectTo: 'inicio', pathMatch: 'full' },//coge esta ruta por defecto porque esta vacio ,esque esta vacio es decir localhost:4200 manda a inicio
             { path: 'inicio', component: Inicio, title: "Página principal" },
-            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" },
-
+            { path: 'contacto', component: Contacto, title: "Contacto"},
             { path: 'sesionEstudiante', component: LoginMatricula, title: "Login estudiante" },
             { path: 'registroEstudiante', component: Registro, title: "Registro estudiante" },
-
+            { path: 'loginAdminRecep', component: LoginAdminRecep, title: "Login" }
         ]
     },
 
@@ -79,6 +80,7 @@ export const routes: Routes = [
             },
 
             { path: 'matricula', component: Matricula, title: "Matrícula" },
+            { path: 'guiaMatricula', component: Guia, title: "Guia" },
         ]
     },
 
