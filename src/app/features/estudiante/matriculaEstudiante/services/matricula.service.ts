@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Seccion } from '../models/seccion';
@@ -18,9 +18,13 @@ export class MatriculaService {
   }
 
 
-  procesarMatricula(payload: {codigo_estudiante: number; id_secciones: number[]}) {
+  procesarMatricula(payload: { codigo_estudiante: number; id_secciones: number[] }) {
     return this.http.post<MatriculaResponse[]>(`${this.URL}/procesar`, payload);
   }
 
+  getSeccionesByIds(ids: number[]) {
+    const params = new HttpParams().set('ids', ids.join(','));
+    return this.http.get<Seccion[]>(`${this.URL}/secciones/by-ids`, { params });
+  }
 
 }

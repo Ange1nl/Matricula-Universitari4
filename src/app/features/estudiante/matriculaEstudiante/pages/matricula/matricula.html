@@ -10,22 +10,24 @@
     </nav>
   </aside>
 
-  <!-- Contenido principal -->
   <section class="main-content">
-    <!-- Título -->
+
     <h2 class="titulo-cursos">Cursos a Matricular</h2>
     <p class="descripcion">
-      Estos son los cursos en los que puedes matricularte este ciclo. Recuerda primero seleccionar los cursos que
-      has desaprobado antes de matricularte en otros.
+      Estos son los cursos en los que puedes matricularte este ciclo. Selecciona una sección para cada curso.
     </p>
 
-    <!-- Tabla de cursos -->
+    @if (mensaje) {
+    <div class="mensaje-info">{{ mensaje }}</div>
+    }
+
+    <!--Tabla de curso e info curso-->
     <div class="tabla-cursos">
       @if (data) {
       <h2>Matrícula {{ data.periodoMatricula }} - {{ data.carreraNombre }}</h2>
       <p>Código estudiante: {{ data.codigoEstudiante }}</p>
 
-      <table border="1" style="width: 100%; margin-top: 10px;">
+      <table style="width: 100%; margin-top: 10px; border-collapse: collapse;">
         <thead>
           <tr>
             <th>ID</th>
@@ -34,11 +36,13 @@
             <th>Horas</th>
             <th>Créditos</th>
             <th>Tipo</th>
-            <th>Accion</th>
+            <th>Acción</th>
+            <th>Horario</th>
+
           </tr>
         </thead>
         <tbody>
-          @for (curso of data.cursos; track curso.idCurso) { <!--Se muestra lo de CursoConInfo-->
+          @for (curso of data.cursos; track curso.idCurso) { <!--La interface CursoConInfo-->
           <tr>
             <td>{{ curso.idCurso }}</td>
             <td>{{ curso.nombre }}</td>
@@ -46,7 +50,22 @@
             <td>{{ curso.horaSemanal }}</td>
             <td>{{ curso.credito }}</td>
             <td>{{ curso.tipo }}</td>
-            <td> <button class="btn-agregar" (click)="verSecciones(curso.idCurso, curso.nombre)">Agregar</button> </td>
+            <td>
+              <button class="btn" [ngClass]="cursoTieneSeccion(curso.idCurso) ? 'btn-quitar' : 'btn-agregar'" (click)="cursoTieneSeccion(curso.idCurso)
+                        ? quitarSeccionDeCurso(curso.idCurso)
+                        : verSecciones(curso.idCurso, curso.nombre)">
+                <!--Mando el idCurso para que sea buscado en secciones y me muestre todas las secciones de ese Curso-->
+                {{ cursoTieneSeccion(curso.idCurso) ? 'Quitar' : 'Agregar' }}
+              </button>
+            </td>
+
+            <td>
+              @if (cursoTieneSeccion(curso.idCurso)) {
+              {{ seccionPorCurso[curso.idCurso].horario }}
+              } @else {
+              -
+              }
+            </td>
           </tr>
           }
         </tbody>
@@ -56,42 +75,46 @@
       }
     </div>
 
-    <br>
     <hr>
-    <!-- Tabla de secciones -->
+
+    <!-- Tabla de secciones para el curso seleccionado -->
     @if (secciones.length > 0) {
     <div class="secciones-wrapper">
       <div class="secciones-panel" role="dialog" aria-modal="false">
         <div class="secciones-header">
-          <h3>Secciones disponibles para {{ cursoSeleccionado }}</h3>
-          <button type="button" class="secciones-cerrar" (click)="cerrarSecciones()" aria-label="Cerrar">×</button>
+          <h3>Secciones para {{ cursoSeleccionadoNombre }}</h3>
+          <button type="button" class="secciones-cerrar" (click)="cerrarSecciones()">×</button>
         </div>
-
         <div class="secciones-body">
           <table class="secciones-tabla">
             <thead>
               <tr>
-                <th style="display: none;">Id</th>
+                <th>ID</th>
                 <th>Horario</th>
                 <th>Aula</th>
                 <th>Profesor</th>
-                <th>Imagen</th>
+                <th>Img</th>
                 <th>Cupos</th>
                 <th>Modalidad</th>
-                <th>Accion</th>
+                <th>Elegir</th>
               </tr>
             </thead>
             <tbody>
-              @for (sec of secciones; track sec.idSeccion) {
+              @for (sec of secciones; track sec.idSeccion) { <!--Lo de la interface Seccion-->
               <tr>
-                <td style="display: none;" >{{ sec.idSeccion }}</td>
+                <td>{{ sec.idSeccion }}</td>
                 <td>{{ sec.horario }}</td>
                 <td>{{ sec.aula }}</td>
                 <td>{{ sec.profesores.nombre }} {{ sec.profesores.apellido }}</td>
-                <td><img style="width: 55px;height: 55px; border-radius: 40px;"[src]="'http://localhost:8082/img/' + sec.profesores.img"> </td>
+                <td>
+                  <img class="prof-img" [src]="'http://localhost:8082/img/' + sec.profesores.img"
+                    style="width: 45px;height: 45px;border-radius: 30px;" />
+                </td>
                 <td>{{ sec.cupos }}</td>
                 <td>{{ sec.modalidad }}</td>
-                <td> <button class="btn-agregar" (click)="seleccionarSeccion(sec.idSeccion)">Seleccionar</button> </td>
+                <td>
+                  <button class="btn btn-agregar" (click)="seleccionarSeccion(sec)">Seleccionar</button>
+                </td>
               </tr>
               }
             </tbody>
@@ -101,39 +124,56 @@
     </div>
     }
 
-    <!-- Separador visual -->
     <hr class="sep" />
 
-    <!-- Resumen y acciones -->
     <div class="zona-inferior">
-      <div class="resumen">
-        <div>
-          <strong>00</strong>
-          <p>Cursos seleccionados</p>
-        </div>
-        <div>
-          <strong>00</strong>
-          <p>Horas semanales seleccionadas</p>
-        </div>
-        <div>
-          <strong>00</strong>
-          <p>Créditos seleccionados</p>
-        </div>
-      </div>
-
       <div class="importante">
-        <p>No olvides usar el botón “procesar matrícula” para registrar los cursos y horarios seleccionados</p>
-        <button class="btn-procesar" (click)="procesarMatricula()">PROCESAR MATRÍCULA</button>
+        <p>Total secciones seleccionadas: <strong>{{ seccionesSeleccionadas.length }}</strong></p>
+        <button class="btn-procesar" (click)="procesarMatricula()" [disabled]="procesando">
+          {{ procesando ? 'Procesando...' : 'PROCESAR MATRÍCULA' }}
+        </button>
       </div>
 
       <div class="contacto">
-        <p>Te guiamos en el proceso de matrícula en línea:</p>
-        <a href="#">🎥 Video tutorial de matrícula</a><br />
+        <p>Te guiamos en el proceso:</p>
+        <a href="#">🎥 Video tutorial</a><br />
         <a href="#">📘 Guía interactiva</a>
       </div>
     </div>
 
+
+    <!-- RESUMEN FINAL DE LAS SECCIONES MATRICULADAS (RESUMEN DE MATRICULAS) -->
+    <h3 style="margin-top:32px;">Resumen de Matrícula</h3>
+    @if (resumenMatricula.length > 0) {
+    <table class="tabla-resumen">
+      <thead>
+        <tr>
+          <th>ID Matrícula</th>
+          <th>ID Sección</th>
+          <th>Curso</th>
+          <th>Horario</th>
+          <th>Aula</th>
+          <th>Profesor</th>
+          <th>Modalidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of resumenMatricula; track row.id_matricula) {
+        <tr>
+          <td>{{ row.id_matricula }}</td>
+          <td>{{ row.id_seccion }}</td>
+          <td>{{ row.curso.nombre }}</td>
+          <td>{{ row.horario }}</td>
+          <td>{{ row.aula }}</td>
+          <td>{{ row.profesor.nombre }} {{ row.profesor.apellido }}</td>
+          <td>{{ row.modalidad }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    } @else {
+    <p>No hay resumen disponible.</p>
+    }
+
   </section>
-
-
 </div>
