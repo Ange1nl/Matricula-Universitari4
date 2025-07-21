@@ -1,6 +1,5 @@
 name: Docker website CI
 
-on:
 
     paths:
       - 'src/**'
